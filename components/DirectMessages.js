@@ -7,12 +7,15 @@ export default class DirectMessages extends Component {
     // const { team } = this.props
 
     return (
-      <ul className="direct-messages">
-        <li>#general</li>
-        <li>#random</li>
-        <li>#RebelIcons</li>
-        <li>#HaKaTon</li>
-      </ul>
+      <div className="direct-messages">
+        <h3>Direct Messages <small>(4)</small></h3>
+        <ul>
+          <li># general</li>
+          <li># random</li>
+          <li># RebelIcons</li>
+          <li># HaKaTon</li>
+        </ul>
+      </div>
     )
   }
 }

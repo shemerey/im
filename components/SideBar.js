@@ -17,10 +17,10 @@ class SideBar extends Component {
       <div className="im-side-bar">
         <div className="teams">
           <ul>
-            {teams.map((team) => <SwitchTeam team={team} />)}
+            {teams.map((team) => <SwitchTeam key={team.id} team={team} />)}
           </ul>
         </div>
-        <div className="chats">
+        <div className="team-details">
          <CurrentUserInfo />
          <Channels />
          <DirectMessages />
