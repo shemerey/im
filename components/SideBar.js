@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 
 // Components
 import SwitchTeam from './SwitchTeam'
+import CurrentUserInfo from './CurrentUserInfo'
+import Channels from './Channels'
+import DirectMessages from './DirectMessages'
 
 class SideBar extends Component {
   render() {
@@ -18,20 +21,9 @@ class SideBar extends Component {
           </ul>
         </div>
         <div className="chats">
-         <div className="user-info">Anton</div>
-         <ul className="channels">
-           <li>#general</li>
-           <li>#random</li>
-           <li>#RebelIcons</li>
-           <li>#HaKaTon</li>
-         </ul>
-
-         <ul className="direct-messages">
-           <li>#general</li>
-           <li>#random</li>
-           <li>#RebelIcons</li>
-           <li>#HaKaTon</li>
-         </ul>
+         <CurrentUserInfo />
+         <Channels />
+         <DirectMessages />
         </div>
       </div>
     )
