@@ -2,12 +2,17 @@
 
 import React, {PropTypes, Component} from 'react'
 
+import TopBar from './TopBar'
+import MessagesList from './MessagesList'
+import MasterInput from './MasterInput'
+
 export default class Main extends Component {
   render() {
     return (
       <div className="im-main">
-        Hi there
-        <h3>Main</h3>
+        <TopBar />
+        <MessagesList />
+        <MasterInput />
       </div>
     )
   }

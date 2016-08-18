@@ -20,7 +20,38 @@ atom-panel.modal:before, atom-panel.modal:after {
 
   .im-main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
     background-color: @base-background-color;
+
+    .top-bar {
+      min-height: 5vh;
+    }
+
+    .messages-view {
+      flex: 1;
+      border: 1px solid red;
+      max-height: 87vh;
+      overflow-y: scroll;
+
+      .im-message {
+        font-size: 14px;
+        display: flex;
+        justify-content: flex-start;
+        min-height: 22px;
+        margin-top: 3px;
+        .gutter {
+          width: 40px;
+        }
+        .content {
+          flex: 1;
+        }
+      }
+    }
+
+    .master-input {
+      min-height: 5vh;
+    }
   }
 
   .im-side-bar {
