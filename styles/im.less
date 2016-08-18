@@ -1,4 +1,5 @@
 @import "ui-variables";
+@team-icon-size: 3.1em;
 
 .im {
   margin: 0;
@@ -9,33 +10,35 @@
     justify-content: flex-start;
 
     .teams {
-      width: 50px;
+      padding-right: 0.75em;
+      border-right: 1px solid black;
+      text-align: center;
       display: flex;
       min-height: 100vh;
       flex-direction: column;
 
-      .separator {
-        border-top: 1px solid grey;
-        flex: 1;
-      }
-
       ul {
-        margin: 10px 0 0 0;
+        margin: 0;
         padding: 0;
 
         li {
           list-style: none;
-          margin-bottom: 20px;
-        }
-      }
+          margin-top: 10px;
+          width: @team-icon-size;
+          height: @team-icon-size;
+          text-align: center;
 
-      .add-new-team {
-        margin-bottom: 20px;
+          img {
+            display: block;
+            width: @team-icon-size;
+            height: @team-icon-size;
+            border-radius: 3px;
+          }
+        }
       }
     }
 
     .chats {
-      border: 1px solid red;
       display: block;
     }
   }

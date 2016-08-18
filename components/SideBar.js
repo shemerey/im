@@ -1,22 +1,21 @@
 'use babel'
 
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
-export default class SideBar extends Component {
+// Components
+import SwitchTeam from './SwitchTeam'
+
+class SideBar extends Component {
   render() {
-    const logoUrl = 'http://placehold.it/48x48'
+    const { teams } = this.props
 
     return (
       <div className="im-side-bar">
         <div className="teams">
-          <ul className="list-of-teams">
-            <li><img src={logoUrl} alt="First"/></li>
-            <li><img src={logoUrl} alt="First"/></li>
-            <li><img src={logoUrl} alt="First"/></li>
-            <li><img src={logoUrl} alt="First"/></li>
+          <ul>
+            {teams.map((team) => <SwitchTeam team={team} />)}
           </ul>
-          <div className="separator"></div>
-          <button className='add-new-team btn btn-lg icon icon-file-add inline-block-tight'></button>
         </div>
         <div className="chats">
          <div className="user-info">Anton</div>
@@ -38,3 +37,11 @@ export default class SideBar extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    teams: state.teams
+  }
+}
+
+export default connect(mapStateToProps)(SideBar)
