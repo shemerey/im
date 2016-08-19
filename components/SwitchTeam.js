@@ -9,7 +9,7 @@ export default class SwitchTeam extends Component {
     return (
       <li key={team.id}>
         <img src={team.img} alt={team.name} />
-        {team.id}
+        ⌘{team.id}
       </li>
     )
   }
