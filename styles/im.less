@@ -50,6 +50,7 @@
 
     .im-main {
       flex: 1;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       background-color: @base-background-color;
@@ -60,8 +61,9 @@
 
       .messages-view {
         flex: 1;
-        max-height: 87vh;
+        padding-bottom: 90px;
         overflow-y: scroll;
+        background-color: @app-background-color;
 
         .im-message {
           font-size: 14px;
@@ -84,7 +86,21 @@
       }
 
       .master-input {
-        min-height: 5vh;
+        min-height: 32px;
+        border-top: 1px solid @base-border-color;
+        background-color: @base-background-color;
+
+        bottom: 0;
+        right: 0;
+        position: absolute;
+
+
+        .editor {
+          margin: 10px;
+          padding: 7px;
+          border: 1px solid @base-border-color;
+          width: 1210px;
+        }
       }
     }
 
@@ -95,7 +111,7 @@
       .teams {
         min-height: 100vh;
         border-right: 1px solid @base-border-color;
-        // padding: 0 5px;
+        color: @text-color-subtle;
         text-align: center;
         display: flex;
         flex-direction: column;
