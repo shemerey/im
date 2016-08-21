@@ -1,6 +1,7 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
+import File from './File'
 
 export default class MasterInput extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export default class MasterInput extends Component {
   render() {
     return (
       <div className="master-input" ref="editor">
+      <File />
         {/* EditorElement here it has 'im-editor' class */}
       </div>
     )

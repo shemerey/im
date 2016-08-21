@@ -72,12 +72,17 @@
           min-height: 22px;
           margin: 3px 5px;
 
+          &:nth-child(odd) {
+            // background: red;
+            background-color: @background-color-highlight;
+          }
+
           &:hover {
             background-color: @background-color-highlight;
           }
 
           .gutter {
-            width: 40px;
+            width: 50px;
           }
           .content {
             flex: 1;
@@ -97,12 +102,19 @@
 
         .im-editor {
           margin: 10px;
-          padding: 7px;
+          padding: 7px 0 7px 35px;
           border: 1px solid @base-border-color;
           width: 1210px;
 
-          &::shadow .gutter {
-            display: none;
+          &::shadow {
+
+            .cursor-line {
+              background-color: @base-background-color;
+            }
+
+            .gutter {
+              display: none;
+            }
           }
         }
       }
