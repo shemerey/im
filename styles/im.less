@@ -95,11 +95,15 @@
         position: absolute;
 
 
-        .editor {
+        .im-editor {
           margin: 10px;
           padding: 7px;
           border: 1px solid @base-border-color;
           width: 1210px;
+
+          &::shadow .gutter {
+            display: none;
+          }
         }
       }
     }
