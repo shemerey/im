@@ -9,7 +9,7 @@ export default class Message extends Component {
     return (
       <div className="im-message">
         <div className="gutter">
-          <a class="timestamp">{created_at}</a>
+          <a className="timestamp">{created_at}</a>
         </div>
         <div className="content">
           {text}

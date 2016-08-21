@@ -9,7 +9,7 @@ export default class MasterInput extends Component {
     this.editor = TextEditor()
   }
 
-  componentShouldUpdate() {
+  shouldComponentUpdate() {
     return false;
   }
 
