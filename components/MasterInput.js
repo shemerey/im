@@ -23,7 +23,9 @@ export default class MasterInput extends Component {
   render() {
     return (
       <div className="master-input" ref="editor">
-        <File />
+        <div className="file-icon">
+          <File />
+        </div>
         {/* EditorElement here it has 'im-editor' class */}
       </div>
     )

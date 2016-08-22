@@ -112,14 +112,22 @@
         min-height: 32px;
         border-top: 1px solid @base-border-color;
         background-color: @base-background-color;
+        display: flex;
 
         bottom: 0;
         right: 0;
 
+        .file-icon {
+          display: flex;
+          align-items: center;
+          padding: 10px 7px 10px 17px;
+        }
+
         .im-editor {
-          margin: 10px;
-          padding: 7px 0 7px 35px;
+          margin: 9px;
+          padding: 7px;
           border: 1px solid @base-border-color;
+          flex: 1;
 
           &::shadow {
 
