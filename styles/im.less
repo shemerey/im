@@ -57,12 +57,12 @@
       background-color: @base-background-color;
 
       .top-bar {
-        min-height: 5vh;
+        // min-height: 5vh;
       }
 
       .messages-view {
         flex: 1;
-        padding-bottom: 90px;
+        padding-bottom: 10px;
         overflow-y: scroll;
         background-color: @app-background-color;
 
@@ -70,22 +70,15 @@
           font-size: 14px;
           display: flex;
           justify-content: flex-start;
-          min-height: 22px;
           margin: 3px 5px;
           padding: 3px;
 
           &:nth-child(odd) {
             background-color: @background-color-highlight;
-            &:hover {
-              // background-color: @app-background-color;
-            }
           }
 
           &:nth-child(even) {
             background-color: @app-background-color;
-             &:hover {
-              //  background-color: @background-color-highlight;
-             }
           }
 
           .username {
@@ -109,28 +102,41 @@
       }
 
       .master-input {
-        min-height: 32px;
         border-top: 1px solid @base-border-color;
         background-color: @base-background-color;
-        display: flex;
 
         bottom: 0;
         right: 0;
 
+        .container {
+          border: 1px solid @base-border-color;
+          margin: 9px;
+          padding-right: 7px;
+          display: flex;
+        }
+
+        .btn {
+          border: none;
+        }
+
         .file-icon {
           display: flex;
           align-items: center;
-          padding: 10px 7px 10px 17px;
+        }
+
+        .smile-icon {
+          display: flex;
+          align-items: center;
+        }
+
+        .input-container {
+          flex: 1;
+          padding: 5px 0;
+          margin: auto;
         }
 
         .im-editor {
-          margin: 9px;
-          padding: 7px;
-          border: 1px solid @base-border-color;
-          flex: 1;
-
           &::shadow {
-
             .cursor-line {
               background-color: @base-background-color;
             }

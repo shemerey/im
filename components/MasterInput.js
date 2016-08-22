@@ -2,6 +2,7 @@
 
 import React, {PropTypes, Component} from 'react'
 import File from './File'
+import Smile from './Smile'
 
 export default class MasterInput extends Component {
   constructor(props) {
@@ -22,11 +23,19 @@ export default class MasterInput extends Component {
 
   render() {
     return (
-      <div className="master-input" ref="editor">
-        <div className="file-icon">
-          <File />
+      <div className="master-input">
+        <div className="container">
+          <button className='inline-block btn file-icon'>
+            <File />
+          </button>
+          {/* <div className=""></div> */}
+          <div className="input-container" ref="editor">
+            {/* EditorElement here it has 'im-editor' class */}
+          </div>
+          <div className="smile-icon">
+            <Smile />
+          </div>
         </div>
-        {/* EditorElement here it has 'im-editor' class */}
       </div>
     )
   }
