@@ -1,6 +1,7 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
+import Search from './Search'
 
 export default class TopBar extends Component {
   render() {
@@ -18,7 +19,7 @@ export default class TopBar extends Component {
           </div>
         </div>
         <div className="search">
-          
+          <Search />
         </div>
       </div>
     )
