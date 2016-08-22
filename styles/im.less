@@ -72,18 +72,35 @@
           justify-content: flex-start;
           min-height: 22px;
           margin: 3px 5px;
+          padding: 3px;
 
           &:nth-child(odd) {
-            // background: red;
             background-color: @background-color-highlight;
+            &:hover {
+              // background-color: @app-background-color;
+            }
           }
 
-          &:hover {
-            background-color: @background-color-highlight;
+          &:nth-child(even) {
+            background-color: @app-background-color;
+             &:hover {
+              //  background-color: @background-color-highlight;
+             }
+          }
+
+          .username {
+            color: @text-color-highlight;
+            color: @base-border-color;
+            color: @text-color-subtle;
+            font-weight: bold;
+            margin-right: 5px;
           }
 
           .gutter {
-            width: 50px;
+            width: 65px;
+            a {
+              color: @text-color-subtle;
+            }
           }
           .content {
             flex: 1;

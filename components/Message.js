@@ -1,6 +1,7 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
+import { FormattedTime } from 'react-intl'
 
 export default class Message extends Component {
   render() {
@@ -9,10 +10,13 @@ export default class Message extends Component {
     return (
       <div className="im-message">
         <div className="gutter">
-          <a className="timestamp">{created_at}</a>
+          <a className="timestamp"><FormattedTime value={new Date(created_at)} format="hhmm" /></a>
         </div>
         <div className="content">
-          {text}
+          <span className="username">
+            <a href="#">@{username}</a>
+          </span>
+          <span>{text}</span>
         </div>
       </div>
     )
