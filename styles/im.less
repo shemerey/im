@@ -194,7 +194,7 @@
 
 
         li {
-          margin: @top-margin 5px;
+          margin: @top-margin + 2px 5px;
 
           &.active::before {
             content: '';
@@ -207,11 +207,17 @@
             float: left;
           }
 
+
           img {
             display: block;
             border-radius: 3px;
             width: @team-icon-size;
             height: @team-icon-size;
+
+            &:hover {
+              border: 2px solid @text-color-highlight;
+              box-sizing: border-box;
+            }
           }
         }
       }
