@@ -1,6 +1,8 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
+import Online from './Online'
+import Offline from './Offline'
 
 export default class DirectMessages extends Component {
   render() {
@@ -8,12 +10,12 @@ export default class DirectMessages extends Component {
 
     return (
       <div className="direct-messages">
-        <h3>Direct Messages <small>(4)</small></h3>
+        <h3><i className="icon icon-comment-discussion"/>Direct Messages <small>(4)</small></h3>
         <ul>
-          <li># general</li>
-          <li># random</li>
-          <li># RebelIcons</li>
-          <li># HaKaTon</li>
+          <li><Online /> general</li>
+          <li><Offline /> random</li>
+          <li><Offline /> RebelIcons</li>
+          <li><Offline /> HaKaTon</li>
         </ul>
       </div>
     )
