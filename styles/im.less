@@ -192,8 +192,20 @@
         display: flex;
         flex-direction: column;
 
+
         li {
           margin: @top-margin 5px;
+
+          &.active::before {
+            content: '';
+            width: 10px;
+            margin-left: -17px;
+            margin-top: 4px;
+            height: @team-icon-size - 8px;
+            background-color: @text-color-highlight;
+            border-radius: 3px;
+            float: left;
+          }
 
           img {
             display: block;

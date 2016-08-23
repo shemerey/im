@@ -3,6 +3,7 @@
 import React, {PropTypes, Component} from 'react'
 import Online from './Online'
 import Offline from './Offline'
+import DoNotDisturb from './DoNotDisturb'
 
 export default class DirectMessages extends Component {
   render() {
@@ -14,7 +15,7 @@ export default class DirectMessages extends Component {
         <ul>
           <li><Online /> general</li>
           <li><Offline /> random</li>
-          <li><Offline /> RebelIcons</li>
+          <li><DoNotDisturb /> RebelIcons</li>
           <li><Offline /> HaKaTon</li>
         </ul>
       </div>
