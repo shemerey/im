@@ -16,7 +16,6 @@ export default class Message extends Component {
         </div>
         <div className="content">
           <span>{text}</span>
-          {/* <a className="timestamp"><FormattedTime value={new Date(created_at)} format="hhmm" /></a> */}
         </div>
       </div>
     )

@@ -2,7 +2,7 @@
 
 import React, {PropTypes, Component} from 'react'
 
-export default class DoNotDisturb extends React.Component {
+export default class DoNotDisturbIcon extends React.Component {
   render() {
     return (
       <svg viewBox="0 0 40 40"

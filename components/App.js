@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react'
 
-// Components
 import SideBar from './SideBar'
 import Main from './Main'
 

@@ -2,7 +2,7 @@
 
 import React, {PropTypes, Component} from 'react'
 
-export default class File extends React.Component {
+export default class FileIcon extends React.Component {
   render() {
     return (
       <svg viewBox="0 0 40 40"

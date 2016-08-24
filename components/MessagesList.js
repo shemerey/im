@@ -22,7 +22,7 @@ function mapStateToProps(state) {
   let currentTeam = state.teams.filter(t => t.active)
   let messages  = state[1]
 
-  // FIXME: just remove this function
+  // FIXME: just remove this function START
   messages = messages.sort(function(a, b) {
     let nameA = a.created_at.toUpperCase()
     let nameB = b.created_at.toUpperCase()
@@ -37,6 +37,7 @@ function mapStateToProps(state) {
 
     return 0
   })
+  // FIXME: just remove this function END
 
   return {
     messages: messages

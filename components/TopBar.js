@@ -1,7 +1,7 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
-import Search from './Search'
+import { SearchIcon } from './Icons'
 
 export default class TopBar extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class TopBar extends Component {
           <div className="name">#RebelIcons</div>
           <div className="desc">
             <div className="members"> (234) members</div>
-            <div className="current-topic"> :: 
+            <div className="current-topic"> ::
               ᕕ( ᐛ )ᕗ Conference Number: 8477730181
               Start a call in this channel
               Channel SettingsShow Channel Details
@@ -19,7 +19,7 @@ export default class TopBar extends Component {
           </div>
         </div>
         <div className="search">
-          <Search />
+          <SearchIcon />
         </div>
       </div>
     )
