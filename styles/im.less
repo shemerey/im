@@ -59,6 +59,7 @@
       .top-bar {
         display: flex;
         justify-content: flex-start;
+        border-bottom: 1px solid @base-border-color;
         padding: 6px 11px 8px 10px;
 
         .title {
@@ -100,8 +101,8 @@
           font-size: 14px;
           display: flex;
           justify-content: flex-start;
-          margin: 3px 0;
-          padding: 3px;
+          border-bottom: 1px solid @base-border-color;
+          padding: 11px 3px;
 
           &:nth-child(odd) {
             background-color: @background-color-highlight;
@@ -112,17 +113,19 @@
           }
 
           .username {
-            color: @text-color-highlight;
-            color: @base-border-color;
             color: @text-color-subtle;
             font-weight: bold;
-            margin-right: 5px;
+            margin-right: 10px;
           }
 
           .gutter {
-            width: 65px;
+            width: 140px;
+            display: flex;
+            justify-content: flex-end;
+
             a {
               color: @text-color-subtle;
+              margin-right: 5px;
             }
           }
           .content {
@@ -140,6 +143,7 @@
 
         .container {
           border: 1px solid @base-border-color;
+          background-color: @app-background-color;
           margin: 9px;
           padding-right: 7px;
           display: flex;
@@ -147,6 +151,7 @@
 
         .btn {
           border: none;
+          border-radius: 0px 3px 3px 0px;
         }
 
         .file-icon {
@@ -165,10 +170,14 @@
           margin: auto;
         }
 
+        atom-text-editor {
+          background-color: @app-background-color;
+        }
+
         .im-editor {
           &::shadow {
             .cursor-line {
-              background-color: @base-background-color;
+              background-color: @app-background-color;
             }
 
             .gutter {
