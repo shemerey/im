@@ -19,25 +19,26 @@ class MessagesList extends Component {
 }
 
 function mapStateToProps(state) {
-  let currentTeam = state.teams.filter(t => t.active)
-  let messages  = state[1]
-
-  // FIXME: just remove this function START
-  messages = messages.sort(function(a, b) {
-    let nameA = a.created_at.toUpperCase()
-    let nameB = b.created_at.toUpperCase()
-
-    if (nameA < nameB) {
-      return -1
-    }
-
-    if (nameA > nameB) {
-      return 1
-    }
-
-    return 0
-  })
+  // let currentTeam = state.teams.filter(t => t.active)
+  // let messages  = state[1]
+  //
+  // // FIXME: just remove this function START
+  // messages = messages.sort(function(a, b) {
+  //   let nameA = a.created_at.toUpperCase()
+  //   let nameB = b.created_at.toUpperCase()
+  //
+  //   if (nameA < nameB) {
+  //     return -1
+  //   }
+  //
+  //   if (nameA > nameB) {
+  //     return 1
+  //   }
+  //
+  //   return 0
+  // })
   // FIXME: just remove this function END
+  const messages = []
 
   return {
     messages: messages

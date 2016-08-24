@@ -32,7 +32,7 @@ class SideBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    teams: state.teams
+    teams: state.teams || []
   }
 }
 
