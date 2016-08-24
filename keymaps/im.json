@@ -1,5 +1,5 @@
 {
   "atom-workspace": {
-    "ctrl-alt-o-v": "im:toggle"
+    "ctrl-alt-cmd-m": "im:toggle"
   }
 }
