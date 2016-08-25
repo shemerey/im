@@ -10,8 +10,7 @@ export default handleActions({
     console.log(msgsKey)
     // return {
     //   ...state,
-    //   [msgsKey]: [...state[msgsKey], message]
-    // }
+    //   [msgsKey]: [...state[msgsKey], message] // }
     return {
       ...state,
       [msgsKey]: {x: 11}
