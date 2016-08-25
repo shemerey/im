@@ -1,19 +1,41 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
+import { connect } from 'react-redux'
+import classNames from 'classnames'
 
-export default class Channels extends Component {
+class Channels extends Component {
+  channelsCounter() {
+    return <small>({this.props.channels.length})</small>
+  }
+
   render() {
+    let { channels } = this.props
+
     return (
       <div className="channels">
-        <h3><i className="icon icon-comment" />channels <small>(4)</small></h3>
+        <h3>
+          <i className="icon icon-comment" /> channels {this.channelsCounter()}
+        </h3>
         <ul>
-          <li># general</li>
-          <li># random</li>
-          <li className="active"># RebelIcons</li>
-          <li># HaKaTon</li>
+          {channels.map((channel) => {
+            return  <li
+                      key={channel.name}
+                      className={classNames({ active: channel.active })}
+                    >
+                      # {channel.name.replace(/^#/,'')}
+                    </li>
+          })}
         </ul>
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    channels: state.channels['1']
+  }
+}
+
+export default connect(mapStateToProps)(Channels)

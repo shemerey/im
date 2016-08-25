@@ -1,7 +1,7 @@
 'use babel'
 
 import { Client } from 'irc'
-import { say, getMessage , setChennals } from '../actions'
+import { say, getMessage , setchannels } from '../actions'
 
 /*
 {
@@ -28,8 +28,10 @@ export default class IrcProvider {
     this.channels = channels
     this.icon = icon
 
-    // this.client = new Client(server, username, { channels, password  })
-    // this.perform()
+    // store.dispatch(setchannels(chanels.map((channelName) => { name: channelName })))
+
+    this.client = new Client(server, username, { channels, password  })
+    this.perform()
     // window.xxx = this.client
   }
 
@@ -42,8 +44,8 @@ export default class IrcProvider {
     })
 
     // Chennel list recived
-    client.addListener('channellist', (chanels) => {
-      store.dispatch(setChennals(chanels))
+    client.addListener('channellist', (channels) => {
+      store.dispatch(setchannels({teamId: this.id, channels}))
     })
 
     // Connected
