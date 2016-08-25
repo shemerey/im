@@ -33,8 +33,10 @@ class Channels extends Component {
 }
 
 function mapStateToProps(state) {
+  // const currentTeamId = state.teams.filter((t) => t.active).id
+  const currentTeamId = state.teams.filter((x) => x.active)[0].id
   return {
-    channels: state.channels['1']
+    channels: state.channels[currentTeamId]
   }
 }
 
