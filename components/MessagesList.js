@@ -10,8 +10,8 @@ class MessagesList extends Component {
 
     return (
       <div className="messages-view">
-       {messages.map((msg) => {
-          return <Message key={msg.id} {...msg}/>
+       {messages.map((msg, index) => {
+          return <Message key={index} {...msg}/>
         })}
       </div>
     )
@@ -38,10 +38,14 @@ function mapStateToProps(state) {
   //   return 0
   // })
   // FIXME: just remove this function END
-  const messages = []
 
+  // let messages = []
+  // if (state.message && state.message['1#general']) {
+  //   messages = state.message['1#general']
+  // }
+  // debugger
   return {
-    messages: messages
+    messages: state.messages['1#general']
   }
 }
 

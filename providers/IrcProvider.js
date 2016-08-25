@@ -1,7 +1,7 @@
 'use babel'
 
 import { Client } from 'irc'
-import { say, getMessage , setchannels } from '../actions'
+import { say, getMessage , setChannels } from '../actions'
 
 /*
 {
@@ -28,7 +28,7 @@ export default class IrcProvider {
     this.channels = channels
     this.icon = icon
 
-    // store.dispatch(setchannels(chanels.map((channelName) => { name: channelName })))
+    // store.dispatch(setChannels(chanels.map((channelName) => { name: channelName })))
 
     this.client = new Client(server, username, { channels, password  })
     this.perform()
@@ -36,20 +36,22 @@ export default class IrcProvider {
   }
 
   perform() {
-    const { id, type, client, store } = this
+    const { id, client, store } = this
 
     // Message Recived
-    client.addListener('message', (username, channel, message) => {
-      store.dispatch(getMessage({id, type, username, channel, message}))
+    client.addListener('message', (username, to, text) => {
+      store.dispatch(getMessage({teamId: this.id, username, to, text}))
     })
 
     // Chennel list recived
     client.addListener('channellist', (channels) => {
-      store.dispatch(setchannels({teamId: this.id, channels}))
+      store.dispatch(setChannels({teamId: this.id, channels}))
     })
 
     // Connected
     client.addListener('registered', () => {
+      console.log(client.chans);
+      client.chans
       client.send('LIST')
     })
   }

@@ -5,7 +5,7 @@ import { FormattedTime } from 'react-intl'
 
 export default class Message extends Component {
   render() {
-    const { id, text, created_at, username} = this.props
+    const { text, created_at, username } = this.props
 
     return (
       <div className="im-message">
