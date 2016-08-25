@@ -17,7 +17,7 @@ import { say, getMessage } from '../actions'
 
 export default class IrcProvider {
   constructor(store, options) {
-    const { id, server, username, channels, icon } = options
+    const { id, server, username, sasl, nick, userName, password, channels, icon } = options
     this.store = store
 
     this.id = id
@@ -27,13 +27,12 @@ export default class IrcProvider {
     this.channels = channels
     this.icon = icon
 
-    this.client = new Client(server, username, { channels })
+    this.client = new Client(server, username, { channels, sasl, nick, userName, password  })
     this.perform()
   }
 
   perform() {
     const { id, type, client, store } = this
-
     client.addListener('error', (message) => console.log('error: ', message))
     client.addListener('message', (username, channel, message) => {
       console.log(username + ' => ' + channel + ': ' + message)

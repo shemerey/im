@@ -12,12 +12,13 @@ export default class ProviderFactory {
     this.listToConnect = [
       {
         id: 1,
-        name: 'Irc',
+        name: 'brug',
         type: 'IrcProvider',
         icon: 'https://lh3.googleusercontent.com/ul6H_gVyLQ8for0vMtG-J6DoLE_IKMfI9iKcFGjZRnEJL1kE2W36YH-YupoM7TOZbObq=w200',
-        server: 'irc-uk1.alphachat.net',
-        username: 'SheMereY22',
-        channels: ['#TestChennalHere'],
+        server: 'brug.irc.slack.com',
+        username: 'anton',
+        password: "brug.4TXmDvXSMjV2buS9tRuC",
+        channels: ['#general'],
       }
     ]
   }
