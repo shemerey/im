@@ -17,19 +17,20 @@ import { say, getMessage , setChennals } from '../actions'
 
 export default class IrcProvider {
   constructor(store, options) {
-    const { id, server, username, password, channels, icon } = options
+    const { id, name, server, username, password, channels, icon } = options
     this.store = store
 
     this.id = id
+    this.name = name
     this.type = 'IrcProvider'
 
     this.username = username
     this.channels = channels
     this.icon = icon
 
-    this.client = new Client(server, username, { channels, password  })
-    window.xxx = this.client
-    this.perform()
+    // this.client = new Client(server, username, { channels, password  })
+    // this.perform()
+    // window.xxx = this.client
   }
 
   perform() {

@@ -1,6 +1,7 @@
 'use babel'
 
 import IrcProvider from './IrcProvider'
+import { addTeam } from '../actions'
 
 export default class ProviderFactory {
   constructor(store) {
@@ -25,6 +26,9 @@ export default class ProviderFactory {
 
   // instantiate all provides
   perform() {
-    this.listToConnect.map( options => new this.listOfAvaliableProvides[options.type](this.store, options))
+    const teams = this.listToConnect.map((options) => {
+      const team = new this.listOfAvaliableProvides[options.type](this.store, options)
+      this.store.dispatch(addTeam(team))
+    })
   }
 }

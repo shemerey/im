@@ -1,19 +1,25 @@
 'use babel'
 
-import { handleActions } from 'redux-actions'
-import { getMessage } from '../actions'
+import teamsReducer from './teamsReducer'
 
-export default handleActions({
-  [getMessage]: (state, action) => {
-    const {id, type, username, channel, message} = action.payload
-    const msgsKey = type + id + channel
-    console.log(msgsKey)
-    // return {
-    //   ...state,
-    //   [msgsKey]: [...state[msgsKey], message] // }
-    return {
-      ...state,
-      [msgsKey]: {x: 11}
-    }
-  }
-}, {})
+export {
+  teamsReducer
+}
+
+// import { handleActions } from 'redux-actions'
+// import { getMessage } from '../actions'
+//
+// export default handleActions({
+//   [getMessage]: (state, action) => {
+//     const {id, type, username, channel, message} = action.payload
+//     const msgsKey = type + id + channel
+//     console.log(msgsKey)
+//     // return {
+//     //   ...state,
+//     //   [msgsKey]: [...state[msgsKey], message] // }
+//     return {
+//       ...state,
+//       [msgsKey]: {x: 11}
+//     }
+//   }
+// }, {})

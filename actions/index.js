@@ -6,7 +6,7 @@ import { createAction } from 'redux-actions'
 export const getMessage = createAction('get message')
 export const setChennals = createAction('get list of chennals')
 export const say = createAction('say')
-
+export const addTeam = createAction('add new team')
 
 
 
