@@ -1,9 +1,11 @@
 'use babel'
 
-import teamsReducer from './teamsReducer'
-import channelsReducer from './channelsReducer'
+import teams from './teams'
+import channels from './channels'
+import activeChannels from './activeChannels'
 
 export {
-  teamsReducer,
-  channelsReducer
+  teams,
+  channels,
+  activeChannels,
 }
