@@ -7,9 +7,14 @@ export default handleActions({
   [getMessage]: (state, action) => {
     const {id, type, username, channel, message} = action.payload
     const msgsKey = type + id + channel
+    console.log(msgsKey)
+    // return {
+    //   ...state,
+    //   [msgsKey]: [...state[msgsKey], message]
+    // }
     return {
       ...state,
-      [msgsKey]: [...state[msgsKey], message]
+      [msgsKey]: {x: 11}
     }
   }
-}, { })
+}, {})

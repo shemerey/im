@@ -4,6 +4,7 @@ import { createAction } from 'redux-actions'
 
 // IrcProvider Actions
 export const getMessage = createAction('get message')
+export const setChennals = createAction('get list of chennals')
 export const say = createAction('say')
 
 
