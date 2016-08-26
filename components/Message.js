@@ -2,8 +2,21 @@
 
 import React, {PropTypes, Component} from 'react'
 import { FormattedTime } from 'react-intl'
+import { MessageSentIcon, MessageRecivedIcon, DotsIcon } from './Icons'
 
 export default class Message extends Component {
+  messageOptions() {
+    if ('sent' === this.props.status) {
+      return <MessageSentIcon />
+    }
+
+    if ('recived' === this.props.status) {
+      return <MessageRecivedIcon />
+    }
+
+    return <DotsIcon />
+  }
+
   render() {
     const { text, created_at, username } = this.props
 
@@ -16,6 +29,7 @@ export default class Message extends Component {
         </div>
         <div className="content">
           <span>{text}</span>
+          <span>{this.messageOptions()}</span>
         </div>
       </div>
     )

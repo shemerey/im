@@ -17,7 +17,7 @@ class MessagesList extends Component {
     return (
       <div className="messages-view">
        {messages.map((msg, index) => {
-          return <Message key={index} {...msg}/>
+          return <Message key={index} {...msg} />
         })}
       </div>
     )

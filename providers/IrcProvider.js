@@ -28,11 +28,12 @@ export default class IrcProvider {
     this.channels = channels
     this.icon = icon
 
-    // store.dispatch(setChannels(chanels.map((channelName) => { name: channelName })))
-
     this.client = new Client(server, username, { channels, password  })
     this.perform()
-    // window.xxx = this.client
+  }
+
+  getClient() {
+    return this.client
   }
 
   perform() {
@@ -50,8 +51,6 @@ export default class IrcProvider {
 
     // Connected
     client.addListener('registered', () => {
-      console.log(client.chans);
-      client.chans
       client.send('LIST')
     })
   }

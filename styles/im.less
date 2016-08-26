@@ -193,6 +193,23 @@
           }
           .content {
             flex: 1;
+            display: flex;
+            justify-content: space-between;
+            :last-child {
+              margin-right: 9px;
+              height: 18px;
+              width: 18px;
+            }
+          }
+
+          &:hover {
+            .options {
+              display:block;
+            }
+          }
+
+          .options {
+            display: none;
           }
         }
       }

@@ -8,12 +8,13 @@ export default handleActions({
   [sendMessage]: (state, action) => {
     const {teamId, username, to, text} = action.payload
     const teamIdAndChannel = `${teamId}${to}`
-    
+
     const message = {
       username,
       to,
       text,
-      created_at: new Date()
+      created_at: new Date(),
+      status: 'sent'
     }
 
     return {
