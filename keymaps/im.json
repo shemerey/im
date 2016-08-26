@@ -1,5 +1,8 @@
 {
   "atom-workspace": {
     "ctrl-alt-cmd-m": "im:toggle"
+  },
+  "atom-text-editor.im-editor": {
+    "enter": "unset!"
   }
 }
