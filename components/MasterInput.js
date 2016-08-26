@@ -23,6 +23,8 @@ export default class MasterInput extends Component {
   }
 
   sendMessage(event) {
+    event.preventDefault()
+
     const editor = event.target.getModel()
     const { dispatch, currentTeam, currentChannel, currentUser } = this.props
     const message = {
@@ -31,6 +33,12 @@ export default class MasterInput extends Component {
       to: currentChannel,
       text: editor.getText()
     }
+
+    setTimeout(() => {
+      editor.setText('')
+      editor.setPlaceholderText('Hi there ...')
+    }, 0)
+
     dispatch(sendMessage(message))
   }
 
