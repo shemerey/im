@@ -1,11 +1,21 @@
 'use babel'
 
 import { handleActions } from 'redux-actions'
-import { setChannels } from '../actions'
+import { setActiveChannels } from '../actions'
 
 export default handleActions({
-  [setChannels]: (state, action) => {
-    const { teamId, channels } = action.payload
+  [setActiveChannels]: (state, action) => {
+    let { teamId, channels, currentChannel } = action.payload
+
+    // Set active channel
+    channels = channels.map((channel) => {
+      const active = (channel.name === currentChannel)
+      return {
+        ...channel,
+        active
+      }
+    })
+
     return {
       ...state,
       [teamId]: channels

@@ -1,7 +1,7 @@
 'use babel'
 
 import { Client } from 'irc'
-import { say, getMessage , setChannels } from '../actions'
+import { say, getMessage , setChannels, setActiveChannels} from '../actions'
 
 /*
 {
@@ -45,7 +45,8 @@ export default class IrcProvider {
 
     // Chennel list recived
     client.addListener('channellist', (channels) => {
-      store.dispatch(setChannels({teamId: this.id, channels}))
+      const { currentChannel } = store.getState()
+      store.dispatch(setActiveChannels({teamId: this.id, channels, currentChannel}))
     })
 
     // Connected
