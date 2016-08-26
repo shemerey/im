@@ -4,7 +4,7 @@ import React, {PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-class Channels extends Component {
+class ChannelsList extends Component {
   channelsCounter() {
     return <small>({this.props.channels.length})</small>
   }
@@ -38,4 +38,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Channels)
+export default connect(mapStateToProps)(ChannelsList)
