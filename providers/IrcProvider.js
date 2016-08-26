@@ -1,7 +1,13 @@
 'use babel'
 
 import { Client } from 'irc'
-import { say, getMessage , sendMessage, setChannels, setActiveChannels} from '../actions'
+import {
+  markMessageAsRecived,
+  getMessage,
+  sendMessage,
+  setChannels,
+  setActiveChannels
+} from '../actions'
 
 /*
 {
@@ -43,7 +49,7 @@ export default class IrcProvider {
 
   sendMessage({teamId, username, to, text}) {
     this.client.say(to, text)
-    this.store.dispatch(sendMessage({teamId, username, to, text}))
+    // this.store.dispatch(sendMessage({teamId, username, to, text}))
   }
 
   perform() {
@@ -60,9 +66,9 @@ export default class IrcProvider {
     })
 
     // Meessage send
-    // client.addListener('selfMessage', function(to, text) {
-    //   const username = store.getState().currentUser
-    // });
+    client.addListener('selfMessage', (to, text) => {
+      store.dispatch(markMessageAsRecived({teamId: this.id, username: this.username, to, text}))
+    });
 
     // Connected
     client.addListener('registered', () => {
