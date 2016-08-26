@@ -8,6 +8,12 @@ class MessagesList extends Component {
   render() {
     const { messages } = this.props
 
+    if (!messages) {
+      return <div className="messages-view">
+                <h2>You are going to be first</h2>
+             </div>
+    }
+
     return (
       <div className="messages-view">
        {messages.map((msg, index) => {

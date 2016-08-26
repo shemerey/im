@@ -2,7 +2,8 @@
 
 import React, {PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
+
+import Channel from './Channel'
 
 class ChannelsList extends Component {
   channelsCounter() {
@@ -18,14 +19,7 @@ class ChannelsList extends Component {
           <i className="icon icon-comment" /> channels {this.channelsCounter()}
         </h3>
         <ul>
-          {channels.map((channel) => {
-            return  <li
-                      key={channel.name}
-                      className={classNames({ active: channel.active })}
-                    >
-                      # {channel.name.replace(/^#/,'')}
-                    </li>
-          })}
+          {channels.map((channel) => <Channel key={channel.name} {...channel} />)}
         </ul>
       </div>
     )

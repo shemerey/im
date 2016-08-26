@@ -45,8 +45,7 @@ export default class IrcProvider {
 
     // Chennel list recived
     client.addListener('channellist', (channels) => {
-      const { currentChannel } = store.getState()
-      store.dispatch(setActiveChannels({teamId: this.id, channels, currentChannel}))
+      store.dispatch(setActiveChannels({teamId: this.id, channels}))
     })
 
     // Connected
