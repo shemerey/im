@@ -8,6 +8,7 @@ export default handleActions({
   [sendMessage]: (state, action) => {
     const {teamId, username, to, text} = action.payload
     const teamIdAndChannel = `${teamId}${to}`
+    const channelMessages = state[teamIdAndChannel] || []
 
     const message = {
       username,
@@ -16,16 +17,16 @@ export default handleActions({
       created_at: new Date(),
       status: 'sent'
     }
-
     return {
       ...state,
-      [teamIdAndChannel]: [...state[teamIdAndChannel], message]
+      [teamIdAndChannel]: [...channelMessages, message]
     }
   },
   // Get Message from Server
   [getMessage]: (state, action) => {
     const {teamId, username, to, text} = action.payload
     const teamIdAndChannel = `${teamId}${to}`
+    const channelMessages = state[teamIdAndChannel] || []
 
     const message = {
       username,
@@ -33,10 +34,9 @@ export default handleActions({
       text,
       created_at: new Date()
     }
-
     return {
       ...state,
-      [teamIdAndChannel]: [...state[teamIdAndChannel], message]
+      [teamIdAndChannel]: [...channelMessages, message]
     }
   }
 }, {})

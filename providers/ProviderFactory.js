@@ -3,8 +3,17 @@
 import IrcProvider from './IrcProvider'
 import { addTeam } from '../actions'
 
+let instance = null;
+
 export default class ProviderFactory {
+
   constructor(store) {
+    if(!instance){
+      instance = this
+    } else {
+      return instance
+    }
+
     this.store = store
     this.listOfAvaliableProvides = {
       IrcProvider,
@@ -22,13 +31,20 @@ export default class ProviderFactory {
         channels: ['#general'],
       }
     ]
+
+    return instance
   }
 
-  // instantiate all provides
+  getAllTeams() {
+    return this.teams
+  }
+
+  // instantiate all teams
   perform() {
-    const teams = this.listToConnect.map((options) => {
+    this.teams = this.listToConnect.map((options) => {
       const team = new this.listOfAvaliableProvides[options.type](this.store, options)
       this.store.dispatch(addTeam(team))
+      return team
     })
   }
 }

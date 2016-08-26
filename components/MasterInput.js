@@ -3,13 +3,14 @@
 import React, {PropTypes, Component} from 'react'
 import { FileIcon, SmileIcon } from './Icons'
 import { HotKeys } from 'react-hotkeys'
-import { sendMessage } from '../actions'
 import { connect } from 'react-redux'
+import ProviderFactory from '../providers/ProviderFactory'
 
 export default class MasterInput extends Component {
   constructor(props) {
     super(props)
     this.editor = atom.workspace.buildTextEditor()
+    this.teamFactory = new ProviderFactory()
   }
 
   shouldComponentUpdate(nextProps) {
@@ -23,6 +24,10 @@ export default class MasterInput extends Component {
     this.refs.editor.appendChild(this.editor.getElement())
   }
 
+  currentTeamProvider() {
+    return this.teamFactory.getAllTeams().find((client) => client.getId() === this.props.currentTeam)
+  }
+
   sendMessage(event) {
     event.preventDefault()
 
@@ -34,8 +39,11 @@ export default class MasterInput extends Component {
       text: this.editor.getText()
     }
 
-    this.editor.setText('')
-    dispatch(sendMessage(message))
+    setTimeout(() => {
+      this.editor.setText('')
+    }, 0)
+
+    this.currentTeamProvider().sendMessage(message)
   }
 
   render() {
