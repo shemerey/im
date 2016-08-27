@@ -7,10 +7,11 @@ import classNames from 'classnames'
 
 class SwitchTeam extends Component {
   render() {
-    const { team, dispatch } = this.props
+    const { team, dispatch, currentTeam } = this.props
+    const active = (team.id == currentTeam)
 
     return (
-      <li key={team.id} onClick={(e) => dispatch(setCurrentTeam(team.id))} className={classNames({ active: team.active })}>
+      <li key={team.id} onClick={(e) => dispatch(setCurrentTeam(team.id))} className={classNames({ active })}>
         <img src={team.icon} alt={team.name} />
         ⌘{team.id}
       </li>
@@ -18,4 +19,10 @@ class SwitchTeam extends Component {
   }
 }
 
-export default connect()(SwitchTeam)
+function mapStateToProps(state) {
+  return {
+    currentTeam: state.currentTeam
+  }
+}
+
+export default connect(mapStateToProps)(SwitchTeam)

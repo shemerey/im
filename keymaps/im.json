@@ -4,5 +4,16 @@
   },
   "atom-text-editor.im-editor": {
     "enter": "unset!"
+  },
+  ".im": {
+    "cmd-1": "im:focus",
+    "cmd-2": "im:focus",
+    "cmd-3": "im:focus",
+    "cmd-4": "im:focus",
+    "cmd-5": "im:focus",
+    "cmd-6": "im:focus",
+    "cmd-7": "im:focus",
+    "cmd-8": "im:focus",
+    "cmd-9": "im:focus"
   }
 }
