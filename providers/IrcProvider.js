@@ -9,19 +9,8 @@ import {
   setActiveChannels
 } from '../actions'
 
-/*
-{
-  id: 1,
-  name: 'Irc',
-  type: 'IrcProvider',
-  icon: 'https://lh3.googleusercontent.com/ul6H_gVyLQ8for0vMtG-J6DoLE_IKMfI9iKcFGjZRnEJL1kE2W36YH-YupoM7TOZbObq=w200',
-  server: 'chat.freenode.net',
-  username: 'SheMereY',
-  channels: ['#ruby', '#atom', '#ubuntu'],
-}
-*/
-
 export default class IrcProvider {
+  
   constructor(store, options) {
     const { id, name, server, username, password, channels, icon } = options
     this.store = store
@@ -35,7 +24,6 @@ export default class IrcProvider {
     this.icon = icon
 
     this.client = new Client(server, username, { channels, password  })
-    window.xxx = this.client
     this.perform()
   }
 
@@ -72,11 +60,6 @@ export default class IrcProvider {
       })
       store.dispatch(setActiveChannels({teamId: this.id, channels: activeChannels}))
     })
-
-    // Meessage send
-    // client.addListener('selfMessage', (to, text) => {
-    //   store.dispatch(markMessageAsRecived({teamId: this.id, username: this.username, to, text}))
-    // });
 
     // Connected
     client.addListener('registered', () => {
