@@ -23,5 +23,8 @@
     "redux": "^3.5.2",
     "redux-actions": "^0.10.1",
     "redux-logger": "^2.6.1"
+  },
+  "devDependencies": {
+    "dotenv": "^2.0.0"
   }
 }
