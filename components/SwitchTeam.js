@@ -9,7 +9,7 @@ export default class SwitchTeam extends Component {
 
     return (
       <li key={team.id} className={classNames({ active: team.active })}>
-        <img src={team.img} alt={team.name} />
+        <img src={team.icon} alt={team.name} />
         ⌘{team.id}
       </li>
     )

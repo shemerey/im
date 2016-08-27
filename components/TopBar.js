@@ -1,20 +1,24 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
+import { connect } from 'react-redux'
 import { SearchIcon } from './Icons'
 
-export default class TopBar extends Component {
+class TopBar extends Component {
+
   render() {
+    const { name, members, topic } = this.props
+
     return (
       <div className="top-bar">
         <div className="title">
-          <div className="name">#RebelIcons</div>
+          <div className="name"># {name.replace(/^#/,'')}</div>
           <div className="desc">
-            <div className="members"> (234) members</div>
-            <div className="current-topic"> ::
-              ᕕ( ᐛ )ᕗ Conference Number: 8477730181
-              Start a call in this channel
-              Channel SettingsShow Channel Details
+            <div className="members">
+             <small>[{members || 0}] members</small>
+            </div>
+            <div className="current-topic">
+              {topic || 'You can setup your own topic here ...'}
             </div>
           </div>
         </div>
@@ -25,3 +29,15 @@ export default class TopBar extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  const currentChannel = state.activeChannels[state.currentTeam].find((ch) => ch.name === state.currentChannel)
+  const { name, members, topic } = currentChannel
+  return {
+    name,
+    members,
+    topic
+  }
+}
+
+export default connect(mapStateToProps)(TopBar)

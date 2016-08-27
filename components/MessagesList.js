@@ -8,10 +8,16 @@ class MessagesList extends Component {
   render() {
     const { messages } = this.props
 
+    if (!messages) {
+      return <div className="messages-view">
+                <h2>You are going to be first</h2>
+             </div>
+    }
+
     return (
       <div className="messages-view">
-       {messages.map((msg) => {
-          return <Message key={msg.id} {...msg}/>
+       {messages.map((msg, index) => {
+          return <Message key={index} {...msg} />
         })}
       </div>
     )
@@ -19,28 +25,8 @@ class MessagesList extends Component {
 }
 
 function mapStateToProps(state) {
-  let currentTeam = state.teams.filter(t => t.active)
-  let messages  = state[1]
-
-  // FIXME: just remove this function START
-  messages = messages.sort(function(a, b) {
-    let nameA = a.created_at.toUpperCase()
-    let nameB = b.created_at.toUpperCase()
-
-    if (nameA < nameB) {
-      return -1
-    }
-
-    if (nameA > nameB) {
-      return 1
-    }
-
-    return 0
-  })
-  // FIXME: just remove this function END
-
   return {
-    messages: messages
+    messages: state.messages[`${state.currentTeam}${state.currentChannel}`]
   }
 }
 
