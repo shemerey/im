@@ -28,7 +28,7 @@ class ChannelsList extends Component {
 
 function mapStateToProps(state) {
   return {
-    channels: state.activeChannels[state.currentTeam]
+    channels: state.activeChannels[state.currentTeam] || []
   }
 }
 
