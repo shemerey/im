@@ -1,6 +1,8 @@
 'use babel'
 
-import IrcProvider from './IrcProvider'
+import IRC from './IRC'
+import XMPP from './XMPP'
+
 import { addTeam } from '../actions'
 import listToConnect from '../listToConnect'
 
@@ -16,7 +18,8 @@ export default class ProviderFactory {
 
     this.store = store
     this.listOfAvaliableProvides = {
-      IrcProvider,
+      IRC,
+      XMPP,
     }
 
     this.listToConnect = listToConnect
