@@ -12,7 +12,7 @@ class TopBar extends Component {
     return (
       <div className="top-bar">
         <div className="title">
-          <div className="name">{name}</div>
+          <div className="name"># {name.replace(/^#/,'')}</div>
           <div className="desc">
             <div className="members">
              <small>[{members || 0}] members</small>

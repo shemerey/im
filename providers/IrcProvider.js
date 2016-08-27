@@ -49,7 +49,7 @@ export default class IrcProvider {
 
   sendMessage({teamId, username, to, text}) {
     this.client.say(to, text)
-    // this.store.dispatch(sendMessage({teamId, username, to, text}))
+    this.store.dispatch(sendMessage({teamId, username, to, text}))
   }
 
   perform() {
@@ -62,16 +62,25 @@ export default class IrcProvider {
 
     // Chennel list recived
     client.addListener('channellist', (channels) => {
-      store.dispatch(setActiveChannels({teamId: this.id, channels}))
+      // FullFill all channels
+      store.dispatch(setChannels({teamId: this.id, channels}))
+
+      // Fullfill joined
+      const activeNames = Object.keys(client.chans)
+      const activeChannels = channels.filter((ch) => {
+        return activeNames.includes(ch.name)
+      })
+      store.dispatch(setActiveChannels({teamId: this.id, channels: activeChannels}))
     })
 
     // Meessage send
-    client.addListener('selfMessage', (to, text) => {
-      store.dispatch(markMessageAsRecived({teamId: this.id, username: this.username, to, text}))
-    });
+    // client.addListener('selfMessage', (to, text) => {
+    //   store.dispatch(markMessageAsRecived({teamId: this.id, username: this.username, to, text}))
+    // });
 
     // Connected
     client.addListener('registered', () => {
+      // Ask for full list of channels
       client.send('LIST')
     })
   }
