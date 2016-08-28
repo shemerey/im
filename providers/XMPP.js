@@ -6,8 +6,9 @@ import {
   getMessage,
   sendMessage,
   setChannels,
+  setActiveChannels,
   setUsers,
-  setActiveChannels
+  setActiveUsers,
 } from '../actions'
 
 import { SimpleXMPP } from 'simple-xmpp'
@@ -157,6 +158,7 @@ export default class XMPP {
         })
 
         store.dispatch(setUsers({teamId: this.id, users}))
+        store.dispatch(setActiveUsers({teamId: this.id, users}))
       }
     });
 
