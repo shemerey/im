@@ -6,6 +6,7 @@ import {
   getMessage,
   sendMessage,
   setChannels,
+  setUsers,
   setActiveChannels
 } from '../actions'
 
@@ -68,23 +69,62 @@ xmpp.send('general@conference.brug.xmpp.slack.com', 'test to general');
 // // check for incoming subscription requests
 // xmpp.getRoster();
 
+
+id: 2,
+name: 'BrUg',
+type: 'XMPP',
+icon: 'https://s3-us-west-2.amazonaws.com/slack-files2/avatars/2016-08-25/72857911156_98fa7e5777a8f5c61014_88.jpg',
+server: 'brug.xmpp.slack.com',
+conference: 'conference.brug.xmpp.slack.com',
+username: 'anton',
+password: "brug.9MDkvDbijblVjjaCEwev",
+jid: 'anton@brug.xmpp.slack.com',
+port: 5222,
+channels: ['general'],
+
 */
 
 export default class XMPP {
 
   constructor(store, options) {
-    const { id, name, server, username, password, channels, icon } = options
+    const {
+      id,
+      name,
+      icon,
+      server,
+      conference,
+      port,
+      jid,
+      username,
+      password,
+      channels,
+    } = options
+
+    // redux store instance
     this.store = store
 
+    // provider details
     this.id = id
     this.name = name
     this.type = 'XMPP'
-
-    this.username = username
-    this.channels = channels
     this.icon = icon
 
+    // user details & server
+    this.username = username
+    this.channels = channels
+    this.conference = conference
+    this.host = server
+
+    this.jid = jid || `${username}@${server}`
+
     this.client = new SimpleXMPP()
+    this.client.connect({
+      jid: this.jid,
+      password: password,
+      host: this.host,
+      port: (port || 5222),
+    })
+
     this.perform()
   }
 
@@ -101,8 +141,24 @@ export default class XMPP {
     // this.store.dispatch(sendMessage({teamId, username, to, text}))
   }
 
+
+
   perform() {
-    const { id, client, store } = this
+    const { id, store, client, host } = this
+
+    client.on('stanza', (stanza) => {
+      let rosterRequest = stanza.name == 'iq' && stanza.attrs.type == 'result' && stanza.attrs.id == 'roster_0'
+      if(rosterRequest) {
+        const users = stanza.children[0].children.map((u) => {
+          return {
+            id: u.attrs.jid,
+            name: u.attrs.name
+          }
+        })
+
+        store.dispatch(setUsers({teamId: this.id, users}))
+      }
+    });
 
     // Message Recived
     // client.addListener('message', (username, to, text) => {
@@ -123,9 +179,21 @@ export default class XMPP {
     // })
 
     // Connected
-    // client.addListener('registered', () => {
-    //   // Ask for full list of channels
-    //   client.send('LIST')
-    // })
+    client.on('online', () => {
+      console.log(`connected as ${this.jid}`)
+
+      // join default channels
+      this.channels.forEach((ch) => {
+        client.join(`${this.username}@${this.conference}/${ch}`)
+      })
+
+      // Accept all subscribeers
+      client.on('subscribe', (from) => {
+        client.acceptSubscription(from)
+      })
+
+      // Ask for full list of channels
+      client.getRoster();
+    })
   }
 }
