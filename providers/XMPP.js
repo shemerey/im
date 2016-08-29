@@ -148,6 +148,7 @@ export default class XMPP {
     const { id, store, client, host } = this
 
     client.on('stanza', (stanza) => {
+      console.table(stanza)
       let rosterRequest = stanza.name == 'iq' && stanza.attrs.type == 'result' && stanza.attrs.id == 'roster_0'
       if(rosterRequest) {
         const users = stanza.children[0].children.map((u) => {
@@ -160,6 +161,30 @@ export default class XMPP {
         store.dispatch(setUsers({teamId: this.id, users}))
         store.dispatch(setActiveUsers({teamId: this.id, users}))
       }
+
+      if(stanza.name == 'iq' && stanza.attrs.type == 'result' && stanza.attrs.id == 'get_muc_rooms') {
+        const channels = stanza.children[0].children.map((ch) => {
+          return {
+            id: ch.attrs.jid,
+            name: ch.attrs.name
+          }
+        })
+
+        store.dispatch(setChannels({teamId: this.id, channels}))
+        store.dispatch(setActiveChannels({teamId: this.id, channels}))
+      }
+
+
+/*
+
+xmpp.on('stanza', function(stanza) {
+  if(stanza.name == 'iq' && stanza.attrs.type == 'result' && stanza.attrs.id == 'muc_id') {
+    // stanza.children[0].children should have your users available in the room
+  }
+});
+
+*/
+
     });
 
     // Message Recived
@@ -181,21 +206,33 @@ export default class XMPP {
     // })
 
     // Connected
-    client.on('online', () => {
+    client.on('online', (data) => {
       console.log(`connected as ${this.jid}`)
 
       // join default channels
-      this.channels.forEach((ch) => {
-        client.join(`${this.username}@${this.conference}/${ch}`)
-      })
+      // this.channels.forEach((ch) => {
+      //   client.join(`${this.username}@${this.conference}/${data.jid.resource}`)
+      // })
 
       // Accept all subscribeers
       client.on('subscribe', (from) => {
         client.acceptSubscription(from)
       })
 
+      let stanza =
+
+      // Ask for public rooms
+      client.conn.send(
+        new client.Element('iq', {
+          from: `${this.username}@${this.host}/${data.jid.resource}`,
+          to: `${this.conference}`,
+          type: 'get',
+          id: 'get_muc_rooms'
+        }).c('query', { xmlns: 'http://jabber.org/protocol/disco#items'})
+      )
+
       // Ask for full list of channels
-      client.getRoster();
+      // client.getRoster();
     })
   }
 }

@@ -13,7 +13,7 @@ class Channel extends Component {
   }
 
   render() {
-    const { name, active, currentChannel } = this.props
+    const { name, id, currentChannel } = this.props
 
     return (
       <li
