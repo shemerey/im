@@ -3,6 +3,7 @@
 import React, {PropTypes, Component} from 'react'
 import { FormattedTime } from 'react-intl'
 import { MessageSentIcon, MessageRecivedIcon, DotsIcon } from './Icons'
+import classNames from 'classnames'
 
 export default class Message extends Component {
   messageOptions() {
@@ -18,10 +19,10 @@ export default class Message extends Component {
   }
 
   render() {
-    const { text, created_at, username } = this.props
+    const { text, created_at, username, first, last, odd } = this.props
 
     return (
-      <div className="im-message">
+      <div className={classNames('im-message', {first, last, odd, even: !odd})}>
         <div className="gutter">
           <span className="username">
             <a href="#">@{username}</a>
