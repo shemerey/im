@@ -188,6 +188,13 @@
             margin-right: 10px;
           }
 
+          .ts {
+            display: none;
+            font-weight: lighter;
+            color: @text-color-subtle;
+            margin-right: 10px;
+          }
+
           &.first .username {
             display: inline-block;
           }
@@ -223,11 +230,14 @@
 
           &:hover {
             .options {
-              display:block;
+              display: inline-block;
+            }
+            &:not(.first) .ts {
+              display: inline-block;
             }
           }
 
-          .options {
+          .options, .ts {
             display: none;
           }
         }

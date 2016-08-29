@@ -27,6 +27,7 @@ export default class Message extends Component {
           <span className="username">
             <a href="#">@{username}</a>
           </span>
+          <span className="ts">12:30 pm</span>
         </div>
         <div className="content">
           <span>{text}</span>
