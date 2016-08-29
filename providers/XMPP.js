@@ -13,78 +13,6 @@ import {
 
 import { SimpleXMPP } from 'simple-xmpp'
 
-/*
-xmpp.on('online', function() {
-	console.log('Yes, I\'m connected!');
-	xmpp.join('general@conference.brug.xmpp.slack.com/anton');
-});
-
-xmpp.on('groupchat', function(conference, from, message, stamp) {
-  console.log('%s says %s on %s', from, message, conference);
-  // if(from != 'anton')
-  // xmpp.send(conference, from +': echo: ' + message, true);
-});
-
-xmpp.on('error', function(err) {
-	console.error(err);
-});
-
-xmpp.connect({
-  jid: 'anton@brug.xmpp.slack.com',
-  password: 'brug.9MDkvDbijblVjjaCEwev',
-  host: 'brug.xmpp.slack.com',
-  port: 5222,
-});
-
-// xmpp.subscribe('shemerey@brug.xmpp.slack.com');
-// xmpp.subscribe('general@conference.brug.xmpp.slack.com');
-//
-// xmpp.send('shemerey@brug.xmpp.slack.com', 'test');
-xmpp.send('general@conference.brug.xmpp.slack.com', 'test to general');
-//
-// xmpp.on('online', function(data) {
-//     console.log('Connected with JID: ' + data.jid.user);
-//     console.log('Yes, I\'m connected!');
-// });
-//
-// xmpp.on('chat', function(from, message) {
-//     xmpp.send(from, 'echo: ' + message);
-// });
-//
-// xmpp.on('error', function(err) {
-//     console.error(err);
-// });
-//
-// xmpp.on('stanza', function(stanza) {
-//     console.log(stanza);
-// });
-//
-// xmpp.on('subscribe', function(from) {
-//   xmpp.acceptSubscription(from);
-// });
-//
-// xmpp.on('groupchat', function(conference, from, message, stamp) {
-//     console.log('%s says %s on %s on %s at %s', from, message, conference, stamp.substr(0,9), stamp.substr(10));
-// });
-//
-// // check for incoming subscription requests
-// xmpp.getRoster();
-
-
-id: 2,
-name: 'BrUg',
-type: 'XMPP',
-icon: 'https://s3-us-west-2.amazonaws.com/slack-files2/avatars/2016-08-25/72857911156_98fa7e5777a8f5c61014_88.jpg',
-server: 'brug.xmpp.slack.com',
-conference: 'conference.brug.xmpp.slack.com',
-username: 'anton',
-password: "brug.9MDkvDbijblVjjaCEwev",
-jid: 'anton@brug.xmpp.slack.com',
-port: 5222,
-channels: ['general'],
-
-*/
-
 export default class XMPP {
 
   constructor(store, options) {
@@ -143,96 +71,79 @@ export default class XMPP {
   }
 
 
+  fullFillUsers(stanza) {
+    if(
+      stanza.name == 'iq' &&
+      stanza.attrs.type == 'result' &&
+      stanza.attrs.id == 'roster_0'
+    ) {
+      const users = stanza.children[0].children.map((obj) => {
+        return {
+          id: obj.attrs.jid,
+          name: obj.attrs.name
+        }
+      })
+
+      this.store.dispatch(setUsers({teamId: this.id, users}))
+      this.store.dispatch(setActiveUsers({teamId: this.id, users}))
+    }
+  }
+
+  fullFillChannels(stanza) {
+    if(
+      stanza.name == 'iq' &&
+      stanza.attrs.type == 'result' &&
+      stanza.attrs.id == 'get_muc_rooms'
+    ) {
+      const channels = stanza.children[0].children.map((obj) => {
+        return {
+          id: obj.attrs.jid,
+          name: obj.attrs.name
+        }
+      })
+
+      this.store.dispatch(setChannels({teamId: this.id, channels}))
+      this.store.dispatch(setActiveChannels({teamId: this.id, channels}))
+    }
+  }
+
+  getRoomsList(data) {
+    this.client.conn.send(
+      new this.client.Element('iq', {
+        from: `${this.username}@${this.host}/${data.jid.resource}`,
+        to: `${this.conference}`,
+        type: 'get',
+        id: 'get_muc_rooms'
+      }).c('query', { xmlns: 'http://jabber.org/protocol/disco#items'})
+    )
+  }
 
   perform() {
     const { id, store, client, host } = this
 
     client.on('stanza', (stanza) => {
-      console.table(stanza)
-      let rosterRequest = stanza.name == 'iq' && stanza.attrs.type == 'result' && stanza.attrs.id == 'roster_0'
-      if(rosterRequest) {
-        const users = stanza.children[0].children.map((u) => {
-          return {
-            id: u.attrs.jid,
-            name: u.attrs.name
-          }
-        })
-
-        store.dispatch(setUsers({teamId: this.id, users}))
-        store.dispatch(setActiveUsers({teamId: this.id, users}))
-      }
-
-      if(stanza.name == 'iq' && stanza.attrs.type == 'result' && stanza.attrs.id == 'get_muc_rooms') {
-        const channels = stanza.children[0].children.map((ch) => {
-          return {
-            id: ch.attrs.jid,
-            name: ch.attrs.name
-          }
-        })
-
-        store.dispatch(setChannels({teamId: this.id, channels}))
-        store.dispatch(setActiveChannels({teamId: this.id, channels}))
-      }
-
-
-/*
-
-xmpp.on('stanza', function(stanza) {
-  if(stanza.name == 'iq' && stanza.attrs.type == 'result' && stanza.attrs.id == 'muc_id') {
-    // stanza.children[0].children should have your users available in the room
-  }
-});
-
-*/
-
+      this.fullFillUsers(stanza)
+      this.fullFillChannels(stanza)
     });
-
-    // Message Recived
-    // client.addListener('message', (username, to, text) => {
-    //   store.dispatch(getMessage({teamId: this.id, username, to, text}))
-    // })
-
-    // Chennel list recived
-    // client.addListener('channellist', (channels) => {
-      // FullFill all channels
-      // store.dispatch(setChannels({teamId: this.id, channels}))
-
-      // Fullfill joined
-      // const activeNames = Object.keys(client.chans)
-      // const activeChannels = channels.filter((ch) => {
-      //   return activeNames.includes(ch.name)
-      // })
-      // store.dispatch(setActiveChannels({teamId: this.id, channels: activeChannels}))
-    // })
 
     // Connected
     client.on('online', (data) => {
-      console.log(`connected as ${this.jid}`)
+      console.table(data)
 
       // join default channels
-      // this.channels.forEach((ch) => {
-      //   client.join(`${this.username}@${this.conference}/${data.jid.resource}`)
-      // })
+      this.channels.forEach((ch) => {
+        client.join(`${ch}@${this.conference}`)
+      })
 
       // Accept all subscribeers
       client.on('subscribe', (from) => {
         client.acceptSubscription(from)
       })
 
-      let stanza =
-
       // Ask for public rooms
-      client.conn.send(
-        new client.Element('iq', {
-          from: `${this.username}@${this.host}/${data.jid.resource}`,
-          to: `${this.conference}`,
-          type: 'get',
-          id: 'get_muc_rooms'
-        }).c('query', { xmlns: 'http://jabber.org/protocol/disco#items'})
-      )
-
+      this.getRoomsList(data)
       // Ask for full list of channels
-      // client.getRoster();
+      client.getRoster();
     })
   }
 }
