@@ -26,7 +26,7 @@ class MessagesList extends Component {
 
 function mapStateToProps(state) {
   return {
-    messages: state.messages[`${state.currentTeam}${state.currentChannel}`]
+    messages: state.messages[`${state.currentTeam}${state.currentChannel.id}`]
   }
 }
 

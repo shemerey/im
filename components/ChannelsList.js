@@ -27,8 +27,9 @@ class ChannelsList extends Component {
 }
 
 function mapStateToProps(state) {
+  const channels = state.activeChannels[state.currentTeam] || []
   return {
-    channels: state.activeChannels[state.currentTeam] || []
+    channels: channels.filter((ch) => 'group' === ch.type)
   }
 }
 

@@ -7,7 +7,7 @@ import UserInAList from './UserInAList'
 class UsersList extends Component {
   render() {
     const { users } = this.props
-    
+
     return (
       <div className="direct-messages">
         <h3><i className="icon icon-comment-discussion"/>Direct Messages <small>(4)</small></h3>
@@ -20,8 +20,9 @@ class UsersList extends Component {
 }
 
 function mapStateToProps(state) {
+  const channels = state.activeChannels[state.currentTeam] || []
   return {
-    users: state.activeUsers[state.currentTeam] || []
+    users: channels.filter((ch) => 'personal' === ch.type)
   }
 }
 

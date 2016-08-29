@@ -8,8 +8,8 @@ import { setCurrentChannel } from '../actions'
 
 class Channel extends Component {
   setThisChannelAsCurrent() {
-    const { dispatch, name } = this.props
-    dispatch(setCurrentChannel(name))
+    const { dispatch, id, name } = this.props
+    dispatch(setCurrentChannel({id, name, type: 'group'}))
   }
 
   render() {
@@ -18,7 +18,7 @@ class Channel extends Component {
     return (
       <li
         onClick={(e) => { ::this.setThisChannelAsCurrent() }}
-        className={classNames({ active: name === currentChannel})}
+        className={classNames({ active: id === currentChannel.id})}
         >
         # {name.replace(/^#/,'')}
       </li>
