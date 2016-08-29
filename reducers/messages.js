@@ -36,7 +36,6 @@ export default handleActions({
       status: 'recived'
     }
 
-    debugger
     channelMessages = channelMessages.filter((m) => {
       if (m.username === username && m.to === to && m.text === text) {
         return false

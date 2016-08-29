@@ -38,6 +38,7 @@ export default class XMPP {
 
     // user details & server
     this.username = username
+    this.password = password
     this.channels = channels
     this.conference = conference
     this.host = server
@@ -45,14 +46,16 @@ export default class XMPP {
     this.jid = jid || `${username}@${server}`
 
     this.client = new SimpleXMPP()
+    this.perform()
+  }
+
+  connect() {
     this.client.connect({
       jid: this.jid,
-      password: password,
+      password: this.password,
       host: this.host,
-      port: (port || 5222),
+      port: 5222,
     })
-
-    this.perform()
   }
 
   getClient() {
@@ -63,11 +66,19 @@ export default class XMPP {
     return this.id
   }
 
-  sendMessage({teamId, username, to, text}) {
-    // this.client.say(to, text)
-    // this.store.dispatch(sendMessage({teamId, username, to, text}))
+  send({teamId, username, to, text}) {
+    this.client.send(to.id, text, to.type === 'group');
+    if(to.type != 'group') {
+      this.store.dispatch(
+        sendMessage({
+          teamId: this.id,
+          to: to.id,
+          username,
+          text
+        })
+      )
+    }
   }
-
 
   fullFillUsers(stanza) {
     if(
@@ -126,13 +137,35 @@ export default class XMPP {
       this.fullFillChannels(stanza)
     });
 
+    // group chat
+    client.on('groupchat', (to, username, text, stamp) => {
+      this.store.dispatch(
+        getMessage({
+          teamId: this.id,
+          to,
+          username,
+          text
+        })
+      )
+    })
+
+    // private chat
+    client.on('chat', (to, text) => {
+      this.store.dispatch(
+        getMessage({
+          teamId: this.id,
+          to,
+          username: to.split('@')[0],
+          text
+        })
+      )
+    })
+
     // Connected
     client.on('online', (data) => {
-      console.table(data)
-
       // join default channels
       this.channels.forEach((ch) => {
-        client.join(`${ch}@${this.conference}`)
+        client.join(`${ch}@${this.conference}/${this.username}`)
       })
 
       // Accept all subscribeers
@@ -145,5 +178,7 @@ export default class XMPP {
       // Ask for full list of channels
       client.getRoster();
     })
+
+    this.connect()
   }
 }
