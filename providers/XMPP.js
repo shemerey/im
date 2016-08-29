@@ -7,8 +7,6 @@ import {
   sendMessage,
   setChannels,
   setActiveChannels,
-  setUsers,
-  setActiveUsers,
 } from '../actions'
 
 import { SimpleXMPP } from 'simple-xmpp'
@@ -77,15 +75,16 @@ export default class XMPP {
       stanza.attrs.type == 'result' &&
       stanza.attrs.id == 'roster_0'
     ) {
-      const users = stanza.children[0].children.map((obj) => {
+      const channels = stanza.children[0].children.map((obj) => {
         return {
           id: obj.attrs.jid,
-          name: obj.attrs.name
+          name: obj.attrs.name,
+          type: 'personal',
         }
       })
 
-      this.store.dispatch(setUsers({teamId: this.id, users}))
-      this.store.dispatch(setActiveUsers({teamId: this.id, users}))
+      this.store.dispatch(setChannels({teamId: this.id, channels}))
+      this.store.dispatch(setActiveChannels({teamId: this.id, channels}))
     }
   }
 
@@ -98,7 +97,8 @@ export default class XMPP {
       const channels = stanza.children[0].children.map((obj) => {
         return {
           id: obj.attrs.jid,
-          name: obj.attrs.name
+          name: obj.attrs.name,
+          type: 'group',
         }
       })
 
