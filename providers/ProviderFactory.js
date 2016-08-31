@@ -10,7 +10,7 @@ let instance = null
 export default class ProviderFactory {
 
   constructor(store) {
-    if(!instance){
+    if (!instance) {
       instance = this
     } else {
       return instance

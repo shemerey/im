@@ -1,0 +1,15 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-console": 0,
+    "semi": 0,
+    "max-len": 0,
+    "import/newline-after-import": 0,
+    "react/jsx-filename-extension": 0,
+    "react/prefer-stateless-function": 0,
+  },
+  "globals": {
+    "window": true,
+    "document": true
+  }
+}
