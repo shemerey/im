@@ -31,7 +31,8 @@ class TopBar extends Component {
 }
 
 function mapStateToProps(state) {
-  const currentChannel = state.activeChannels[state.currentTeam].find((ch) => ch.name === state.currentChannel)
+  const active = state.activeChannels[state.currentTeam] || []
+  const currentChannel = active.find((ch) => ch.name === state.currentChannel) || {name: 'general'}
   const { name, members, topic } = currentChannel
   return {
     name,

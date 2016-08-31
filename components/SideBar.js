@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import SwitchTeam from './SwitchTeam'
 import CurrentUserInfo from './CurrentUserInfo'
 import ChannelsList from './ChannelsList'
-import DirectMessages from './DirectMessages'
+import UsersList from './UsersList'
 
 class SideBar extends Component {
   render() {
@@ -23,7 +23,7 @@ class SideBar extends Component {
         <div className="team-details">
          <CurrentUserInfo />
          <ChannelsList />
-         <DirectMessages />
+         <UsersList />
         </div>
       </div>
     )

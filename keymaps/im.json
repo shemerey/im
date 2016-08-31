@@ -4,5 +4,16 @@
   },
   "atom-text-editor.im-editor": {
     "enter": "unset!"
+  },
+  ".im": {
+    "cmd-1": "im:team-1",
+    "cmd-2": "im:team-2",
+    "cmd-3": "unset!",
+    "cmd-4": "unset!",
+    "cmd-5": "unset!",
+    "cmd-6": "unset!",
+    "cmd-7": "unset!",
+    "cmd-8": "unset!",
+    "cmd-9": "unset!"
   }
 }

@@ -14,10 +14,13 @@ class MessagesList extends Component {
              </div>
     }
 
+    let first = {}
+    let odd = true
     return (
       <div className="messages-view">
-       {messages.map((msg, index) => {
-          return <Message key={index} {...msg} />
+        {messages.map((msg, index) => {
+          if (first.username != msg.username) { first = msg; odd = !odd }
+          return <Message key={index} {...msg} first={msg === first} odd={odd} />
         })}
       </div>
     )
@@ -26,7 +29,7 @@ class MessagesList extends Component {
 
 function mapStateToProps(state) {
   return {
-    messages: state.messages[`${state.currentTeam}${state.currentChannel}`]
+    messages: state.messages[`${state.currentTeam}${state.currentChannel.id}`]
   }
 }
 

@@ -19,7 +19,7 @@ class ChannelsList extends Component {
           <i className="icon icon-comment" /> channels {this.channelsCounter()}
         </h3>
         <ul>
-          {channels.map((channel) => <Channel key={channel.name} {...channel} />)}
+          {channels.map((channel) => <Channel key={channel.id} {...channel} />)}
         </ul>
       </div>
     )
@@ -27,8 +27,9 @@ class ChannelsList extends Component {
 }
 
 function mapStateToProps(state) {
+  const channels = state.activeChannels[state.currentTeam] || []
   return {
-    channels: state.activeChannels[state.currentTeam]
+    channels: channels.filter((ch) => 'group' === ch.type)
   }
 }
 

@@ -43,7 +43,7 @@ export default class MasterInput extends Component {
       this.editor.setText('')
     }, 0)
 
-    this.currentTeamProvider().sendMessage(message)
+    this.currentTeamProvider().send(message)
   }
 
   render() {
