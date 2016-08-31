@@ -6,6 +6,7 @@
     "enter": "unset!"
   },
   ".im": {
+    "cmd-k": "im:choose-channel",
     "cmd-1": "im:team-1",
     "cmd-2": "im:team-2",
     "cmd-3": "im:team-3",

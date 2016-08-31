@@ -4,11 +4,14 @@
     "no-console": 0,
     "semi": 0,
     "max-len": 0,
+    "import/imports-first": 0,
+    "import/no-extraneous-dependencies": 0,
     "import/newline-after-import": 0,
     "react/jsx-filename-extension": 0,
     "react/prefer-stateless-function": 0,
   },
   "globals": {
+    "atom": true,
     "window": true,
     "document": true
   }
