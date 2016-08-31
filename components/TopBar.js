@@ -12,14 +12,12 @@ class TopBar extends Component {
     return (
       <div className="top-bar">
         <div className="title">
-          <div className="name"># {name.replace(/^#/,'')}</div>
+          <div className="name"># {name}</div>
           <div className="desc">
             <div className="members">
-             <small>[{members || 0}] members</small>
+              <small>[{members || 0}] members</small>
             </div>
-            <div className="current-topic">
-              {topic || 'You can setup your own topic here ...'}
-            </div>
+            <div className="current-topic">{topic}</div>
           </div>
         </div>
         <div className="search">
@@ -31,13 +29,11 @@ class TopBar extends Component {
 }
 
 function mapStateToProps(state) {
-  const active = state.activeChannels[state.currentTeam] || []
-  const currentChannel = active.find((ch) => ch.name === state.currentChannel) || {name: 'general'}
-  const { name, members, topic } = currentChannel
+  const { id, name, type } = state.currentChannel
   return {
+    id,
     name,
-    members,
-    topic
+    type,
   }
 }
 

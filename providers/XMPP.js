@@ -66,6 +66,16 @@ export default class XMPP {
     return this.id
   }
 
+  join(channel) {
+    const { type, name, id } = channel
+    debugger
+    if (type === 'group') {
+      this.client.join(`${id}/${this.username}`)
+    } else {
+      this.client.join(`${id}`)
+    }
+  }
+
   send({teamId, username, to, text}) {
     this.client.send(to.id, text, to.type === 'group');
     if(to.type != 'group') {
@@ -118,6 +128,14 @@ export default class XMPP {
     }
   }
 
+  // fullFillChannelHistory(stanza) {
+  //   if(
+  //     stanza.name == 'message'
+  //   ) {
+  //     console.table(stanza)
+  //   }
+  // }
+
   getRoomsList(data) {
     this.client.conn.send(
       new this.client.Element('iq', {
@@ -166,6 +184,26 @@ export default class XMPP {
       // join default channels
       this.channels.forEach((ch) => {
         client.join(`${ch}@${this.conference}/${this.username}`)
+        // client.setPresence('chat', 'Out to lunch')
+
+
+        // <presence
+        //   from='hag66@shakespeare.lit/pda'
+        //   id='n13mt3l'
+        //   to='coven@chat.shakespeare.lit/thirdwitch'>
+        //   <x xmlns='http://jabber.org/protocol/muc'>
+        //     <history maxstanzas='20'/>
+        //   </x>
+        // </presence>
+
+        this.client.conn.send(
+          new this.client.Element('presence', {
+            from: `${this.username}@${this.host}/${data.jid.resource}`,
+            to: `${ch}@${this.conference}/${this.username}`,
+            type: 'get',
+            id: 'get_muc_room_history',
+          }).c('x', { xmlns: 'hhttp://jabber.org/protocol/muc' }).c('history', { maxstanzas: '250' })
+        )
       })
 
       // Accept all subscribeers
