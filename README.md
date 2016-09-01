@@ -1,7 +1,11 @@
-# im package
+# Atom @ IM
 
-A short description of your package.
+`Atom @ IM` is a integrated `Chat` system for the Hackable Atom Editor.
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+ ----
 
-https://www.mockaroo.com/ for mock data generation
+It provides a top-level API, and GUI to its consumer that allows them to send and receive
+messages, easily and connect all chat systems right in your editor.
+
+
+![Atom@IM](https://cloud.githubusercontent.com/assets/31591/18161000/ab04e8b8-7038-11e6-82ec-7d482e7ed82a.png)
