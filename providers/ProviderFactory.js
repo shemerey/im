@@ -4,12 +4,10 @@ import IRC from './IRC'
 import XMPP from './XMPP'
 
 import { addTeam } from '../actions'
-import listToConnect from '../listToConnect'
 
 let instance = null
 export default class ProviderFactory {
-
-  constructor(store) {
+  constructor({ store } = {}) {
     if (!instance) {
       instance = this
     } else {
@@ -22,7 +20,7 @@ export default class ProviderFactory {
       XMPP,
     }
 
-    this.listToConnect = listToConnect
+    this.listToConnect = []
     return instance
   }
 
