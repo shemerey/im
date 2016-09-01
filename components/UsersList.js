@@ -22,7 +22,7 @@ class UsersList extends Component {
 function mapStateToProps(state) {
   const channels = state.activeChannels[state.currentTeam] || []
   return {
-    users: channels.filter((ch) => 'personal' === ch.type)
+    users: channels.filter((ch) => 'personal' === ch.type).slice(0, 6)
   }
 }
 
