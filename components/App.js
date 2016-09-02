@@ -18,9 +18,14 @@ class App extends Component {
   }
 
   render() {
-    const appIsReady = true //false
-    return (appIsReady ? this.app() : <Loader />)
+    return (this.props.imIsReady ? this.app() : <Loader />)
   }
 }
 
-export default connect()(App)
+function mapStateToProps(state) {
+  return {
+    imIsReady: state.imIsReady
+  }
+}
+
+export default connect(mapStateToProps)(App)
