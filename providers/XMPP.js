@@ -164,20 +164,6 @@ export default class XMPP {
 
     // Connected
     client.on('online', (data) => {
-      // join default channels
-      this.channels.forEach((ch) => {
-        client.join(`${ch}@${this.conference}/${this.username}`)
-
-        this.client.conn.send(
-          new this.client.Element('presence', {
-            from: `${this.username}@${this.host}/${data.jid.resource}`,
-            to: `${ch}@${this.conference}/${this.username}`,
-            type: 'get',
-            id: 'get_muc_room_history',
-          }).c('x', { xmlns: 'hhttp://jabber.org/protocol/muc' }).c('history', { maxstanzas: '250' })
-        )
-      })
-
       // Accept all subscribeers
       client.on('subscribe', (from) => {
         client.acceptSubscription(from)
