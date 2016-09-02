@@ -64,7 +64,7 @@ export default class XMPP {
     if(to.type != 'group') {
       this.store.dispatch(
         sendMessage({
-          teamId: this.id,
+          teamId,
           to,
           username,
           text
