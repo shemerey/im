@@ -1,29 +1,33 @@
 'use babel'
 
+
 import { Client } from 'irc'
 import {
-  markMessageAsRecived,
   getMessage,
   sendMessage,
   setChannels,
-  setActiveChannels
+  setActiveChannels,
 } from '../actions'
 
 export default class IrcProvider {
-  
-  constructor(store, options) {
-    const { id, name, server, username, password, channels, icon } = options
+  constructor({ id, name, icon, store, options }) {
+    // redux store instance
     this.store = store
 
+    // provider details
     this.id = id
     this.name = name
-    this.type = 'IrcProvider'
-
-    this.username = username
-    this.channels = channels
+    this.type = 'IRC'
     this.icon = icon
 
-    this.client = new Client(server, username, { channels, password  })
+    // user details & server
+    this.username = options.username
+    this.host = options.host
+    this.channels = options.channels
+
+    const { host, username, password, channels } = options
+
+    this.client = new Client(host, username, { channels, password, autoConnect: false })
     this.perform()
   }
 
@@ -31,13 +35,23 @@ export default class IrcProvider {
     return this.client
   }
 
-  getId(){
+  getId() {
     return this.id
   }
 
-  sendMessage({teamId, username, to, text}) {
-    this.client.say(to, text)
-    this.store.dispatch(sendMessage({teamId, username, to, text}))
+  send({ teamId, username, to, text }) {
+    this.client.say(to.id, text)
+    this.store.dispatch(sendMessage({ teamId, username, to, text }))
+  }
+
+  join(channel) {
+    const { type, name, id } = channel
+    if (type === 'group') {
+      this.client.join(id)
+    } else {
+      console.log(channel)
+      // this.client.join(`${id}`)
+    }
   }
 
   perform() {
@@ -45,20 +59,41 @@ export default class IrcProvider {
 
     // Message Recived
     client.addListener('message', (username, to, text) => {
-      store.dispatch(getMessage({teamId: this.id, username, to, text}))
+      store.dispatch(getMessage({ teamId: id, username, to, text }))
     })
 
     // Chennel list recived
-    client.addListener('channellist', (channels) => {
-      // FullFill all channels
-      store.dispatch(setChannels({teamId: this.id, channels}))
-
-      // Fullfill joined
-      const activeNames = Object.keys(client.chans)
-      const activeChannels = channels.filter((ch) => {
-        return activeNames.includes(ch.name)
+    client.addListener('channellist', (list) => {
+      const channels = list.map((obj) => {
+        return {
+          id: obj.name,
+          name: obj.name.replace(/^#/, ''),
+          type: 'group',
+        }
       })
-      store.dispatch(setActiveChannels({teamId: this.id, channels: activeChannels}))
+
+      this.store.dispatch(setChannels({ teamId: this.id, channels }))
+      this.store.dispatch(setActiveChannels({ teamId: this.id, channels }))
+
+      // debugger
+      // const channels = stanza.children[0].children.map((obj) => {
+      //   return {
+      //     id: obj.attrs.jid,
+      //     name: obj.attrs.name,
+      //     type: 'group',
+      //   }
+      // })
+
+      // this.store.dispatch(setChannels({teamId: this.id, channels}))
+      // this.store.dispatch(setActiveChannels({teamId: this.id, channels}))
+      //
+      // // FullFill all channels
+      // store.dispatch(setChannels({ teamId: this.id, channels }))
+      //
+      // // Fullfill joined
+      // const activeNames = Object.keys(client.chans)
+      // const activeChannels = channels.filter((ch) => activeNames.includes(ch.name))
+      // store.dispatch(setActiveChannels({ teamId: this.id, channels: activeChannels }))
     })
 
     // Connected
@@ -66,5 +101,7 @@ export default class IrcProvider {
       // Ask for full list of channels
       client.send('LIST')
     })
+
+    this.client.connect()
   }
 }

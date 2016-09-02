@@ -7,6 +7,7 @@ export default handleActions({
   // Send Meesage to server
   [sendMessage]: (state, action) => {
     const {teamId, username, to, text} = action.payload
+    debugger
     const teamIdAndChannel = `${teamId}${to}`
     const channelMessages = state[teamIdAndChannel] || []
 
