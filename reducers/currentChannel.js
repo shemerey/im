@@ -5,4 +5,4 @@ import { setCurrentChannel } from '../actions'
 
 export default handleActions({
   [setCurrentChannel]: (state, action) => action.payload
-}, '#general')
+}, {})

@@ -65,7 +65,7 @@ export default class XMPP {
       this.store.dispatch(
         sendMessage({
           teamId: this.id,
-          to: to.id,
+          to,
           username,
           text
         })
@@ -139,7 +139,11 @@ export default class XMPP {
     });
 
     // group chat
-    client.on('groupchat', (to, username, text, stamp) => {
+    client.on('groupchat', (channelId, username, text, stamp) => {
+      const to = {
+        id: channelId,
+        type: 'group',
+      }
       this.store.dispatch(
         getMessage({
           teamId: this.id,
@@ -151,7 +155,11 @@ export default class XMPP {
     })
 
     // private chat
-    client.on('chat', (to, text) => {
+    client.on('chat', (personId, text) => {
+      const to = {
+        id: personId,
+        type: 'personal',
+      }
       this.store.dispatch(
         getMessage({
           teamId: this.id,

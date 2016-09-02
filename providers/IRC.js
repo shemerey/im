@@ -50,7 +50,6 @@ export default class IrcProvider {
       this.client.join(id)
     } else {
       console.log(channel)
-      // this.client.join(`${id}`)
     }
   }
 
@@ -58,7 +57,10 @@ export default class IrcProvider {
     const { id, client, store } = this
 
     // Message Recived
-    client.addListener('message', (username, to, text) => {
+    client.addListener('message', (username, channelId, text) => {
+      const to = {
+        id: channelId,
+      }
       store.dispatch(getMessage({ teamId: id, username, to, text }))
     })
 
