@@ -79,7 +79,7 @@ export default class MasterInput extends Component {
 function mapStateToProps(state) {
   return {
     currentTeam: state.currentTeam,
-    currentChannel: state.currentChannel,
+    currentChannel: state.currentChannels[state.currentTeam] || {},
     currentUser: 'anton'
   }
 }

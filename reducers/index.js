@@ -7,7 +7,7 @@ import channels from './channels'
 import activeChannels from './activeChannels'
 import messages from './messages'
 import currentTeam from './currentTeam'
-import currentChannel from './currentChannel'
+import currentChannels from './currentChannels'
 
 export {
   imIsReady,
@@ -17,5 +17,5 @@ export {
   activeChannels,
   messages,
   currentTeam,
-  currentChannel,
+  currentChannels,
 }
