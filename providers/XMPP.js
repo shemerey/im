@@ -1,6 +1,5 @@
 'use babel'
 
-import { Client } from 'irc'
 import {
   markMessageAsRecived,
   getMessage,
@@ -12,21 +11,7 @@ import {
 import { SimpleXMPP } from 'simple-xmpp'
 
 export default class XMPP {
-
-  constructor(store, options) {
-    const {
-      id,
-      name,
-      icon,
-      server,
-      conference,
-      port,
-      jid,
-      username,
-      password,
-      channels,
-    } = options
-
+  constructor({ id, name, icon, store, options }) {
     // redux store instance
     this.store = store
 
@@ -37,13 +22,12 @@ export default class XMPP {
     this.icon = icon
 
     // user details & server
-    this.username = username
-    this.password = password
-    this.channels = channels
-    this.conference = conference
-    this.host = server
-
-    this.jid = jid || `${username}@${server}`
+    this.username = options.username
+    this.password = options.password
+    this.channels = options.channels
+    this.conference = options.conference
+    this.host = options.host
+    this.jid = options.jid || `${options.username}@${options.host}`
 
     this.client = new SimpleXMPP()
     this.perform()
@@ -68,7 +52,6 @@ export default class XMPP {
 
   join(channel) {
     const { type, name, id } = channel
-    debugger
     if (type === 'group') {
       this.client.join(`${id}/${this.username}`)
     } else {
@@ -82,7 +65,7 @@ export default class XMPP {
       this.store.dispatch(
         sendMessage({
           teamId: this.id,
-          to: to.id,
+          to,
           username,
           text
         })
@@ -128,14 +111,6 @@ export default class XMPP {
     }
   }
 
-  // fullFillChannelHistory(stanza) {
-  //   if(
-  //     stanza.name == 'message'
-  //   ) {
-  //     console.table(stanza)
-  //   }
-  // }
-
   getRoomsList(data) {
     this.client.conn.send(
       new this.client.Element('iq', {
@@ -156,7 +131,11 @@ export default class XMPP {
     });
 
     // group chat
-    client.on('groupchat', (to, username, text, stamp) => {
+    client.on('groupchat', (channelId, username, text, stamp) => {
+      const to = {
+        id: channelId,
+        type: 'group',
+      }
       this.store.dispatch(
         getMessage({
           teamId: this.id,
@@ -168,12 +147,16 @@ export default class XMPP {
     })
 
     // private chat
-    client.on('chat', (to, text) => {
+    client.on('chat', (personId, text) => {
+      const to = {
+        id: personId,
+        type: 'personal',
+      }
       this.store.dispatch(
         getMessage({
           teamId: this.id,
           to,
-          username: to.split('@')[0],
+          username: personId.split('@')[0],
           text
         })
       )
@@ -184,17 +167,6 @@ export default class XMPP {
       // join default channels
       this.channels.forEach((ch) => {
         client.join(`${ch}@${this.conference}/${this.username}`)
-        // client.setPresence('chat', 'Out to lunch')
-
-
-        // <presence
-        //   from='hag66@shakespeare.lit/pda'
-        //   id='n13mt3l'
-        //   to='coven@chat.shakespeare.lit/thirdwitch'>
-        //   <x xmlns='http://jabber.org/protocol/muc'>
-        //     <history maxstanzas='20'/>
-        //   </x>
-        // </presence>
 
         this.client.conn.send(
           new this.client.Element('presence', {

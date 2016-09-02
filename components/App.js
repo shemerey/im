@@ -6,21 +6,27 @@ import { connect } from 'react-redux'
 import SideBar from './SideBar'
 import Main from './Main'
 import Loader from './Loader'
+import ErrorScreen from './ErrorScreen'
 
 class App extends Component {
-  app() {
-    return (
+  render() {
+    if (this.props.imHasProblems.message) return (<ErrorScreen message={this.props.imHasProblems.message} />)
+    if (this.props.imIsReady) return (
       <div className="im">
         <SideBar />
         <Main />
       </div>
     )
-  }
-
-  render() {
-    const appIsReady = true //false
-    return (appIsReady ? this.app() : <Loader />)
+    // return loader by default
+    return <Loader />
   }
 }
 
-export default connect()(App)
+function mapStateToProps(state) {
+  return {
+    imIsReady: state.imIsReady,
+    imHasProblems: state.imHasProblems,
+  }
+}
+
+export default connect(mapStateToProps)(App)

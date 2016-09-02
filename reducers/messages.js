@@ -7,7 +7,7 @@ export default handleActions({
   // Send Meesage to server
   [sendMessage]: (state, action) => {
     const {teamId, username, to, text} = action.payload
-    const teamIdAndChannel = `${teamId}${to}`
+    const teamIdAndChannel = `${teamId}${to.id}`
     const channelMessages = state[teamIdAndChannel] || []
 
     const message = {
@@ -25,7 +25,7 @@ export default handleActions({
   // Mark message as recived
   [markMessageAsRecived]: (state, action) => {
     const {teamId, username, to, text} = action.payload
-    const teamIdAndChannel = `${teamId}${to}`
+    const teamIdAndChannel = `${teamId}${to.id}`
     let channelMessages = state[teamIdAndChannel] || []
 
     const message = {
@@ -51,7 +51,7 @@ export default handleActions({
   // Get Message from Server
   [getMessage]: (state, action) => {
     const {teamId, username, to, text} = action.payload
-    const teamIdAndChannel = `${teamId}${to}`
+    const teamIdAndChannel = `${teamId}${to.id}`
     const channelMessages = state[teamIdAndChannel] || []
 
     const message = {
