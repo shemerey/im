@@ -76,7 +76,7 @@ export default class ProviderFactory {
         if (this.teams.length > 0) {
           resolve(this.temas)
         } else {
-          reject('no teams here')
+          reject(new Error('No Teams Here'))
         }
       })
     })
