@@ -111,14 +111,6 @@ export default class XMPP {
     }
   }
 
-  // fullFillChannelHistory(stanza) {
-  //   if(
-  //     stanza.name == 'message'
-  //   ) {
-  //     console.table(stanza)
-  //   }
-  // }
-
   getRoomsList(data) {
     this.client.conn.send(
       new this.client.Element('iq', {
@@ -175,17 +167,6 @@ export default class XMPP {
       // join default channels
       this.channels.forEach((ch) => {
         client.join(`${ch}@${this.conference}/${this.username}`)
-        // client.setPresence('chat', 'Out to lunch')
-
-
-        // <presence
-        //   from='hag66@shakespeare.lit/pda'
-        //   id='n13mt3l'
-        //   to='coven@chat.shakespeare.lit/thirdwitch'>
-        //   <x xmlns='http://jabber.org/protocol/muc'>
-        //     <history maxstanzas='20'/>
-        //   </x>
-        // </presence>
 
         this.client.conn.send(
           new this.client.Element('presence', {

@@ -76,26 +76,6 @@ export default class IrcProvider {
 
       this.store.dispatch(setChannels({ teamId: this.id, channels }))
       this.store.dispatch(setActiveChannels({ teamId: this.id, channels }))
-
-      // debugger
-      // const channels = stanza.children[0].children.map((obj) => {
-      //   return {
-      //     id: obj.attrs.jid,
-      //     name: obj.attrs.name,
-      //     type: 'group',
-      //   }
-      // })
-
-      // this.store.dispatch(setChannels({teamId: this.id, channels}))
-      // this.store.dispatch(setActiveChannels({teamId: this.id, channels}))
-      //
-      // // FullFill all channels
-      // store.dispatch(setChannels({ teamId: this.id, channels }))
-      //
-      // // Fullfill joined
-      // const activeNames = Object.keys(client.chans)
-      // const activeChannels = channels.filter((ch) => activeNames.includes(ch.name))
-      // store.dispatch(setActiveChannels({ teamId: this.id, channels: activeChannels }))
     })
 
     // Connected
