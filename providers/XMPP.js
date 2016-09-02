@@ -164,7 +164,7 @@ export default class XMPP {
         getMessage({
           teamId: this.id,
           to,
-          username: to.split('@')[0],
+          username: personId.split('@')[0],
           text
         })
       )
