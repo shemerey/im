@@ -5,7 +5,7 @@ import React, {PropTypes, Component} from 'react'
 export default class Loader extends Component {
   render() {
     return (
-      <div className="im-loader-container">
+      <div className="im-full-screen-container">
         <div className="sk-cube-grid">
           <div className="sk-cube sk-cube1"></div>
           <div className="sk-cube sk-cube2"></div>

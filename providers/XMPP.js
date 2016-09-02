@@ -1,6 +1,5 @@
 'use babel'
 
-import { Client } from 'irc'
 import {
   markMessageAsRecived,
   getMessage,
@@ -12,21 +11,7 @@ import {
 import { SimpleXMPP } from 'simple-xmpp'
 
 export default class XMPP {
-
-  constructor(store, options) {
-    const {
-      id,
-      name,
-      icon,
-      server,
-      conference,
-      port,
-      jid,
-      username,
-      password,
-      channels,
-    } = options
-
+  constructor({ id, name, icon, store, options }) {
     // redux store instance
     this.store = store
 
@@ -37,13 +22,12 @@ export default class XMPP {
     this.icon = icon
 
     // user details & server
-    this.username = username
-    this.password = password
-    this.channels = channels
-    this.conference = conference
-    this.host = server
-
-    this.jid = jid || `${username}@${server}`
+    this.username = options.username
+    this.password = options.password
+    this.channels = options.channels
+    this.conference = options.conference
+    this.host = options.host
+    this.jid = options.jid || `${options.username}@${options.host}`
 
     this.client = new SimpleXMPP()
     this.perform()
@@ -68,7 +52,6 @@ export default class XMPP {
 
   join(channel) {
     const { type, name, id } = channel
-    debugger
     if (type === 'group') {
       this.client.join(`${id}/${this.username}`)
     } else {

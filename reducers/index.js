@@ -1,6 +1,7 @@
 'use babel'
 
 import imIsReady from './imIsReady'
+import imHasProblems from './imHasProblems'
 import teams from './teams'
 import channels from './channels'
 import activeChannels from './activeChannels'
@@ -10,6 +11,7 @@ import currentChannel from './currentChannel'
 
 export {
   imIsReady,
+  imHasProblems,
   teams,
   channels,
   activeChannels,
