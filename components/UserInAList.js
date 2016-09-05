@@ -9,18 +9,18 @@ import { setCurrentChannel } from '../actions'
 
 class UserInAList extends Component {
   setThisChannelAsCurrent() {
-    const { dispatch, id, name } = this.props
-    dispatch(setCurrentChannel({id, name, type: 'personal'}))
+    const { dispatch, id, name, teamId } = this.props
+    dispatch(setCurrentChannel({teamId, id, name, type: 'personal'}))
   }
 
   render() {
-    const { name, id, currentChannel} = this.props
+    const { name, id, currentChannel } = this.props
 
     return (
       <li
         onClick={(e) => { ::this.setThisChannelAsCurrent() }}
         className={classNames({ active: id === currentChannel.id})}
-        >
+      >
         {name}
       </li>
     )
@@ -29,7 +29,8 @@ class UserInAList extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentChannel: state.currentChannel
+    teamId: state.currentTeam,
+    currentChannel: state.currentChannels[state.currentTeam] || {}
   }
 }
 

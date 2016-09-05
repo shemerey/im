@@ -8,8 +8,8 @@ import { setCurrentChannel } from '../actions'
 
 class Channel extends Component {
   setThisChannelAsCurrent() {
-    const { dispatch, id, name } = this.props
-    dispatch(setCurrentChannel({id, name, type: 'group'}))
+    const { dispatch, id, name, teamId } = this.props
+    dispatch(setCurrentChannel({teamId, id, name, type: 'group'}))
   }
 
   render() {
@@ -19,7 +19,7 @@ class Channel extends Component {
       <li
         onClick={(e) => { ::this.setThisChannelAsCurrent() }}
         className={classNames({ active: id === currentChannel.id})}
-        >
+      >
         # {name.replace(/^#/,'')}
       </li>
     )
@@ -28,7 +28,8 @@ class Channel extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentChannel: state.currentChannel
+    teamId: state.currentTeam,
+    currentChannel: state.currentChannels[state.currentTeam] || {},
   }
 }
 

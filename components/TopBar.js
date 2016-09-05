@@ -7,17 +7,18 @@ import { SearchIcon } from './Icons'
 class TopBar extends Component {
 
   render() {
-    const { name, members, topic } = this.props
+    if (!this.props.currentChannel) return <div />;
+    const { name } = this.props.currentChannel
 
     return (
       <div className="top-bar">
         <div className="title">
-          <div className="name"># {name}</div>
+          <div className="name"># {222}</div>
           <div className="desc">
             <div className="members">
-              <small>[{members || 0}] members</small>
+              <small>[{0}] members</small>
             </div>
-            <div className="current-topic">{topic}</div>
+            <div className="current-topic">{2}</div>
           </div>
         </div>
         <div className="search">
@@ -29,11 +30,9 @@ class TopBar extends Component {
 }
 
 function mapStateToProps(state) {
-  const { id, name, type } = state.currentChannel
   return {
-    id,
-    name,
-    type,
+    teamId: state.currentTeam,
+    currentChannel: state.currentChannels[state.currentTeam],
   }
 }
 
