@@ -4,13 +4,13 @@ import React, {PropTypes, Component} from 'react'
 import { FileIcon, SmileIcon } from './Icons'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
-import ProviderFactory from '../providers/ProviderFactory'
+import TeamLoader from '../lib/TeamLoader'
 
 export default class MasterInput extends Component {
   constructor(props) {
     super(props)
     this.editor = atom.workspace.buildTextEditor()
-    this.teamFactory = new ProviderFactory()
+    this.teamFactory = new TeamLoader()
   }
 
   shouldComponentUpdate(nextProps) {
