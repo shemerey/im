@@ -3,7 +3,7 @@
     "enter": "unset!"
   },
   "body": {
-    "cmd-o": "im:choose-channel",
+    "cmd-K": "im:choose-channel",
     "ctrl-alt-cmd-m": "im:toggle"
   }
 }
