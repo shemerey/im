@@ -13,6 +13,9 @@
   "globals": {
     "atom": true,
     "window": true,
+    "describe": true,
+    "it": true,
+    "expect": true,
     "document": true
   }
 }
