@@ -9,7 +9,9 @@ import Loader from './Loader'
 
 class App extends Component {
   render() {
-    if (this.props.teams.lenght) {
+    const { teams } = this.props
+
+    if (teams.length > 0) {
       return (
         <div className="im">
           <SideBar />
@@ -25,7 +27,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
   return {
-    teams: state.teams || [],
+    teams: state.teams,
   }
 }
 
