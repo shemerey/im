@@ -9,9 +9,31 @@
 It provides a top-level API, and GUI to its consumer that allows them to send and receive
 messages, easily and connect all chat systems right in your editor.
 
-Press `Ctrl`-`Option`-`CMD`-`m` to start `Atom@IM`,  you should specify you connection in
+Press `Ctrl`-`Option`-`CMD`-`m` to start `Atom@IM`,  you should specify you connection in `~/.atom/ims.cson`
 
-`~/.atom/ims.cson`
+![Atom@IM](https://cloud.githubusercontent.com/assets/31591/18161000/ab04e8b8-7038-11e6-82ec-7d482e7ed82a.png)
+
+## Installation
+
+Clone the project
+
+```bash
+$ git clone https://github.com/shemerey/im.git && cd im
+```
+
+Install dependencies
+
+```bash
+$ apm i
+```
+
+Link package
+
+```bash
+$ apm link .
+```
+
+Create file `~/.atom/ims.cson` and configure it
 
 ### Config
 
@@ -36,5 +58,3 @@ Press `Ctrl`-`Option`-`CMD`-`m` to start `Atom@IM`,  you should specify you conn
     password: "brug.4TXmDvXSMjV2buS9tRuC"
     channels: ['#test']
 ```
-
-![Atom@IM](https://cloud.githubusercontent.com/assets/31591/18161000/ab04e8b8-7038-11e6-82ec-7d482e7ed82a.png)
