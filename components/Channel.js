@@ -4,12 +4,12 @@ import React, {PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-import { setCurrentChannel } from '../actions'
+// import { setCurrentChannel } from '../actions'
 
 class Channel extends Component {
   setThisChannelAsCurrent() {
     const { dispatch, id, name, teamId } = this.props
-    dispatch(setCurrentChannel({teamId, id, name, type: 'group'}))
+    // dispatch(setCurrentChannel({teamId, id, name, type: 'group'}))
   }
 
   render() {

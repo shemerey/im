@@ -5,12 +5,12 @@ import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { OnlineIcon, OfflineIcon, DoNotDisturbIcon } from './Icons'
 
-import { setCurrentChannel } from '../actions'
+// import { setCurrentChannel } from '../actions'
 
 class UserInAList extends Component {
   setThisChannelAsCurrent() {
     const { dispatch, id, name, teamId } = this.props
-    dispatch(setCurrentChannel({teamId, id, name, type: 'personal'}))
+    // dispatch(setCurrentChannel({teamId, id, name, type: 'personal'}))
   }
 
   render() {

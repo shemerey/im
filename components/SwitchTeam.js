@@ -2,7 +2,7 @@
 
 import React, {PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
-import { setCurrentTeam } from '../actions'
+// import { setCurrentTeam } from '../lib/actions'
 import classNames from 'classnames'
 
 class SwitchTeam extends Component {
@@ -11,7 +11,8 @@ class SwitchTeam extends Component {
     const active = (team.id == currentTeam)
 
     return (
-      <li key={team.id} onClick={(e) => dispatch(setCurrentTeam(team.id))} className={classNames({ active })}>
+      // <li key={team.id} onClick={(e) => dispatch(setCurrentTeam(team.id))} className={classNames({ active })}>
+      <li key={team.id} className={classNames({ active })}>
         <img src={team.icon} alt={team.name} />
         ⌘{team.id}
       </li>
