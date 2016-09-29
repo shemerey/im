@@ -31,8 +31,8 @@ class TopBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    teamId: state.currentTeam,
-    currentChannel: state.currentChannels[state.currentTeam],
+    teamId: 1, //state.currentTeam,
+    currentChannel: {}, // state.currentChannels[state.currentTeam],
   }
 }
 

@@ -28,10 +28,11 @@ class MessagesList extends Component {
 }
 
 function mapStateToProps(state) {
-  const teamId = state.currentTeam
-  const currentChannel = state.currentChannels[teamId] || {}
+  // const teamId = state.currentTeam
+  // const currentChannel = state.currentChannels[teamId] || {}
+  //   state.messages[`${teamId}${currentChannel.id}`]
   return {
-    messages: state.messages[`${teamId}${currentChannel.id}`]
+    messages: []
   }
 }
 

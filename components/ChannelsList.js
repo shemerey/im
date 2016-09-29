@@ -27,9 +27,10 @@ class ChannelsList extends Component {
 }
 
 function mapStateToProps(state) {
-  const channels = state.activeChannels[state.currentTeam] || []
+  // const channels = state.activeChannels[state.currentTeam] || []
+    // channels.filter((ch) => 'group' === ch.type).slice(0, 6)
   return {
-    channels: channels.filter((ch) => 'group' === ch.type).slice(0, 6)
+    channels: []
   }
 }
 

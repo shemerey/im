@@ -6,7 +6,7 @@ describe('MessageObject', () => {
   const obj = {
     text: 'new message here',
   }
-  
+
   const  [m1, m2] = [new MessageObject(obj), new MessageObject(obj)]
 
   it('has unique id for each new team', () => {
