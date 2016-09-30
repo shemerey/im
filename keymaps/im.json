@@ -4,6 +4,15 @@
   },
   "body": {
     "cmd-K": "im:choose-channel",
+    "cmd-1": "im:team-1",
+    "cmd-2": "im:team-2",
+    "cmd-3": "im:team-3",
+    "cmd-4": "im:team-4",
+    "cmd-5": "im:team-5",
+    "cmd-6": "im:team-6",
+    "cmd-7": "im:team-7",
+    "cmd-8": "im:team-8",
+    "cmd-9": "im:team-9",
     "ctrl-alt-cmd-m": "im:toggle"
   }
 }
