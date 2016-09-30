@@ -17,7 +17,7 @@ class SideBar extends Component {
       <div className="im-side-bar">
         <div className="teams">
           <ul>
-            {teams.map((team) => <SwitchTeam key={team.id} team={team} />)}
+            {teams.map((team, index) => <SwitchTeam key={team.id} order={index} team={team} />)}
           </ul>
         </div>
         <div className="team-details">
@@ -32,7 +32,7 @@ class SideBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    teams: []
+    teams: state.teams
   }
 }
 
