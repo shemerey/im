@@ -4,23 +4,23 @@ import React, {PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 
-// import { setCurrentChannel } from '../actions'
+import { setActiveChannel } from '../lib/actions'
 
 class Channel extends Component {
-  setThisChannelAsCurrent() {
-    const { dispatch, id, name, teamId } = this.props
-    // dispatch(setCurrentChannel({teamId, id, name, type: 'group'}))
+  selectThisChannel() {
+    const { teamId, channel, dispatch } = this.props
+    dispatch(setActiveChannel({ teamId, channel }))
   }
 
   render() {
-    const { name, id, currentChannel } = this.props
-
+    const { name, id, selectedChannel  } = this.props
     return (
       <li
-        onClick={(e) => { ::this.setThisChannelAsCurrent() }}
-        className={classNames({ active: id === currentChannel.id})}
+        key={ id }
+        onClick={ (e) => ::this.selectThisChannel() }
+        className={ classNames({ active: id === selectedChannel.id }) }
       >
-        # {name.replace(/^#/,'')}
+        # { name }
       </li>
     )
   }
@@ -28,8 +28,8 @@ class Channel extends Component {
 
 function mapStateToProps(state) {
   return {
-    teamId: state.currentTeam,
-    currentChannel: state.currentChannels[state.currentTeam] || {},
+    teamId: state.currentTeam.id,
+    selectedChannel: state.activeChannels[state.currentTeam.id] || {},
   }
 }
 
