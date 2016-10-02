@@ -6,13 +6,13 @@ import UserInAList from './UserInAList'
 
 class UsersList extends Component {
   render() {
-    const { users } = this.props
+    const { channels, users } = this.props
 
     return (
       <div className="direct-messages">
-        <h3><i className="icon icon-comment-discussion"/>Direct Messages <small>(4)</small></h3>
+        <h3><i className="icon icon-comment-discussion"/>Direct Messages <small>({users.length})</small></h3>
         <ul>
-          {users.map((user) => <UserInAList key={user.id} {...user} />)}
+          {channels.map((ch) => <UserInAList {...ch} channel={ch}  />)}
         </ul>
       </div>
     )
@@ -20,10 +20,9 @@ class UsersList extends Component {
 }
 
 function mapStateToProps(state) {
-  // const channels = state.activeChannels[state.currentTeam] || []
-    // channels.filter((ch) => 'personal' === ch.type).slice(0, 6)
   return {
-    users: []
+    users: state.users[state.currentTeam.id],
+    channels: state.channels[state.currentTeam.id].filter((ch) => ch.type === 'dm') || [],
   }
 }
 
