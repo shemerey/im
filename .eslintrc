@@ -1,5 +1,8 @@
 {
   "extends": "airbnb",
+  "settings": {
+    "import/core-modules": ["atom"],
+  },
   "rules": {
     "no-console": 0,
     "semi": 0,

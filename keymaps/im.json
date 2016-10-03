@@ -2,8 +2,10 @@
   "atom-text-editor.im-editor": {
     "enter": "unset!"
   },
+  ".platform-darwin": {
+    "cmd-K": "im:choose-channel"
+  },
   "body": {
-    "cmd-K": "im:choose-channel",
     "cmd-1": "im:team-1",
     "cmd-2": "im:team-2",
     "cmd-3": "im:team-3",
