@@ -20,8 +20,7 @@ class MessagesList extends Component {
       <div className="messages-view">
         {messages.map((msg, index) => {
           if (first.senderId != msg.senderId) { first = msg; odd = !odd }
-          const user = users.find((u) => u.id === msg.senderId)
-          return <Message key={index} {...msg} first={msg === first} odd={odd} user={user} />
+          return <Message key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
         })}
       </div>
     )

@@ -82,7 +82,7 @@ function mapStateToProps(state) {
   return {
     currentTeam: state.currentTeam,
     currentChannel: state.activeChannels[state.currentTeam.id],
-    currentUser: state.users[state.currentTeam.id].find((u) => u.id === state.currentTeam.userId)
+    currentUser: state.users[state.currentTeam.id][state.currentTeam.userId]
   }
 }
 

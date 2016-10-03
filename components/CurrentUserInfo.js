@@ -17,10 +17,9 @@ import { connect } from 'react-redux'
 }
 
 function mapStateToProps(state) {
-  const currentUser = state.users[state.currentTeam.id].find((u) => u.id === state.currentTeam.userId)
   return {
     teamName: state.currentTeam.name,
-    currentUser
+    currentUser: state.users[state.currentTeam.id][state.currentTeam.userId],
   }
 }
 
