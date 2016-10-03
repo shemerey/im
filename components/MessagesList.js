@@ -6,7 +6,7 @@ import Message from './Message'
 
 class MessagesList extends Component {
   render() {
-    const { messages } = this.props
+    const { messages, users } = this.props
 
     if (!messages || messages.length === 0) {
       return <div className="messages-view">
@@ -20,7 +20,8 @@ class MessagesList extends Component {
       <div className="messages-view">
         {messages.map((msg, index) => {
           if (first.senderId != msg.senderId) { first = msg; odd = !odd }
-          return <Message key={index} {...msg} first={msg === first} odd={odd} />
+          const user = users.find((u) => u.id === msg.senderId)
+          return <Message key={index} {...msg} first={msg === first} odd={odd} user={user} />
         })}
       </div>
     )
@@ -36,6 +37,7 @@ function mapStateToProps(state) {
     currentTeam,
     currentChannel,
     messages,
+    users: state.users[state.currentTeam.id]
   }
 }
 

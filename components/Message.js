@@ -19,13 +19,13 @@ export default class Message extends Component {
   }
 
   render() {
-    const { text, createdAt, senderId, first, last, odd } = this.props
+    const { text, createdAt, user, first, last, odd } = this.props
 
     return (
       <div className={classNames('im-message', {first, last, odd, even: !odd})}>
         <div className="gutter">
           <span className="username">
-            <a href="#">@{senderId}</a>
+            <a href="#">@{user.username}</a>
           </span>
           <span className="ts">12:30 pm</span>
         </div>
@@ -37,6 +37,8 @@ export default class Message extends Component {
     )
   }
 }
+
+
 
 /*
 
