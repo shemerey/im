@@ -12,8 +12,7 @@ class ChannelsList extends Component {
     return (
       <div className="channels">
         <h3>
-          <i className="icon icon-comment" /> channels
-          <small>({channels.length})</small>
+          <i className="icon icon-comment" /> channels <span className="counter">({channels.length})</span>
         </h3>
         <ul>
           {

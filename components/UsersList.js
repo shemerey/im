@@ -10,7 +10,7 @@ class UsersList extends Component {
 
     return (
       <div className="direct-messages">
-        <h3><i className="icon icon-comment-discussion"/>Direct Messages <small>({users.length})</small></h3>
+        <h3><i className="icon icon-comment-discussion"/>Direct Messages <span className="counter">({users.length})</span></h3>
         <ul>
           {channels.map((ch) => <UserInAList {...ch} channel={ch}  />)}
         </ul>
