@@ -8,7 +8,7 @@ class MessagesList extends Component {
   render() {
     const { messages } = this.props
 
-    if (!messages) {
+    if (!messages || messages.length === 0) {
       return <div className="messages-view">
                 <h2>You are going to be first</h2>
              </div>
@@ -19,7 +19,7 @@ class MessagesList extends Component {
     return (
       <div className="messages-view">
         {messages.map((msg, index) => {
-          if (first.username != msg.username) { first = msg; odd = !odd }
+          if (first.senderId != msg.senderId) { first = msg; odd = !odd }
           return <Message key={index} {...msg} first={msg === first} odd={odd} />
         })}
       </div>
@@ -28,11 +28,14 @@ class MessagesList extends Component {
 }
 
 function mapStateToProps(state) {
-  // const teamId = state.currentTeam
-  // const currentChannel = state.currentChannels[teamId] || {}
-  //   state.messages[`${teamId}${currentChannel.id}`]
+  const currentTeam = state.currentTeam
+  const currentChannel = state.activeChannels[currentTeam.id]
+  const messages = state.messages[`${currentTeam.id}#${currentChannel.id}`]
+
   return {
-    messages: []
+    currentTeam,
+    currentChannel,
+    messages,
   }
 }
 
