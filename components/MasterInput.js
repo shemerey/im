@@ -5,6 +5,7 @@ import { FileIcon, SmileIcon } from './Icons'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
+import MessageObject from '../lib/MessageObject'
 
 export default class MasterInput extends Component {
   constructor(props) {
@@ -32,18 +33,19 @@ export default class MasterInput extends Component {
     event.preventDefault()
 
     const { dispatch, currentTeam, currentChannel, currentUser } = this.props
-    const message = {
-      teamId: currentTeam,
-      username: currentUser,
-      to: currentChannel,
-      text: this.editor.getText()
-    }
+    const message = new MessageObject({
+      senderId: currentUser.id,
+      channelId: currentChannel.id,
+      text: this.editor.getText(),
+      createdAt: new Date(),
+      state: 'new',
+    })
 
     setTimeout(() => {
       this.editor.setText('')
     }, 0)
 
-    this.currentTeamProvider().send(message)
+    currentTeam.send(message)
   }
 
   render() {
@@ -53,7 +55,7 @@ export default class MasterInput extends Component {
     }
 
     const handlers = {
-      'sendMessage': ::this.sendMessage
+      'sendMessage': ::this.sendMessage,
     }
 
     return (
@@ -78,9 +80,9 @@ export default class MasterInput extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentTeam: 1, //state.currentTeam,
-    currentChannel: {}, //state.currentChannels[state.currentTeam] || {},
-    currentUser: 'anton'
+    currentTeam: state.currentTeam,
+    currentChannel: state.activeChannels[state.currentTeam.id],
+    currentUser: state.users[state.currentTeam.id].find((u) => u.id === state.currentTeam.userId)
   }
 }
 
