@@ -13,12 +13,15 @@ class Channel extends Component {
   }
 
   render() {
-    const { name, id, selectedChannel  } = this.props
+    const { name, id, channel, selectedChannel  } = this.props
     return (
       <li
         key={ id }
         onClick={ (e) => ::this.selectThisChannel() }
-        className={ classNames({ active: id === selectedChannel.id }) }
+        className={ classNames({
+          active: id === selectedChannel.id,
+          unread: channel.unreadCount > 0
+        }) }
       >
         # { name }
       </li>
