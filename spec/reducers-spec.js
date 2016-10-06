@@ -2,6 +2,7 @@
 
 import TeamObject from '../lib/TeamObject'
 import UserObject from '../lib/UserObject'
+import ChannelObject from '../lib/ChannelObject'
 
 // Action
 import {
@@ -28,6 +29,7 @@ import {
   teams,
   currentTeam,
   users,
+  channels,
 } from '../lib/reducers'
 
 describe('Reducers', () => {
@@ -52,6 +54,20 @@ describe('Reducers', () => {
       id: 'u2id',
       teamId: 111,
       username: 'secondUser',
+    }),
+  ]
+
+  const [ch1, ch2] = [
+    new ChannelObject({
+      id: 'ch1id',
+      teamId: 'xxx',
+      name: 'First Channel',
+    }),
+
+    new ChannelObject({
+      id: 'ch2id',
+      teamId: 'xxx',
+      name: 'Second Channel',
     }),
   ]
 
@@ -224,5 +240,58 @@ describe('Reducers', () => {
         },
       })
     })
+  })
+
+  describe('channels', () => {
+    it('sets channels', () => {
+      expect(channels(undefined, setAllChannels({
+        teamId: 'xxx',
+        channels: [ch1, ch2],
+      }))).toEqual({
+        xxx: [ch1, ch2],
+      })
+    })
+
+    it('replace existing channels when setAllChannels action fiered', () => {
+      expect(channels({
+        xxx: [ch1, ch2],
+      }, setAllChannels({
+        teamId: 'xxx',
+        channels: [ch1],
+      }))).toEqual({ xxx: [ch1] })
+    })
+
+    it('adds channels', () => {
+      expect(channels({
+        xxx: [ch1],
+      }, addChannels({
+        teamId: 'xxx',
+        channels: [ch2],
+      }))).toEqual({
+        xxx: [ch1, ch2],
+      })
+    })
+
+    it('will update channel', () => {
+      const changedChannel = new ChannelObject({
+        id: ch1.id,
+        teamId: ch1.teamId,
+        name: 'Changed Name',
+      })
+
+      expect(channels({
+        xxx: [ch1],
+      }, updateChannel(changedChannel))).toEqual({
+        xxx: [changedChannel],
+      })
+    })
+
+    it('adds new channel', () => {
+      expect(channels({
+        xxx: [ch1],
+      }, addNewChannel(ch2))).toEqual({
+        xxx: [ch1, ch2],
+      })
+    });
   })
 })
