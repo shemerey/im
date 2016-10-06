@@ -29,6 +29,7 @@ import {
   teams,
   currentTeam,
   users,
+  activeChannels,
   channels,
 } from '../lib/reducers'
 
@@ -239,6 +240,30 @@ describe('Reducers', () => {
           u2id: u2,
         },
       })
+    })
+  })
+
+  describe('activeChannels', () => {
+    it('will add first channel as active when setAllChannels fiered', () => {
+      expect(activeChannels(undefined, setAllChannels({
+        teamId: 'xxx',
+        channels: [ch2, ch1],
+      }))).toEqual({
+        xxx: ch2,
+      })
+    })
+
+    it('description', () => {
+
+    })
+    it('description', () => {
+
+    })
+    it('description', () => {
+
+    })
+    it('description', () => {
+
     })
   })
 
