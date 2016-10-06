@@ -58,16 +58,25 @@ describe('Reducers', () => {
     }),
   ]
 
-  const [ch1, ch2] = [
+  const [ch1, ch2, ch3] = [
     new ChannelObject({
       id: 'ch1id',
       teamId: 'xxx',
+      isMember: false,
       name: 'First Channel',
     }),
 
     new ChannelObject({
       id: 'ch2id',
       teamId: 'xxx',
+      isMember: true,
+      name: 'Second Channel',
+    }),
+
+    new ChannelObject({
+      id: 'ch3id',
+      teamId: 'xxx',
+      isMember: false,
       name: 'Second Channel',
     }),
   ]
@@ -244,26 +253,113 @@ describe('Reducers', () => {
   })
 
   describe('activeChannels', () => {
-    it('will add first channel as active when setAllChannels fiered', () => {
+    it('will add first channel where you is a member as active when setAllChannels fiered', () => {
       expect(activeChannels(undefined, setAllChannels({
         teamId: 'xxx',
-        channels: [ch2, ch1],
+        channels: [ch1, ch2, ch3],
       }))).toEqual({
         xxx: ch2,
       })
     })
 
-    it('description', () => {
-
+    it('will add first channel where you is a member as active when addChannels fiered', () => {
+      expect(activeChannels(undefined, addChannels({
+        teamId: 'xxx',
+        channels: [ch1, ch2, ch3],
+      }))).toEqual({
+        xxx: ch2,
+      })
     })
-    it('description', () => {
 
+    it('will NOT add first channel if you have active channel for setAllChannels, addChannels actions', () => {
+      const activeChannel = new ChannelObject({
+        id: 'someId',
+        teamId: 'xxx',
+        isMember: true,
+        name: 'Some New Channel',
+      })
+
+      expect(activeChannels({
+        xxx: ch2,
+      }, setAllChannels({
+        teamId: 'xxx',
+        channels: [activeChannel],
+      }))).toEqual({
+        xxx: ch2,
+      })
+
+      expect(activeChannels({
+        xxx: ch2,
+      }, addChannels({
+        teamId: 'xxx',
+        channels: [activeChannel],
+      }))).toEqual({
+        xxx: ch2,
+      })
     })
-    it('description', () => {
 
+    it('will replace current active channel when setActiveChannel fiered', () => {
+      const activeChannel = new ChannelObject({
+        id: 'someId',
+        teamId: 'xxx',
+        isMember: true,
+        name: 'Some New Channel',
+      })
+
+      expect(activeChannels({
+        xxx: ch2,
+      }, setActiveChannel(activeChannel))).toEqual({
+        xxx: activeChannel,
+      })
     })
-    it('description', () => {
 
+    it('will add first channel where you is a member when addNewChannel is fiered', () => {
+      expect(activeChannels(undefined, addNewChannel(ch2))).toEqual({
+        xxx: ch2,
+      })
+
+      expect(activeChannels(undefined, addNewChannel(ch1))).toEqual({})
+    })
+
+    it('will not change existing active channel when addNewChannel fiered', () => {
+      const activeChannel = new ChannelObject({
+        id: 'someId',
+        teamId: 'xxx',
+        isMember: true,
+        name: 'Some New Channel',
+      })
+
+      expect(activeChannels({
+        xxx: ch2,
+      }, addNewChannel(activeChannel))).toEqual({
+        xxx: ch2,
+      })
+    })
+
+    it('will set channel as active when no actice and updateChannel fiered', () => {
+      expect(activeChannels(undefined, updateChannel(ch1))).toEqual({})
+      expect(activeChannels(undefined, updateChannel(ch2))).toEqual({ xxx: ch2 })
+    })
+
+    it('will NOT set channel as active when there is an actice and updateChannel fiered', () => {
+      const activeChannel = new ChannelObject({
+        id: 'someId',
+        teamId: 'xxx',
+        isMember: true,
+        name: 'Some New Channel',
+      })
+
+      expect(activeChannels({
+        xxx: ch2,
+      }, updateChannel(activeChannel))).toEqual({
+        xxx: ch2,
+      })
+
+      expect(activeChannels({
+        xxx: ch2,
+      }, updateChannel(ch1))).toEqual({
+        xxx: ch2,
+      })
     })
   })
 
