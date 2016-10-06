@@ -1,6 +1,6 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
 import UserInAList from './UserInAList'

@@ -1,6 +1,6 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentTeam } from '../lib/actions'
 import classNames from 'classnames'

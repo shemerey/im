@@ -1,6 +1,6 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { FormattedTime } from 'react-intl'
 import { MessageSentIcon, MessageRecivedIcon, DotsIcon } from './Icons'
 import classNames from 'classnames'

@@ -1,6 +1,6 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { FileIcon, SmileIcon } from './Icons'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'

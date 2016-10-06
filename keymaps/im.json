@@ -1,9 +1,15 @@
 {
+  "atom-text-editor": {
+    "cmd-l": "im:focus-input"
+  },
   "atom-text-editor.im-editor": {
     "enter": "unset!"
   },
   ".platform-darwin": {
     "cmd-K": "im:choose-channel"
+  },
+  "body": {
+    "cmd-l": "im:focus-input"
   },
   "body": {
     "cmd-1": "im:team-1",

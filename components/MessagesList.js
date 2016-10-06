@@ -1,6 +1,6 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import Message from './Message'
 
@@ -10,8 +10,10 @@ class MessagesList extends Component {
 
     if (!messages || messages.length === 0) {
       return <div className="messages-view">
-                <h2>You are going to be first</h2>
-             </div>
+                <div className="empty">
+                  <h1>You are going to be the first.</h1>
+                </div>
+              </div>
     }
 
     let first = {}
@@ -19,7 +21,7 @@ class MessagesList extends Component {
     return (
       <div className="messages-view">
         {messages.map((msg, index) => {
-          if (first.senderId != msg.senderId) { first = msg; odd = !odd }
+          if (first.senderId !== msg.senderId) { first = msg; odd = !odd }
           return <Message key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
         })}
       </div>
@@ -36,7 +38,7 @@ function mapStateToProps(state) {
     currentTeam,
     currentChannel,
     messages,
-    users: state.users[state.currentTeam.id]
+    users: state.users[state.currentTeam.id],
   }
 }
 
