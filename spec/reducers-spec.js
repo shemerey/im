@@ -248,27 +248,52 @@ describe('Reducers', () => {
         teamId: 'xxx',
         channels: [ch1, ch2],
       }))).toEqual({
-        xxx: [ch1, ch2],
+        xxx: {
+          [ch1.id]: ch1,
+          [ch2.id]: ch2,
+        },
       })
     })
 
     it('replace existing channels when setAllChannels action fiered', () => {
       expect(channels({
-        xxx: [ch1, ch2],
+        xxx: {},
       }, setAllChannels({
         teamId: 'xxx',
         channels: [ch1],
-      }))).toEqual({ xxx: [ch1] })
+      }))).toEqual({
+        xxx: {
+          [ch1.id]: ch1,
+        },
+      })
     })
 
     it('adds channels', () => {
       expect(channels({
-        xxx: [ch1],
+        xxx: {
+          [ch1.id]: ch1,
+        },
       }, addChannels({
         teamId: 'xxx',
-        channels: [ch2],
+        channels: [ch1, ch2],
       }))).toEqual({
-        xxx: [ch1, ch2],
+        xxx: {
+          [ch1.id]: ch1,
+          [ch2.id]: ch2,
+        },
+      })
+    })
+
+    it('adds new Channel', () => {
+      expect(channels({
+        xxx: {
+          [ch1.id]: ch1,
+        },
+      }, addNewChannel(ch2))).toEqual({
+        xxx: {
+          [ch1.id]: ch1,
+          [ch2.id]: ch2,
+        },
       })
     })
 
@@ -280,18 +305,14 @@ describe('Reducers', () => {
       })
 
       expect(channels({
-        xxx: [ch1],
+        xxx: {
+          [ch1.id]: ch1,
+        },
       }, updateChannel(changedChannel))).toEqual({
-        xxx: [changedChannel],
+        xxx: {
+          [changedChannel.id]: changedChannel,
+        },
       })
     })
-
-    it('adds new channel', () => {
-      expect(channels({
-        xxx: [ch1],
-      }, addNewChannel(ch2))).toEqual({
-        xxx: [ch1, ch2],
-      })
-    });
   })
 })
