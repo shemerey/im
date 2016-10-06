@@ -1,6 +1,7 @@
 'use babel'
 
 import React, {PropTypes, Component} from 'react'
+import _ from 'underscore-plus'
 import { connect } from 'react-redux'
 
 import Channel from './Channel'
@@ -27,8 +28,9 @@ class ChannelsList extends Component {
 }
 
 function mapStateToProps(state) {
+  const channels = _.values(state.channels[state.currentTeam.id] || {})
   return {
-    channels: state.channels[state.currentTeam.id].filter((ch) => ch.type === 'group') || [],
+    channels: channels.filter((ch) => ch.type === 'group'),
   }
 }
 

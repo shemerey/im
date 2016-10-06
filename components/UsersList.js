@@ -2,6 +2,7 @@
 
 import React, {PropTypes, Component} from 'react'
 import { connect } from 'react-redux'
+import _ from 'underscore-plus'
 import UserInAList from './UserInAList'
 
 class UsersList extends Component {
@@ -23,9 +24,10 @@ class UsersList extends Component {
 }
 
 function mapStateToProps(state) {
+  const channels = _.values(state.channels[state.currentTeam.id] || {})
   return {
     users: state.users[state.currentTeam.id],
-    channels: state.channels[state.currentTeam.id].filter((ch) => ch.type === 'dm') || [],
+    channels: channels.filter((ch) => ch.type === 'dm'),
   }
 }
 

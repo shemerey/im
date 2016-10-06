@@ -10,7 +10,7 @@ import { setActiveChannel } from '../lib/actions'
 class UserInAList extends Component {
   selectThisChannel() {
     const { teamId, channel, dispatch } = this.props
-    dispatch(setActiveChannel({ teamId, channel }))
+    dispatch(setActiveChannel(channel))
   }
 
   render() {
