@@ -7,11 +7,11 @@ import classNames from 'classnames'
 
 export default class Message extends Component {
   messageOptions() {
-    if ('sent' === this.props.status) {
+    if ('new' === this.props.state) {
       return <MessageSentIcon />
     }
 
-    if ('recived' === this.props.status) {
+    if ('sent' === this.props.state) {
       return <MessageRecivedIcon />
     }
 

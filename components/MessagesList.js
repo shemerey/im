@@ -2,6 +2,7 @@
 
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'underscore-plus'
 import Message from './Message'
 
 class MessagesList extends Component {
@@ -32,13 +33,15 @@ class MessagesList extends Component {
 function mapStateToProps(state) {
   const currentTeam = state.currentTeam
   const currentChannel = state.activeChannels[currentTeam.id]
-  const messages = state.messages[`${currentTeam.id}#${currentChannel.id}`]
+  const messages = _.sortBy(_.values(state.messages[`${currentTeam.id}#${currentChannel.id}`] || {}), 'id')
+  const users = state.users[state.currentTeam.id]
+  debugger
 
   return {
     currentTeam,
     currentChannel,
     messages,
-    users: state.users[state.currentTeam.id],
+    users,
   }
 }
 

@@ -31,12 +31,16 @@ export default class MasterInput extends Component {
 
   sendMessage(event) {
     event.preventDefault()
+    if (this.editor.getText().trim().length === 0) {
+      return
+    }
 
     const { dispatch, currentTeam, currentChannel, currentUser } = this.props
     const message = new MessageObject({
       senderId: currentUser.id,
+      teamId: currentTeam.id,
       channelId: currentChannel.id,
-      text: this.editor.getText(),
+      text: this.editor.getText().trim(),
       createdAt: new Date(),
       state: 'new',
     })
