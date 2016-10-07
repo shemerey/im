@@ -3,6 +3,7 @@
 import TeamObject from '../lib/TeamObject'
 import UserObject from '../lib/UserObject'
 import ChannelObject from '../lib/ChannelObject'
+import MessageObject from '../lib/MessageObject'
 
 // Action
 import {
@@ -22,6 +23,9 @@ import {
   updateChannel,
   // Messages
   sendMessage,
+  updateMessage,
+  replaceMessage,
+  setAllMessages,
 } from '../lib/actions'
 
 // Reducers
@@ -31,6 +35,7 @@ import {
   users,
   activeChannels,
   channels,
+  messages,
 } from '../lib/reducers'
 
 describe('Reducers', () => {
@@ -81,6 +86,26 @@ describe('Reducers', () => {
     }),
   ]
 
+  const [m1, m2, m3] = [
+    new MessageObject({
+      teamId: 'xxx',
+      channelId: 'yyy',
+      senderId: 'zzz',
+      text: 'First Mesage Here',
+    }),
+    new MessageObject({
+      teamId: 'xxx',
+      channelId: 'yyy',
+      senderId: 'zzz',
+      text: 'Second Mesage Here',
+    }),
+    new MessageObject({
+      teamId: 'xxx',
+      channelId: 'yyy',
+      senderId: 'zzz',
+      text: 'Third Mesage Here',
+    }),
+  ]
   describe('teams', () => {
     it('returns empty array by default', () => {
       expect(teams(undefined, { type: 'wrongType' })).toEqual([])
@@ -432,6 +457,102 @@ describe('Reducers', () => {
       }, updateChannel(changedChannel))).toEqual({
         xxx: {
           [changedChannel.id]: changedChannel,
+        },
+      })
+    })
+  })
+
+  describe('messages', () => {
+    it('will add new message to the channel', () => {
+      expect(messages(undefined, sendMessage(m1))).toEqual({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      })
+    })
+
+    it('will add update message on the channel when ', () => {
+      const changedMessage = new MessageObject({
+        ...m1.serialize(),
+        text: 'changed text',
+      })
+
+      expect(messages({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      }, updateMessage(changedMessage))).toEqual({
+        [`${changedMessage.teamId}#${changedMessage.channelId}`]: {
+          [changedMessage.id]: changedMessage,
+        },
+      })
+
+      expect(messages({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      }, updateMessage(m1))).toEqual({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      })
+    })
+
+    it('will add update message on the channel when ', () => {
+      const changedMessage = new MessageObject({
+        ...m1.serialize(),
+        text: 'changed text',
+      })
+
+      expect(messages({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      }, sendMessage(changedMessage))).toEqual({
+        [`${changedMessage.teamId}#${changedMessage.channelId}`]: {
+          [changedMessage.id]: changedMessage,
+        },
+      })
+
+      expect(messages({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      }, sendMessage(m1))).toEqual({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      })
+    })
+
+    it('will set all messages to the channel', () => {
+      const mmm = new MessageObject({
+        ...m1.serialize(),
+        id: '123123123',
+        text: 'changed text',
+      })
+      expect(messages({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      }, setAllMessages([m1, m2, mmm, m3]))).toEqual({
+        [`${m2.teamId}#${m2.channelId}`]: {
+          [m1.id]: m1,
+          [m2.id]: m2,
+          [mmm.id]: mmm,
+          [m3.id]: m3,
+        },
+      })
+    })
+
+    it('will replace message even if id is not eql', () => {
+      expect(messages({
+        [`${m1.teamId}#${m1.channelId}`]: {
+          [m1.id]: m1,
+        },
+      }, replaceMessage(m1, m2))).toEqual({
+        [`${m2.teamId}#${m2.channelId}`]: {
+          [m2.id]: m2,
         },
       })
     })
