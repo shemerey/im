@@ -34,8 +34,7 @@ function mapStateToProps(state) {
   const currentTeam = state.currentTeam
   const currentChannel = state.activeChannels[currentTeam.id]
   const messages = _.sortBy(_.values(state.messages[`${currentTeam.id}#${currentChannel.id}`] || {}), 'id')
-  const users = state.users[state.currentTeam.id]
-  debugger
+  const users = state.users[state.currentTeam.id] || {}
 
   return {
     currentTeam,
