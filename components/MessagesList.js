@@ -6,25 +6,34 @@ import _ from 'underscore-plus'
 import Message from './Message'
 
 class MessagesList extends Component {
-  render() {
+
+  list() {
     const { messages, users } = this.props
 
     if (!messages || messages.length === 0) {
-      return <div className="messages-view">
-                <div className="empty">
-                  <h1>You are going to be the first.</h1>
-                </div>
-              </div>
+      return this.emptyList()
     }
 
     let first = {}
     let odd = true
+    return messages.map((msg, index) => {
+      if (first.senderId !== msg.senderId) { first = msg; odd = !odd }
+      return <Message key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
+    })
+  }
+
+  emptyList() {
+    return (
+      <div className="empty">
+        <h1>You are going to be the first.</h1>
+      </div>
+    )
+  }
+
+  render() {
     return (
       <div className="messages-view">
-        {messages.map((msg, index) => {
-          if (first.senderId !== msg.senderId) { first = msg; odd = !odd }
-          return <Message key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
-        })}
+        {this.list()}
       </div>
     )
   }
