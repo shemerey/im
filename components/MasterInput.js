@@ -41,7 +41,7 @@ export default class MasterInput extends Component {
       teamId: currentTeam.id,
       channelId: currentChannel.id,
       text: this.editor.getText().trim(),
-      createdAt: new Date(),
+      createdAt: (new Date()).getTime(),
       state: 'new',
     })
 

@@ -4,6 +4,7 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
 import Message from './Message'
+import SlackMessage from './SlackMessage'
 
 class MessagesList extends Component {
 
@@ -18,7 +19,7 @@ class MessagesList extends Component {
     let odd = true
     return messages.map((msg, index) => {
       if (first.senderId !== msg.senderId) { first = msg; odd = !odd }
-      return <Message key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
+      return <SlackMessage key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
     })
   }
 
