@@ -31,7 +31,7 @@ export default class Message extends Component {
         </div>
         <div className="content">
           <span>{text}</span>
-          <span>{this.messageOptions()}</span>
+          <span className="actions">{this.messageOptions()}</span>
         </div>
       </div>
     )
