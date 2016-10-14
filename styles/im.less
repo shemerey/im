@@ -22,35 +22,6 @@
   margin: 0 !important;
   padding: 0 !important;
   background-color: @base-background-color !important;
-  // Reset
-  div, span, applet, object, iframe,
-  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-  a, abbr, acronym, address, big, cite, code,
-  del, dfn, em, img, ins, kbd, q, s, samp,
-  small, strike, strong, sub, sup, tt, var,
-  b, u, i, center,
-  dl, dt, dd, ol, ul, li,
-  fieldset, form, label, legend,
-  table, caption, tbody, tfoot, thead, tr, th, td,
-  article, aside, canvas, details, embed,
-  figure, figcaption, footer, header, hgroup,
-  menu, nav, output, ruby, section, summary,
-  time, mark, audio, video {
-  	margin: 0;
-  	padding: 0;
-  	border: 0;
-  	font-size: 100%;
-  	font: inherit;
-  	vertical-align: baseline;
-  }
-  /* HTML5 display-role reset for older browsers */
-  article, aside, details, figcaption, figure,
-  footer, header, hgroup, menu, nav, section {
-  	display: block;
-  }
-  ol, ul {
-  	list-style: none;
-  }
 
   .im {
     display: flex;
@@ -58,6 +29,14 @@
     @keyframes fadein {
       from { opacity: 0; }
       to   { opacity: 1; }
+    }
+
+    .odd {
+      background-color: @app-background-color;
+    }
+
+    .even {
+      background-color: @background-color-highlight;
     }
 
     .im-main {
@@ -130,14 +109,6 @@
           justify-content: flex-start;
           padding-bottom: 4px;
           margin-top: -4px;
-
-          &.odd {
-            background-color: @app-background-color;
-          }
-
-          &.even {
-            background-color: @background-color-highlight;
-          }
 
           .gutter {
             min-width: 65px;
@@ -246,14 +217,6 @@
             display: inline-block;
           }
 
-          &.odd {
-            background-color: @app-background-color;
-          }
-
-          &.even {
-            background-color: @background-color-highlight;
-          }
-
           .gutter {
             width: 140px;
             display: flex;
@@ -264,6 +227,7 @@
               margin-right: 5px;
             }
           }
+
           .content {
             flex: 1;
             display: flex;
@@ -419,19 +383,6 @@
           .unread {
             color: @text-color-selected;
             font-weight: bold;
-          }
-
-          ul {
-            li {
-              // margin-top: 3px;
-              padding: 2px 36px;
-
-              &:hover {
-                cursor: pointer;
-                background-color: @background-color-highlight;
-              }
-
-            }
           }
 
           h3 {

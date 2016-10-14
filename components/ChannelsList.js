@@ -23,13 +23,13 @@ class ChannelsList extends Component {
           channels
           <span className="counter"> ({channels.length})</span>
         </h3>
-        <ul>
+        <div>
           {
             channels
             .filter(ch => ch.isMember)
             .map(ch => <Channel {...ch} channel={ch} />)
           }
-        </ul>
+        </div>
       </div>
     )
   }

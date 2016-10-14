@@ -3,23 +3,35 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 
+import Loader from './Loader'
 import TopBar from './TopBar'
 import MessagesList from './MessagesList'
 import MasterInput from './MasterInput'
-import Loader from './Loader'
+
+// Style
+import styled from 'styled-components'
+const ImMainWrapper = styled.div`
+`;
 
 class Main extends Component {
+  static
+  get propTypes() {
+    return {
+      currentTeam: PropTypes.object,
+    }
+  }
+
   render() {
     if (this.props.currentTeam.status === 'new') {
       return <Loader />
     }
 
     return (
-      <div className="im-main">
+      <ImMainWrapper className="im-main">
         <TopBar />
         <MessagesList />
         <MasterInput />
-      </div>
+      </ImMainWrapper>
     )
   }
 }

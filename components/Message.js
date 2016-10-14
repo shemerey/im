@@ -4,14 +4,29 @@ import React, { PropTypes, Component } from 'react'
 import { FormattedTime } from 'react-intl'
 import { MessageSentIcon, MessageRecivedIcon, DotsIcon } from './Icons'
 import classNames from 'classnames'
+import { messageTs } from '../lib/utils'
 
 export default class Message extends Component {
+  static
+  get propTypes() {
+    return {
+      state: PropTypes.string,
+      text: PropTypes.string,
+      createdAt: PropTypes.number,
+      first: PropTypes.boolean,
+      dispatch: PropTypes.function,
+      user: PropTypes.object,
+    }
+  }
+
   messageOptions() {
-    if ('new' === this.props.state) {
+    const { state } = this.props
+
+    if (state === 'new') {
       return <MessageSentIcon />
     }
 
-    if ('sent' === this.props.state) {
+    if (state === 'sent') {
       return <MessageRecivedIcon />
     }
 
@@ -19,15 +34,13 @@ export default class Message extends Component {
   }
 
   render() {
-    const { text, createdAt, user, first, last, odd } = this.props
+    const { text, createdAt, user, first } = this.props
 
     return (
-      <div className={classNames('im-message', {first, last, odd, even: !odd})}>
+      <div className={classNames('im-message', { first })}>
         <div className="gutter">
-          <span className="username">
-            <a href="#">@{user.username}</a>
-          </span>
-          <span className="ts">12:30 pm</span>
+          <span className="username">@{user.username} </span>
+          <span className="ts">{messageTs(createdAt)}</span>
         </div>
         <div className="content">
           <span>{text}</span>
