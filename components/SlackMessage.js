@@ -5,7 +5,7 @@ import { FormattedTime } from 'react-intl'
 import { MessageSentIcon, MessageRecivedIcon, DotsIcon } from './Icons'
 import classNames from 'classnames'
 import { messageTs } from '../lib/utils'
-
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
@@ -74,7 +74,7 @@ margin-top: -4px;
   }
 
   .username:hover, .ts:hover {
-    color: @text-color-subtle;
+    color: ${colors.textSubtle};
     text-decoration: underline;
   }
 

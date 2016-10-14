@@ -9,28 +9,29 @@ import CurrentUserInfo from './CurrentUserInfo'
 import ChannelsList from './ChannelsList'
 import UsersList from './UsersList'
 import Loader from './Loader'
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
 const TeamsWrapepr = styled.div`
 min-height: 100vh;
 padding: 5px;
-border-right: 1px solid @base-border-color;
-color: @text-color-subtle;
+border-right: 1px solid ${colors.baseBorder};
+color: ${colors.textSubtle};
 text-align: center;
 display: flex;
 flex-direction: column;
 
 li {
-  margin: @top-margin + 2px 5px;
+  margin: 8px 5px;
 
   &.active::before {
     content: '';
     width: 10px;
     margin-left: -17px;
     margin-top: 4px;
-    height: @team-icon-size - 8px;
-    background-color: @text-color-highlight;
+    height: 28px;
+    background-color: ${colors.textHighlight};
     border-radius: 3px;
     float: left;
   }
@@ -39,11 +40,11 @@ li {
   img {
     display: block;
     border-radius: 3px;
-    width: @team-icon-size;
-    height: @team-icon-size;
+    width: 36px;
+    height: 36px;
 
     &:hover {
-      border: 2px solid @text-color-highlight;
+      border: 2px solid ${colors.textHighlight};
       box-sizing: border-box;
     }
   }
@@ -51,8 +52,8 @@ li {
 `
 
 const TeamDetails = styled.div`
-background-color: @base-background-color;
-border-right: 1px solid @base-border-color;
+background-color: ${colors.background};
+border-right: 1px solid ${colors.baseBorder};
 font-size: 14px;
 min-width: 240px;
 max-width: 240px;
@@ -65,14 +66,14 @@ display: block;
 }
 
 .direct-messages, .channels {
-  color: @text-color-subtle;
+  color: ${colors.textSubtle};
 
   .active {
-    background-color: @background-color-highlight;
+    background-color: ${colors.bgHighlight};
   }
 
   .unread {
-    color: @text-color-selected;
+    color: ${colors.textSelected};
     font-weight: bold;
   }
 
@@ -80,7 +81,7 @@ display: block;
     margin: 20px 16px 5px 16px;
     text-transform: uppercase;
     font-size: 14px;
-    color: @text-color-subtle;
+    color: ${colors.textSubtle};
     small {
       font-size: 12px;
     }
@@ -94,7 +95,6 @@ justify-content: flex-start;
 `
 
 class SideBar extends Component {
-
   teamsBar() {
     const { teams } = this.props
 

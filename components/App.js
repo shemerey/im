@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import styled, { keyframes } from 'styled-components'
+import colors from './colors'
 
 import SideBar from './SideBar'
 import Main from './Main'
@@ -19,7 +20,7 @@ flex: 1;
 height: 100vh;
 display: flex;
 flex-direction: column;
-background-color: @base-background-color;
+background-color: ${colors.background};
     display: flex;
     animation: ${fadein} 0.3s;
 `

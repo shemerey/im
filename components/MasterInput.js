@@ -6,19 +6,20 @@ import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
 import MessageObject from '../lib/MessageObject'
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
 const MasterInputElement = styled.div`
-border-top: 1px solid @base-border-color;
-background-color: @base-background-color;
+border-top: 1px solid ${colors.baseBorder};
+background-color: ${colors.baseBackground};
 
 bottom: 0;
 right: 0;
 
 .container {
-  border: 1px solid @base-border-color;
-  background-color: @app-background-color;
+  border: 1px solid ${colors.baseBorder};
+  background-color: ${colors.appBackground};
   margin: 9px;
   padding-right: 7px;
   display: flex;
@@ -46,13 +47,13 @@ right: 0;
 }
 
 atom-text-editor {
-  background-color: @app-background-color;
+  background-color: ${colors.appBackground};
 }
 
 .im-editor {
   &::shadow {
     .cursor-line {
-      background-color: @app-background-color;
+      background-color: ${colors.appBackground};
     }
 
     .gutter {

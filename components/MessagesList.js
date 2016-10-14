@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import _ from 'underscore-plus'
 import Message from './Message'
 import SlackMessage from './SlackMessage'
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
@@ -12,7 +13,7 @@ const MessagesListElement = styled.div`
 flex: 1;
 padding-bottom: 10px;
 overflow-y: scroll;
-background-color: @app-background-color;
+background-color: ${colors.appBackground};
 
 .empty {
   display: flex;

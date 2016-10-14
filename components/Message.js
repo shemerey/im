@@ -5,6 +5,7 @@ import { FormattedTime } from 'react-intl'
 import { MessageSentIcon, MessageRecivedIcon, DotsIcon } from './Icons'
 import classNames from 'classnames'
 import { messageTs } from '../lib/utils'
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
@@ -21,17 +22,17 @@ justify-content: flex-start;
 &.first {
   padding-top: 13px;
   &:not(:first-of-type) {
-    border-top: 1px solid @base-border-color;
+    border-top: 1px solid ${colors.baseBorder};
   }
 }
 
 &:last-of-type {
-  border-bottom: 1px solid @base-border-color;
+  border-bottom: 1px solid ${colors.baseBorder};
 }
 
 .username {
   display: none;
-  color: @text-color-subtle;
+  color: ${colors.textSubtle};
   font-weight: bold;
   margin-right: 10px;
 }
@@ -39,7 +40,7 @@ justify-content: flex-start;
 .ts {
   display: none;
   font-weight: lighter;
-  color: @text-color-subtle;
+  color: ${colors.textSubtle};
   margin-right: 10px;
 }
 
@@ -53,7 +54,7 @@ justify-content: flex-start;
   justify-content: flex-end;
 
   a {
-    color: @text-color-subtle;
+    color: ${colors.textSubtle};
     margin-right: 5px;
   }
 }

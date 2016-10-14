@@ -3,14 +3,15 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { SearchIcon } from './Icons'
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
 const TopBarElement = styled.div`
 display: flex;
 justify-content: flex-start;
-border-bottom: 1px solid @base-border-color;
-background-color: @app-background-color;
+border-bottom: 1px solid ${colors.baseBorder};
+background-color: ${colors.appBackground};
 padding: 6px 11px 8px 10px;
 
 .title {
@@ -21,12 +22,12 @@ padding: 6px 11px 8px 10px;
   .name {
     font-size: 16px;
     font-weight: bolder;
-    color: @text-color-highlight;
+    color: ${colors.textHighlight};
   }
 
   .desc {
     display: flex;
-    color: @text-color-subtle;
+    color: ${colors.textSubtle};
 
     .members {
       margin-right: 10px;

@@ -7,6 +7,7 @@ import Loader from './Loader'
 import TopBar from './TopBar'
 import MessagesList from './MessagesList'
 import MasterInput from './MasterInput'
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
@@ -15,7 +16,7 @@ flex: 1;
 height: 100vh;
 display: flex;
 flex-direction: column;
-background-color: @base-background-color;
+background-color: ${colors.baseBackground};
 `
 
 class Main extends Component {
@@ -28,7 +29,11 @@ class Main extends Component {
 
   render() {
     if (this.props.currentTeam.status === 'new') {
-      return <Loader />
+      return (
+        <ImMainWrapper>
+          <Loader />
+        </ImMainWrapper>
+      )
     }
 
     return (

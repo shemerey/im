@@ -4,6 +4,7 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentTeam } from '../lib/actions'
 import classNames from 'classnames'
+import colors from './colors'
 
 // Style
 import styled from 'styled-components'
@@ -16,7 +17,7 @@ const TeamElement = styled.div`
     margin-left: -17px;
     margin-top: 4px;
     height: 26px;
-    background-color: @text-color-highlight;
+    background-color: ${colors.textHighlight};
     border-radius: 3px;
     float: left;
   }
@@ -28,7 +29,7 @@ const TeamElement = styled.div`
     height: 32px;
 
     &:hover {
-      border: 2px solid @text-color-highlight;
+      border: 2px solid ${colors.textHighlight};
       box-sizing: border-box;
     }
   }
