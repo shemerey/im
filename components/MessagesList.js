@@ -4,6 +4,7 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
 import Message from './Message'
+import Loader from './Loader'
 import SlackMessage from './SlackMessage'
 import colors from './colors'
 
@@ -32,6 +33,13 @@ background-color: ${colors.appBackground};
 `
 
 class MessagesList extends Component {
+  static
+  get propTypes() {
+    return {
+      messages: PropTypes.array,
+      users: PropTypes.array,
+    }
+  }
 
   list() {
     const { messages, users } = this.props

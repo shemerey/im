@@ -32,11 +32,18 @@ class Main extends Component {
   get propTypes() {
     return {
       currentTeam: PropTypes.object,
+      currentChannel: PropTypes.object,
     }
   }
 
   render() {
-    if (this.props.currentTeam.status === 'new') {
+    const { currentChannel, currentTeam } = this.props
+
+    if (currentChannel.status === 'inProgress') {
+      return <LoaderWrapper><Loader /></LoaderWrapper>
+    }
+
+    if (currentTeam.status === 'new') {
       return <LoaderWrapper><Loader /></LoaderWrapper>
     }
 
@@ -51,8 +58,11 @@ class Main extends Component {
 }
 
 function mapStateToProps(state) {
+  const ch = state.activeChannels[state.currentTeam.id] || {}
+  const channels = state.channels || {}
   return {
     currentTeam: state.currentTeam,
+    currentChannel: (channels[state.currentTeam.id] || {})[ch.id] || {},
   }
 }
 
