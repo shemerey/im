@@ -6,6 +6,30 @@ import _ from 'underscore-plus'
 import Message from './Message'
 import SlackMessage from './SlackMessage'
 
+// Style
+import styled from 'styled-components'
+const MessagesListElement = styled.div`
+flex: 1;
+padding-bottom: 10px;
+overflow-y: scroll;
+background-color: @app-background-color;
+
+.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 80vh;
+
+  h1 {
+    color: rgba(157, 165, 180, 0.2);
+    font-size: 36px;
+    font-weight: bold;
+    font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+  }
+}
+`
+
 class MessagesList extends Component {
 
   list() {
@@ -33,9 +57,9 @@ class MessagesList extends Component {
 
   render() {
     return (
-      <div className="messages-view">
+      <MessagesListElement>
         {this.list()}
-      </div>
+      </MessagesListElement>
     )
   }
 }

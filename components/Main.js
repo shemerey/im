@@ -11,7 +11,12 @@ import MasterInput from './MasterInput'
 // Style
 import styled from 'styled-components'
 const ImMainWrapper = styled.div`
-`;
+flex: 1;
+height: 100vh;
+display: flex;
+flex-direction: column;
+background-color: @base-background-color;
+`
 
 class Main extends Component {
   static
@@ -27,7 +32,7 @@ class Main extends Component {
     }
 
     return (
-      <ImMainWrapper className="im-main">
+      <ImMainWrapper>
         <TopBar />
         <MessagesList />
         <MasterInput />

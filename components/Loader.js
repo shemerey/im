@@ -5,12 +5,12 @@ import styled, { keyframes } from 'styled-components'
 
 // keyframes animations
 const cubeGridScaleDelay = keyframes`
-    0%, 70%, 100% {
-      transform: scale3D(1, 1, 1);
-    } 35% {
-      transform: scale3D(0, 0, 1);
-    }
-`;
+  0%, 70%, 100% {
+    transform: scale3D(1, 1, 1);
+  } 35% {
+    transform: scale3D(0, 0, 1);
+  }
+`
 
 // Loader with animations
 const CubeLoader = styled.div`
@@ -41,7 +41,7 @@ const CubeLoader = styled.div`
   .sk-cube-grid .sk-cube7 { animation-delay: 0s; }
   .sk-cube-grid .sk-cube8 { animation-delay: 0.1s; }
   .sk-cube-grid .sk-cube9 { animation-delay: 0.2s; }
-`;
+`
 
 export default function Loader() {
   return (

@@ -4,6 +4,44 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { SearchIcon } from './Icons'
 
+// Style
+import styled from 'styled-components'
+const TopBarElement = styled.div`
+display: flex;
+justify-content: flex-start;
+border-bottom: 1px solid @base-border-color;
+background-color: @app-background-color;
+padding: 6px 11px 8px 10px;
+
+.title {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+
+  .name {
+    font-size: 16px;
+    font-weight: bolder;
+    color: @text-color-highlight;
+  }
+
+  .desc {
+    display: flex;
+    color: @text-color-subtle;
+
+    .members {
+      margin-right: 10px;
+    }
+  }
+}
+
+.search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+`
+
 class TopBar extends Component {
 
   render() {
@@ -13,7 +51,7 @@ class TopBar extends Component {
     const { name, type, memberIds } = this.props.currentChannel
 
     return (
-      <div className="top-bar">
+      <TopBarElement>
         <div className="title">
           <div className="name">
             { type === 'group' ? '#' : '@'}
@@ -29,7 +67,7 @@ class TopBar extends Component {
         <div className="search">
           <SearchIcon />
         </div>
-      </div>
+      </TopBarElement>
     )
   }
 }
