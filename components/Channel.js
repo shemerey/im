@@ -7,6 +7,18 @@ import classNames from 'classnames'
 import { setActiveChannel } from '../lib/actions'
 
 class Channel extends Component {
+  static
+  get propTypes() {
+    return {
+      teamId: PropTypes.string,
+      channel: PropTypes.object,
+      dispatch: PropTypes.function,
+      name: PropTypes.string,
+      id: PropTypes.string,
+      selectedChannel: PropTypes.object,
+    }
+  }
+
   selectThisChannel() {
     const { teamId, channel, dispatch } = this.props
     dispatch(setActiveChannel(channel))

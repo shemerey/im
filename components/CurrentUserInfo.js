@@ -3,7 +3,15 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 
- class CurrentUserInfo extends Component {
+class CurrentUserInfo extends Component {
+  static
+  get propTypes() {
+    return {
+      currentUser: PropTypes.object,
+      teamName: PropTypes.string,
+    }
+  }
+
   render() {
     const { teamName, currentUser } = this.props
 

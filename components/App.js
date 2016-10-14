@@ -1,6 +1,6 @@
 'use babel'
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import SideBar from './SideBar'
@@ -8,6 +8,14 @@ import Main from './Main'
 import Loader from './Loader'
 
 class App extends Component {
+  static
+  get propTypes() {
+    return {
+      teams: PropTypes.array,
+      currentTeam: PropTypes.object,
+    }
+  }
+
   render() {
     const { teams, currentTeam } = this.props
 
