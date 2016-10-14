@@ -1,27 +1,30 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
 import { OnlineIcon, OfflineIcon, DoNotDisturbIcon } from './Icons'
 
-import { setCurrentChannel } from '../actions'
+import { setActiveChannel } from '../lib/actions'
 
 class UserInAList extends Component {
-  setThisChannelAsCurrent() {
-    const { dispatch, id, name, teamId } = this.props
-    dispatch(setCurrentChannel({teamId, id, name, type: 'personal'}))
+  selectThisChannel() {
+    const { teamId, channel, dispatch } = this.props
+    dispatch(setActiveChannel(channel))
   }
 
   render() {
-    const { name, id, currentChannel } = this.props
+    const { name, id, channel, selectedChannel } = this.props
 
     return (
       <li
-        onClick={(e) => { ::this.setThisChannelAsCurrent() }}
-        className={classNames({ active: id === currentChannel.id})}
+        onClick={(e) => { ::this.selectThisChannel() }}
+        className={ classNames({
+          active: id === selectedChannel.id,
+          unread: channel.unreadCount > 0
+        }) }
       >
-        {name}
+        { name }
       </li>
     )
   }
@@ -29,8 +32,8 @@ class UserInAList extends Component {
 
 function mapStateToProps(state) {
   return {
-    teamId: state.currentTeam,
-    currentChannel: state.currentChannels[state.currentTeam] || {}
+    teamId: state.currentTeam.id,
+    selectedChannel: state.activeChannels[state.currentTeam.id] || {},
   }
 }
 

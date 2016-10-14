@@ -1,16 +1,17 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { FileIcon, SmileIcon } from './Icons'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
-import ProviderFactory from '../providers/ProviderFactory'
+import TeamLoader from '../lib/TeamLoader'
+import MessageObject from '../lib/MessageObject'
 
 export default class MasterInput extends Component {
   constructor(props) {
     super(props)
     this.editor = atom.workspace.buildTextEditor()
-    this.teamFactory = new ProviderFactory()
+    this.teamFactory = new TeamLoader()
   }
 
   shouldComponentUpdate(nextProps) {
@@ -30,20 +31,25 @@ export default class MasterInput extends Component {
 
   sendMessage(event) {
     event.preventDefault()
+    if (this.editor.getText().trim().length === 0) {
+      return
+    }
 
     const { dispatch, currentTeam, currentChannel, currentUser } = this.props
-    const message = {
-      teamId: currentTeam,
-      username: currentUser,
-      to: currentChannel,
-      text: this.editor.getText()
-    }
+    const message = new MessageObject({
+      senderId: currentUser.id,
+      teamId: currentTeam.id,
+      channelId: currentChannel.id,
+      text: this.editor.getText().trim(),
+      createdAt: (new Date()).getTime(),
+      state: 'new',
+    })
 
     setTimeout(() => {
       this.editor.setText('')
     }, 0)
 
-    this.currentTeamProvider().send(message)
+    currentTeam.send(message)
   }
 
   render() {
@@ -53,7 +59,7 @@ export default class MasterInput extends Component {
     }
 
     const handlers = {
-      'sendMessage': ::this.sendMessage
+      'sendMessage': ::this.sendMessage,
     }
 
     return (
@@ -79,8 +85,8 @@ export default class MasterInput extends Component {
 function mapStateToProps(state) {
   return {
     currentTeam: state.currentTeam,
-    currentChannel: state.currentChannels[state.currentTeam] || {},
-    currentUser: 'anton'
+    currentChannel: state.activeChannels[state.currentTeam.id],
+    currentUser: state.users[state.currentTeam.id][state.currentTeam.userId]
   }
 }
 

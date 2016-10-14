@@ -1,18 +1,22 @@
 'use babel'
 
-import React, {PropTypes, Component} from 'react'
+import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'underscore-plus'
 import UserInAList from './UserInAList'
 
 class UsersList extends Component {
   render() {
-    const { users } = this.props
+    const { channels, users } = this.props
 
     return (
       <div className="direct-messages">
-        <h3><i className="icon icon-comment-discussion"/>Direct Messages <small>(4)</small></h3>
+        <h3>
+            <i className="icon icon-comment-discussion"/>Direct Messages
+            <span className="counter">({Object.keys(users).length})</span>
+        </h3>
         <ul>
-          {users.map((user) => <UserInAList key={user.id} {...user} />)}
+          {channels.map((ch) => <UserInAList {...ch} channel={ch}  />)}
         </ul>
       </div>
     )
@@ -20,9 +24,10 @@ class UsersList extends Component {
 }
 
 function mapStateToProps(state) {
-  const channels = state.activeChannels[state.currentTeam] || []
+  const channels = _.values(state.channels[state.currentTeam.id] || {})
   return {
-    users: channels.filter((ch) => 'personal' === ch.type).slice(0, 6)
+    users: state.users[state.currentTeam.id],
+    channels: channels.filter((ch) => ch.type === 'dm'),
   }
 }
 
