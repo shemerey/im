@@ -116,10 +116,10 @@ export default class Message extends Component {
   }
 
   render() {
-    const { text, createdAt, user, first } = this.props
+    const { text, createdAt, user, odd, first } = this.props
 
     return (
-      <MessageElement className={classNames({ first })}>
+      <MessageElement className={classNames({ first, odd, even: !odd })}>
         <div className="gutter">
           <span className="username">@{user.username} </span>
           <span className="ts">{messageTs(createdAt)}</span>

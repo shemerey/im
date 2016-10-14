@@ -14,15 +14,9 @@ const cubeGridScaleDelay = keyframes`
 
 // Loader with animations
 const CubeLoader = styled.div`
-  height: 100vh;
-  min-width: 100%;
-
   .sk-cube-grid {
-    width: 90px;
-    height: 90px;
-    position: fixed; /* or absolute */
-    top: 40%;
-    left: 45%;
+    width: ${props => props.size || 90}px;
+    height: ${props => props.size || 90}px;
   }
 
   .sk-cube-grid .sk-cube {
@@ -44,9 +38,9 @@ const CubeLoader = styled.div`
   .sk-cube-grid .sk-cube9 { animation-delay: 0.2s; }
 `
 
-export default function Loader() {
+export default function Loader(props) {
   return (
-    <CubeLoader>
+    <CubeLoader {...props}>
       <div className="sk-cube-grid">
         <div className="sk-cube sk-cube1" />
         <div className="sk-cube sk-cube2" />

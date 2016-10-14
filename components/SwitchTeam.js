@@ -4,10 +4,11 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentTeam } from '../lib/actions'
 import classNames from 'classnames'
-import colors from './colors'
+import Loader from './Loader'
 
 // Style
 import styled from 'styled-components'
+import colors from './colors'
 const TeamElement = styled.div`
   margin: 8px 5px;
 
@@ -35,7 +36,32 @@ const TeamElement = styled.div`
   }
 `
 
+const TeamLogoElement = styled.div`
+`
+
+class TeamLogo extends Component {
+  render() {
+    const { team } = this.props
+
+    if (team.icon) {
+      return <img src={team.icon} alt={team.name} />
+    }
+
+    return <Loader size={32} />
+  }
+}
+
 class SwitchTeam extends Component {
+  static
+  get propTypes() {
+    return {
+      team: PropTypes.object,
+      order: PropTypes.number,
+      dispatch: PropTypes.function,
+      currentTeam: PropTypes.object,
+    }
+  }
+
   selectThisTeam() {
     const { team, dispatch } = this.props
     dispatch(setCurrentTeam(team))
@@ -55,7 +81,7 @@ class SwitchTeam extends Component {
 
     return (
       <TeamElement key={team.id} onClick={(e) => ::this.selectThisTeam()} className={classNames({ active })}>
-        <img src={team.icon} alt={team.name} />
+        <TeamLogo team={team}/>
         ⌘{order + 1}
       </TeamElement>
     )

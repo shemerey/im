@@ -24,6 +24,14 @@ const AppWrapper = styled.div`
   animation: ${fadein} 0.3s;
 `
 
+const LoaderWrapper = styled.section`
+  height: 100vh;
+  display: flex;
+  min-width: 100%;
+  align-items: center;
+  justify-content: center;
+`
+
 class App extends Component {
   static
   get propTypes() {
@@ -46,7 +54,7 @@ class App extends Component {
     }
 
     // return loader by default
-    return <Loader />
+    return <LoaderWrapper><Loader /></LoaderWrapper>
   }
 }
 

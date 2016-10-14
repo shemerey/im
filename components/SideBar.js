@@ -14,56 +14,64 @@ import colors from './colors'
 // Style
 import styled from 'styled-components'
 const TeamsWrapepr = styled.div`
-min-height: 100vh;
-padding: 5px;
-border-right: 1px solid ${colors.baseBorder};
-color: ${colors.textSubtle};
-text-align: center;
-display: flex;
-flex-direction: column;
+  min-height: 100vh;
+  padding: 5px;
+  border-right: 1px solid ${colors.baseBorder};
+  color: ${colors.textSubtle};
+  text-align: center;
+  display: flex;
+  flex-direction: column;
 
-li {
-  margin: 8px 5px;
+  li {
+    margin: 8px 5px;
 
-  &.active::before {
-    content: '';
-    width: 10px;
-    margin-left: -17px;
-    margin-top: 4px;
-    height: 28px;
-    background-color: ${colors.textHighlight};
-    border-radius: 3px;
-    float: left;
-  }
+    &.active::before {
+      content: '';
+      width: 10px;
+      margin-left: -17px;
+      margin-top: 4px;
+      height: 28px;
+      background-color: ${colors.textHighlight};
+      border-radius: 3px;
+      float: left;
+    }
 
 
-  img {
-    display: block;
-    border-radius: 3px;
-    width: 36px;
-    height: 36px;
+    img {
+      display: block;
+      border-radius: 3px;
+      width: 36px;
+      height: 36px;
 
-    &:hover {
-      border: 2px solid ${colors.textHighlight};
-      box-sizing: border-box;
+      &:hover {
+        border: 2px solid ${colors.textHighlight};
+        box-sizing: border-box;
+      }
     }
   }
-}
 `
 
 const TeamDetails = styled.div`
-background-color: ${colors.background};
-border-right: 1px solid ${colors.baseBorder};
-font-size: 14px;
-min-width: 240px;
-max-width: 240px;
-overflow-x: hidden;
-display: block;
+  background-color: ${colors.background};
+  border-right: 1px solid ${colors.baseBorder};
+  font-size: 14px;
+  min-width: 240px;
+  max-width: 240px;
+  overflow-x: hidden;
+  display: block;
 `
 
 const SideBarElement = styled.div`
   display: flex;
   justify-content: flex-start;
+`
+
+const LoaderWrapper = styled.section`
+  height: 100vh;
+  display: flex;
+  min-width: 100%;
+  align-items: center;
+  justify-content: center;
 `
 
 class SideBar extends Component {
@@ -79,7 +87,7 @@ class SideBar extends Component {
 
   currentTeamChannelsBar() {
     if (this.props.currentTeam.status === 'new') {
-      return <Loader />
+      return <div/>
     }
 
     return (

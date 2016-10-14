@@ -19,6 +19,14 @@ const ImMainWrapper = styled.section`
   background-color: ${colors.baseBackground};
 `
 
+const LoaderWrapper = styled.section`
+  height: 100vh;
+  display: flex;
+  min-width: 100%;
+  align-items: center;
+  justify-content: center;
+`
+
 class Main extends Component {
   static
   get propTypes() {
@@ -29,7 +37,7 @@ class Main extends Component {
 
   render() {
     if (this.props.currentTeam.status === 'new') {
-      return <Loader />
+      return <LoaderWrapper><Loader /></LoaderWrapper>
     }
 
     return (

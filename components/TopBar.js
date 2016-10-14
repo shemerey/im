@@ -3,52 +3,59 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { SearchIcon } from './Icons'
-import colors from './colors'
 
 // Style
+import colors from './colors'
 import styled from 'styled-components'
 const TopBarElement = styled.div`
-display: flex;
-justify-content: flex-start;
-border-bottom: 1px solid ${colors.baseBorder};
-background-color: ${colors.appBackground};
-padding: 6px 11px 8px 10px;
-
-.title {
-  flex: 4;
   display: flex;
-  flex-direction: column;
+  justify-content: flex-start;
+  border-bottom: 1px solid ${colors.baseBorder};
+  background-color: ${colors.appBackground};
+  padding: 6px 11px 8px 10px;
 
-  .name {
-    font-size: 16px;
-    font-weight: bolder;
-    color: ${colors.textHighlight};
-  }
-
-  .desc {
+  .title {
+    flex: 4;
     display: flex;
-    color: ${colors.textSubtle};
+    flex-direction: column;
 
-    .members {
-      margin-right: 10px;
+    .name {
+      font-size: 16px;
+      font-weight: bolder;
+      color: ${colors.textHighlight};
+    }
+
+    .desc {
+      display: flex;
+      color: ${colors.textSubtle};
+
+      .members {
+        margin-right: 10px;
+      }
     }
   }
-}
 
-.search {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
+  .search {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
 `
 
 class TopBar extends Component {
+  static
+  get propTypes() {
+    return {
+      currentChannel: PropTypes.object,
+    }
+  }
 
   render() {
     if (!this.props.currentChannel) {
-      return <div/>
+      return <div />
     }
+
     const { name, type, memberIds } = this.props.currentChannel
 
     return (
@@ -75,7 +82,7 @@ class TopBar extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentChannel: state.activeChannels[state.currentTeam.id]
+    currentChannel: state.activeChannels[state.currentTeam.id],
   }
 }
 
