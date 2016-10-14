@@ -15,6 +15,7 @@ const cubeGridScaleDelay = keyframes`
 // Loader with animations
 const CubeLoader = styled.div`
   height: 100vh;
+  min-width: 100%;
 
   .sk-cube-grid {
     width: 90px;

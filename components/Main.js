@@ -8,13 +8,13 @@ import TopBar from './TopBar'
 import MessagesList from './MessagesList'
 import MasterInput from './MasterInput'
 
-// Style Section
+// Style
 import colors from './colors'
 import styled from 'styled-components'
-const ImMainWrapper = styled.div`
-  flex: 1;
+const ImMainWrapper = styled.section`
   height: 100vh;
   display: flex;
+  min-width: 100%;
   flex-direction: column;
   background-color: ${colors.baseBackground};
 `

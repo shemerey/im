@@ -16,12 +16,11 @@ const fadein = keyframes`
 `
 
 const AppWrapper = styled.div`
-  flex: 1;
   height: 100vh;
+  flex: 1;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   background-color: ${colors.background};
-  display: flex;
   animation: ${fadein} 0.3s;
 `
 

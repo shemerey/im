@@ -62,8 +62,8 @@ display: block;
 `
 
 const SideBarElement = styled.div`
-display: flex;
-justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
 `
 
 class SideBar extends Component {
@@ -79,7 +79,7 @@ class SideBar extends Component {
 
   currentTeamChannelsBar() {
     if (this.props.currentTeam.status === 'new') {
-      return <Loader/>
+      return <Loader />
     }
 
     return (
