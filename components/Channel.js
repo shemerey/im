@@ -2,11 +2,11 @@
 
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import classNames from 'classnames'
-import colors from './colors'
 import { setActiveChannel } from '../lib/actions'
 
-// Style
+// Style Section
+import colors from './colors'
+import classNames from 'classnames'
 import styled from 'styled-components'
 const ChannelElement = styled.div`
   padding: 2px 36px;
@@ -15,7 +15,7 @@ const ChannelElement = styled.div`
     cursor: pointer;
     background-color: ${colors.background};
   }
-`;
+`
 
 class Channel extends Component {
   static

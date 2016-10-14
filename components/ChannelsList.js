@@ -5,6 +5,36 @@ import _ from 'underscore-plus'
 import { connect } from 'react-redux'
 import Channel from './Channel'
 
+import colors from './colors'
+import styled from 'styled-components'
+const ChannelsListElement = styled.div`
+  .counter {
+    color: #6F6D6D;
+    font-weight: lighter;
+  }
+
+  color: ${colors.textSubtle};
+
+  .active {
+    background-color: ${colors.bgHighlight};
+  }
+
+  .unread {
+    color: ${colors.textSelected};
+    font-weight: bold;
+  }
+
+  h3 {
+    margin: 20px 16px 5px 16px;
+    text-transform: uppercase;
+    font-size: 14px;
+    color: ${colors.textSubtle};
+    small {
+      font-size: 12px;
+    }
+  }
+`
+
 class ChannelsList extends Component {
   static
   get propTypes() {
@@ -17,7 +47,7 @@ class ChannelsList extends Component {
     const { channels } = this.props
 
     return (
-      <div className="channels">
+      <ChannelsListElement>
         <h3>
           <i className="icon icon-comment" />
           channels
@@ -30,7 +60,7 @@ class ChannelsList extends Component {
             .map(ch => <Channel {...ch} channel={ch} />)
           }
         </div>
-      </div>
+      </ChannelsListElement>
     )
   }
 }
