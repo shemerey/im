@@ -95,11 +95,10 @@ export default class SlackMessage extends Component {
   static
   get propTypes() {
     return {
-      state: PropTypes.string,
       text: PropTypes.string,
       createdAt: PropTypes.number,
       first: PropTypes.boolean,
-      dispatch: PropTypes.function,
+      odd: PropTypes.boolean,
       user: PropTypes.object,
     }
   }
