@@ -6,6 +6,62 @@ import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
 import MessageObject from '../lib/MessageObject'
+import colors from './colors'
+
+// Style
+import styled from 'styled-components'
+const MasterInputElement = styled.div`
+border-top: 1px solid ${colors.baseBorder};
+background-color: ${colors.baseBackground};
+
+bottom: 0;
+right: 0;
+
+.container {
+  border: 1px solid ${colors.baseBorder};
+  background-color: ${colors.appBackground};
+  margin: 9px;
+  padding-right: 7px;
+  display: flex;
+}
+
+.btn {
+  border: none;
+  border-radius: 0px 3px 3px 0px;
+}
+
+.file-icon {
+  display: flex;
+  align-items: center;
+}
+
+.smile-icon {
+  display: flex;
+  align-items: center;
+}
+
+.input-container {
+  flex: 1;
+  padding: 5px 0;
+  margin: auto;
+}
+
+atom-text-editor {
+  background-color: ${colors.appBackground};
+}
+
+.im-editor {
+  &::shadow {
+    .cursor-line {
+      background-color: ${colors.appBackground};
+    }
+
+    .gutter {
+      display: none;
+    }
+  }
+}
+`
 
 export default class MasterInput extends Component {
   constructor(props) {
@@ -64,7 +120,7 @@ export default class MasterInput extends Component {
 
     return (
       <HotKeys keyMap={map} handlers={handlers}>
-        <div className="master-input">
+        <MasterInputElement>
           <div className="container">
             <button className='inline-block btn file-icon'>
               <FileIcon />
@@ -76,7 +132,7 @@ export default class MasterInput extends Component {
               <SmileIcon />
             </div>
           </div>
-        </div>
+        </MasterInputElement>
       </HotKeys>
     )
   }

@@ -1,27 +1,60 @@
 'use babel'
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import SideBar from './SideBar'
 import Main from './Main'
 import Loader from './Loader'
 
+// Style Section
+import styled, { keyframes } from 'styled-components'
+import colors from './colors'
+const fadein = keyframes`
+  from { opacity: 0; }
+  to   { opacity: 1; }
+`
+
+const AppWrapper = styled.div`
+  height: 100vh;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  background-color: ${colors.background};
+  animation: ${fadein} 0.3s;
+`
+
+const LoaderWrapper = styled.section`
+  height: 100vh;
+  display: flex;
+  min-width: 100%;
+  align-items: center;
+  justify-content: center;
+`
+
 class App extends Component {
+  static
+  get propTypes() {
+    return {
+      teams: PropTypes.array,
+      currentTeam: PropTypes.object,
+    }
+  }
+
   render() {
     const { teams, currentTeam } = this.props
 
     if (teams.length > 0 && currentTeam) {
       return (
-        <div className="im">
+        <AppWrapper>
           <SideBar />
           <Main />
-        </div>
+        </AppWrapper>
       )
     }
 
     // return loader by default
-    return <Loader />
+    return <LoaderWrapper><Loader /></LoaderWrapper>
   }
 }
 

@@ -3,15 +3,40 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 
- class CurrentUserInfo extends Component {
+// Style
+import styled from 'styled-components'
+const UserInfoElement = styled.div`
+  padding: 9px 16px 0 16px;
+  font-size: 14px;
+
+  .team-name {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .user-name {
+
+  }
+`
+
+class CurrentUserInfo extends Component {
+  static
+  get propTypes() {
+    return {
+      currentUser: PropTypes.object,
+      teamName: PropTypes.string,
+    }
+  }
+
   render() {
     const { teamName, currentUser } = this.props
 
     return (
-      <div className="user-info">
+      <UserInfoElement>
         <div className="team-name">{ teamName }</div>
         <div className="user-name">@{ currentUser.username }</div>
-      </div>
+      </UserInfoElement>
     )
   }
 }
