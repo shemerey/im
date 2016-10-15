@@ -1,6 +1,7 @@
 'use babel'
 
 import React, { Component } from 'react'
+import { HotKeys } from 'react-hotkeys'
 
 // Style Section
 import colors from './colors'
@@ -17,7 +18,11 @@ margin-top: -70px;
     margin-bottom: 50px;
   }
 
-  input {
+  form {
+    display: flex;
+  }
+
+  .token-input {
     width: 640px;
     font-size: 18px;
     font-weight: lighter;
@@ -67,33 +72,55 @@ export default class WelcomeScreen extends Component {
   constructor(props) {
     super(props)
     this.state = { value: 'Hello!' }
-    this.handleChange = this.handleChange.bind(this)
+    this.editor = atom.workspace.buildTextEditor({mini: true, placeholder: 'xxxx'})
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+  componentDidMount() {
+    this.editor.setPlaceholderText('xoxp-1287937492-0435475301-10453406710-3904834523')
+    this.editor.getElement().classList.add('token-input')
+    this.refs.editor.appendChild(this.editor.getElement())
+  }
+
+  saveTeam(event) {
+    event.preventDefault()
+    const key = this.editor.getText().trim()
+
+    if (key.length === 0) {
+      return
+    }
+
+    setTimeout(() => {
+      this.editor.setText('')
+    }, 0)
+
+    console.log(key)
   }
 
   render() {
+    const map = {
+      'sendMessage': 'enter',
+    }
+
+    const handlers = {
+      'sendMessage': ::this.saveTeam,
+    }
+
     return (
-      <Wrapper>
-        <form>
-          <h1>Enter your team Access-Token</h1>
-          <input
-            ref="input"
-            placeholder="xoxp-1287937492-0435475301-10453406710-3904834523"
-            onChange={ this.handleChange }
-            onFocus={() => { this.refs.input.select() }}
-            onPaste={() => console.log(2222) }
-            maxLength="80"
-          />
-          <button>Connect</button>
-          <p>
-            If you have no access token,
-            you can read more about it <a href="https://github.com/shemerey/im/wiki/Access-Token">here</a>.
-          </p>
-        </form>
-      </Wrapper>
+      <HotKeys keyMap={map} handlers={handlers}>
+        <Wrapper>
+            <h1>Enter your team Access-Token</h1>
+            <form onSubmit={::this.saveTeam}>
+              <div className="ac-editor" ref="editor" onKeyPress={this.handleKeyPress}>
+              {/* mini editor here */}
+              </div>
+              <button type="submit">Connect</button>
+            </form>
+            <p>
+              If you have no access token,
+              you can read more about it <a href="https://github.com/shemerey/im/wiki/Access-Token">here</a>.
+            </p>
+        </Wrapper>
+      </HotKeys>
     )
   }
 }
