@@ -2,6 +2,9 @@
 
 import React, { Component } from 'react'
 import { HotKeys } from 'react-hotkeys'
+import { connect } from 'react-redux'
+
+import { registerTheTeam } from '../lib/actions'
 
 // Style Section
 import colors from './colors'
@@ -68,11 +71,12 @@ margin-top: -70px;
   }
 `
 
-export default class WelcomeScreen extends Component {
+class AddNewTeamScreen extends Component {
   constructor(props) {
     super(props)
-    this.state = { value: 'Hello!' }
-    this.editor = atom.workspace.buildTextEditor({mini: true, placeholder: 'xxxx'})
+    this.editor = atom.workspace.buildTextEditor({
+      mini: true,
+    })
   }
 
   componentDidMount() {
@@ -83,9 +87,9 @@ export default class WelcomeScreen extends Component {
 
   saveTeam(event) {
     event.preventDefault()
-    const key = this.editor.getText().trim()
+    const token = this.editor.getText().trim()
 
-    if (key.length === 0) {
+    if (token.length === 0) {
       return
     }
 
@@ -93,7 +97,7 @@ export default class WelcomeScreen extends Component {
       this.editor.setText('')
     }, 0)
 
-    console.log(key)
+    this.props.dispatch(registerTheTeam({ teamType: 'Slack', token }))
   }
 
   render() {
@@ -124,3 +128,5 @@ export default class WelcomeScreen extends Component {
     )
   }
 }
+
+export default connect()(AddNewTeamScreen)

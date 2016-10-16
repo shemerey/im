@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import SideBar from './SideBar'
 import Main from './Main'
 import Loader from './Loader'
-import WelcomeScreen from './WelcomeScreen'
+import AddNewTeamScreen from './AddNewTeamScreen'
 
 // Style Section
 import styled, { keyframes } from 'styled-components'
@@ -46,16 +46,25 @@ class App extends Component {
   render() {
     const { status, teams, currentTeam } = this.props
 
-    if (status !== 'ready') {
+    if (status === 'empty' || status === 'addNewTeam') {
       // return loader by default
       return (
         <CenteredWrapper>
-          <WelcomeScreen />
+          <AddNewTeamScreen />
         </CenteredWrapper>
       )
     }
 
-    if (teams.length > 0 && currentTeam) {
+    // return the loader if something in progrees
+    if (status === 'inProgress') {
+      return (
+        <CenteredWrapper>
+          <Loader />
+        </CenteredWrapper>
+      )
+    }
+
+    if (status === 'ready' && teams.length > 0 && currentTeam) {
       return (
         <AppWrapper>
           <SideBar />
