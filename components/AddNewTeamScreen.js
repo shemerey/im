@@ -94,13 +94,12 @@ class AddNewTeamScreen extends Component {
       return
     }
 
-    setTimeout(() => {
-      this.editor.setText('')
-    }, 0)
-
     const teamLoader = new TeamLoader()
     teamLoader.connect({ teamType: 'Slack', accessToken })
 
+    setTimeout(() => {
+      this.editor.setText('')
+    }, 30)
   }
 
   render() {
