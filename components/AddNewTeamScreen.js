@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 
-import { registerTheTeam } from '../lib/actions'
+import { registerTheTeam, setStatus } from '../lib/actions'
 import TeamLoader from '../lib/TeamLoader'
 
 // Style Section
@@ -94,12 +94,14 @@ class AddNewTeamScreen extends Component {
       return
     }
 
+    this.props.dispatch(setStatus('inProgress'))
     const teamLoader = new TeamLoader()
     teamLoader.connect({ teamType: 'Slack', accessToken })
 
     setTimeout(() => {
       this.editor.setText('')
-    }, 30)
+      this.props.dispatch(setStatus('ready'))
+    }, 300)
   }
 
   render() {

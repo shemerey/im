@@ -9,6 +9,7 @@ import CurrentUserInfo from './CurrentUserInfo'
 import ChannelsList from './ChannelsList'
 import UsersList from './UsersList'
 import Loader from './Loader'
+import AddNewTeamButton from './AddNewTeamButton'
 import colors from './colors'
 
 // Style
@@ -81,13 +82,14 @@ class SideBar extends Component {
     return (
       <TeamsWrapepr>
         {teams.map((team, index) => <SwitchTeam key={team.id} order={index} team={team} />)}
+        <AddNewTeamButton />
       </TeamsWrapepr>
     )
   }
 
   currentTeamChannelsBar() {
     if (this.props.currentTeam.status === 'new') {
-      return <div/>
+      return <div />
     }
 
     return (
