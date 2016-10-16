@@ -1,15 +1,54 @@
 'use babel'
 
-import React, { PropTypes, Component } from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 
-export default class ErrorScreen extends Component {
+// Style Section
+import colors from './colors'
+import styled from 'styled-components'
+const Wrapper = styled.div`
+font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
+margin-top: -70px;
+
+  h1 {
+    text-align: center;
+    font-weight: 300;
+    color: rgba(157, 165, 180, 0.2);
+    font-size: 36px;
+    margin-bottom: 40px;
+  }
+
+  p {
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  a {
+    color: rgb(121, 129, 142);
+    text-decoration: underline;
+    &:hover {
+      text-decoration: none;
+      color: ${colors.text};
+    }
+  }
+`
+
+class ErrorScreen extends Component {
+  static
+  get propTypes() {
+    return {
+      message: PropTypes.string,
+    }
+  }
+
   render() {
     return (
-      <div className="im-full-screen-container">
-        <div className="sk-cube-grid">
-          {this.props.message}
-        </div>
-      </div>
+      <Wrapper>
+        <h1>something went wrong :(</h1>
+        <p>{this.props.message || 'Check The console.log.'}</p>
+      </Wrapper>
     )
   }
 }
+
+export default connect()(ErrorScreen)

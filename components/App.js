@@ -7,6 +7,7 @@ import SideBar from './SideBar'
 import Main from './Main'
 import Loader from './Loader'
 import AddNewTeamScreen from './AddNewTeamScreen'
+import ErrorScreen from './ErrorScreen'
 
 // Style Section
 import styled, { keyframes } from 'styled-components'
@@ -64,7 +65,17 @@ class App extends Component {
       )
     }
 
-    if (status === 'ready' && teams.length > 0 && currentTeam) {
+    // return the error screen
+    if (status === 'error') {
+      return (
+        <CenteredWrapper>
+          <ErrorScreen />
+        </CenteredWrapper>
+      )
+    }
+
+    // status === 'ready' && 
+    if (teams.length > 0 && currentTeam) {
       return (
         <AppWrapper>
           <SideBar />
