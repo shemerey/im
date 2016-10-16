@@ -80,7 +80,7 @@ class SwitchTeam extends Component {
     const active = (team.id == currentTeam.id)
 
     return (
-      <TeamElement key={team.id} onClick={(e) => ::this.selectThisTeam()} className={classNames({ active })}>
+      <TeamElement key={team.id} onClick={ (e) => ::this.selectThisTeam() } className={classNames({ active })}>
         <TeamLogo team={team}/>
         ⌘{order + 1}
       </TeamElement>

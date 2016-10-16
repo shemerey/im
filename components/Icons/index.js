@@ -2,6 +2,7 @@
 
 import DoNotDisturbIcon from './DoNotDisturbIcon'
 import FileIcon from './FileIcon'
+import PlusIcon from './PlusIcon'
 import OfflineIcon from './OfflineIcon'
 import OnlineIcon from './OnlineIcon'
 import SearchIcon from './SearchIcon'
@@ -13,6 +14,7 @@ import DotsIcon from './DotsIcon'
 export {
   DoNotDisturbIcon,
   FileIcon,
+  PlusIcon,
   OfflineIcon,
   OnlineIcon,
   SearchIcon,
