@@ -90,13 +90,11 @@ class AddNewTeamScreen extends Component {
     event.preventDefault()
     const accessToken = this.editor.getText().trim()
 
-    if (accessToken.length === 0) {
-      return
+    if (accessToken.length > 0) {
+      this.props.dispatch(setStatus('inProgress'))
+      const teamLoader = new TeamLoader()
+      teamLoader.connect({ teamType: 'Slack', accessToken })
     }
-
-    this.props.dispatch(setStatus('inProgress'))
-    const teamLoader = new TeamLoader()
-    teamLoader.connect({ teamType: 'Slack', accessToken })
 
     setTimeout(() => {
       this.editor.setText('')

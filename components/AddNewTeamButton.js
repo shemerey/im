@@ -3,6 +3,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { setStatus } from '../lib/actions'
+import { PlusIcon } from './Icons'
 
 // Style
 import styled from 'styled-components'
@@ -13,9 +14,12 @@ const AddNewTeamElement = styled.div`
   height: 32px;
   display: block;
   border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
-    border: 2px solid ${colors.textHighlight};
+    color: ${colors.textHighlight};
     box-sizing: border-box;
   }
 `
@@ -24,18 +28,15 @@ class AddNewTeamButton extends Component {
   static
   get propTypes() {
     return {
-      team: PropTypes.object,
-      order: PropTypes.number,
       dispatch: PropTypes.function,
-      currentTeam: PropTypes.object,
     }
   }
 
   render() {
     const { dispatch } = this.props
     return (
-      <AddNewTeamElement onClick={(e) => dispatch(setStatus('addNewTeam'))}>
-       +
+      <AddNewTeamElement onClick={() => dispatch(setStatus('addNewTeam'))}>
+        <PlusIcon />
       </AddNewTeamElement>
     )
   }
