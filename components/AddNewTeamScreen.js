@@ -5,6 +5,7 @@ import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 
 import { registerTheTeam } from '../lib/actions'
+import TeamLoader from '../lib/TeamLoader'
 
 // Style Section
 import colors from './colors'
@@ -87,9 +88,9 @@ class AddNewTeamScreen extends Component {
 
   saveTeam(event) {
     event.preventDefault()
-    const token = this.editor.getText().trim()
+    const accessToken = this.editor.getText().trim()
 
-    if (token.length === 0) {
+    if (accessToken.length === 0) {
       return
     }
 
@@ -97,7 +98,9 @@ class AddNewTeamScreen extends Component {
       this.editor.setText('')
     }, 0)
 
-    this.props.dispatch(registerTheTeam({ teamType: 'Slack', token }))
+    const teamLoader = new TeamLoader()
+    teamLoader.connect({ teamType: 'Slack', accessToken })
+
   }
 
   render() {
