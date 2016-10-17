@@ -52,7 +52,7 @@ class MessagesList extends Component {
     let odd = true
     return messages.map((msg, index) => {
       if (first.senderId !== msg.senderId) { first = msg; odd = !odd }
-      return <SlackMessage key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
+      return <SlackMessage key={index} first={msg === first} odd={odd} user={users[msg.senderId]} message={msg} />
     })
   }
 

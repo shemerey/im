@@ -95,16 +95,15 @@ export default class SlackMessage extends Component {
   static
   get propTypes() {
     return {
-      text: PropTypes.string,
-      createdAt: PropTypes.number,
       first: PropTypes.boolean,
       odd: PropTypes.boolean,
       user: PropTypes.object,
+      message: PropTypes.object,
     }
   }
 
   render() {
-    const { text, createdAt, user, odd, first } = this.props
+    const { message, user, odd, first } = this.props
 
     return (
       <SlackMessageElement className={classNames({ first, odd, even: !odd })}>
@@ -112,12 +111,12 @@ export default class SlackMessage extends Component {
           <span className="avatar">
             <img role="presentation" src={user.avatar} />
           </span>
-          <span className="ts">{messageTs(createdAt)}</span>
+          <span className="ts">{messageTs(message.createdAt)}</span>
         </div>
         <div className="content">
           <span className="username">@{user.username}</span>
-          <span className="ts">{messageTs(createdAt)}</span>
-          <span className="body">{text}</span>
+          <span className="ts">{messageTs(message.createdAt)}</span>
+          <span className="body" dangerouslySetInnerHTML={{__html: message.content()}}></span>
         </div>
       </SlackMessageElement>
     )

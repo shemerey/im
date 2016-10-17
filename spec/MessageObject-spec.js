@@ -43,10 +43,24 @@ describe('MessageObject', () => {
     expect(m.content()).toEqual('Hey <a className="user" href="@U024BE7LH">@bob</a>, did you see my file?')
   })
 
-  it('parses channel name properly', () => {
+  it('parses user name properly', () => {
     const m = new MessageObject({
       text: 'Hey <@U024BE7LH>, did you see my file?',
     })
     expect(m.content()).toEqual('Hey <a className="user" href="@U024BE7LH">@U024BE7LH</a>, did you see my file?')
+  })
+
+  it('parses full url properly', () => {
+    const m = new MessageObject({
+      text: 'So does this one: <http://www.foo.com|www.foo.com>',
+    })
+    expect(m.content()).toEqual('So does this one: <a className="url" target="_blank" href="http://www.foo.com">www.foo.com</a>')
+  })
+
+  it('parses url properly', () => {
+    const m = new MessageObject({
+      text: 'So does this one: <http://foo.com/>',
+    })
+    expect(m.content()).toEqual('So does this one: <a className="url" target="_blank" href="http://foo.com/">http://foo.com/</a>')
   })
 })
