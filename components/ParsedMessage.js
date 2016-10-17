@@ -1,7 +1,7 @@
 'use babel'
 
 import React, { Component, PropTypes } from 'react'
-
+import ReactEmoji from 'react-emoji'
 
 const SlackChannelTag = (props) => {
   const id = props.id.replace(/^#/, '')
@@ -85,7 +85,7 @@ export default class ParsedMessage extends Component {
             }
 
             // return by default
-            return word
+            return ReactEmoji.emojify(word)
           })
         }
       </span>
