@@ -35,4 +35,18 @@ describe('MessageObject', () => {
     })
     expect(m.content()).toEqual('Why not join <a className="channel" href="#C024BE7LR">#C024BE7LR</a>?')
   })
+
+  it('parses user name properly', () => {
+    const m = new MessageObject({
+      text: 'Hey <@U024BE7LH|bob>, did you see my file?',
+    })
+    expect(m.content()).toEqual('Hey <a className="user" href="@U024BE7LH">@bob</a>, did you see my file?')
+  })
+
+  it('parses channel name properly', () => {
+    const m = new MessageObject({
+      text: 'Hey <@U024BE7LH>, did you see my file?',
+    })
+    expect(m.content()).toEqual('Hey <a className="user" href="@U024BE7LH">@U024BE7LH</a>, did you see my file?')
+  })
 })
