@@ -21,46 +21,4 @@ describe('MessageObject', () => {
     const m = new MessageObject({})
     expect(m.state).toBe('new')
   });
-
-  it('parses channel name properly', () => {
-    const m = new MessageObject({
-      text: 'Why not join <#C024BE7LR|general>?',
-    })
-    expect(m.content()).toEqual('Why not join <a className="channel" href="#C024BE7LR">#general</a>?')
-  })
-
-  it('parses channel name properly', () => {
-    const m = new MessageObject({
-      text: 'Why not join <#C024BE7LR>?',
-    })
-    expect(m.content()).toEqual('Why not join <a className="channel" href="#C024BE7LR">#C024BE7LR</a>?')
-  })
-
-  it('parses user name properly', () => {
-    const m = new MessageObject({
-      text: 'Hey <@U024BE7LH|bob>, did you see my file?',
-    })
-    expect(m.content()).toEqual('Hey <a className="user" href="@U024BE7LH">@bob</a>, did you see my file?')
-  })
-
-  it('parses user name properly', () => {
-    const m = new MessageObject({
-      text: 'Hey <@U024BE7LH>, did you see my file?',
-    })
-    expect(m.content()).toEqual('Hey <a className="user" href="@U024BE7LH">@U024BE7LH</a>, did you see my file?')
-  })
-
-  it('parses full url properly', () => {
-    const m = new MessageObject({
-      text: 'So does this one: <http://www.foo.com|www.foo.com>',
-    })
-    expect(m.content()).toEqual('So does this one: <a className="url" target="_blank" href="http://www.foo.com">www.foo.com</a>')
-  })
-
-  it('parses url properly', () => {
-    const m = new MessageObject({
-      text: 'So does this one: <http://foo.com/>',
-    })
-    expect(m.content()).toEqual('So does this one: <a className="url" target="_blank" href="http://foo.com/">http://foo.com/</a>')
-  })
 })

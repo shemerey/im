@@ -4,6 +4,7 @@ import React, { PropTypes, Component } from 'react'
 import { FormattedTime } from 'react-intl'
 import classNames from 'classnames'
 import { messageTs } from '../lib/utils'
+import ParsedMessage from './ParsedMessage'
 
 // Style
 import styled from 'styled-components'
@@ -116,7 +117,9 @@ export default class SlackMessage extends Component {
         <div className="content">
           <span className="username">@{user.username}</span>
           <span className="ts">{messageTs(message.createdAt)}</span>
-          <span className="body" dangerouslySetInnerHTML={{__html: message.content()}}></span>
+          <span className="body">
+            <ParsedMessage text={message.text} />
+          </span>
         </div>
       </SlackMessageElement>
     )

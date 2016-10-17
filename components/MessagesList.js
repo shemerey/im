@@ -16,6 +16,16 @@ padding-bottom: 10px;
 overflow-y: scroll;
 background-color: ${colors.appBackground};
 
+.mention {
+  background-color: rgb(87, 81, 68);
+  border-radius: 3px;
+  padding: 0 3px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .empty {
   display: flex;
   align-items: center;
