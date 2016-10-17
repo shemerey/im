@@ -3,7 +3,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
-import UserInAList from './UserInAList'
+import Channel from './Channel'
 
 import colors from './colors'
 import styled from 'styled-components'
@@ -45,9 +45,9 @@ class UsersList extends Component {
           <i className="icon icon-comment-discussion" /> Direct Messages
           <span className="counter">({Object.keys(users).length})</span>
         </h3>
-        <ul>
-          {channels.map(ch => <UserInAList {...ch} channel={ch} />)}
-        </ul>
+        <div>
+          {channels.map(ch => <Channel {...ch} channel={ch} />)}
+        </div>
       </UsersListElement>
     )
   }

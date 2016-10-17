@@ -6,13 +6,13 @@ export default class OnlineIcon extends Component {
   render() {
     return (
       <svg
-        viewBox="0 0 40 40"
+        viewBox="0 0 1792 1792"
         fill="currentColor"
         preserveAspectRatio="xMidYMid meet"
-        height="11"
-        width="11"
+        height="10"
+        width="10"
       >
-        <g><path d="m37.3 20q0 4.7-2.3 8.6t-6.3 6.2-8.6 2.3-8.6-2.3-6.2-6.2-2.3-8.6 2.3-8.6 6.2-6.2 8.6-2.3 8.6 2.3 6.3 6.2 2.3 8.6z" /></g>
+        <path d="M1664 896q0 209-103 385.5t-279.5 279.5-385.5 103-385.5-103-279.5-279.5-103-385.5 103-385.5 279.5-279.5 385.5-103 385.5 103 279.5 279.5 103 385.5z"/>
       </svg>
     );
   }

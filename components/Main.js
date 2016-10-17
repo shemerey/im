@@ -14,7 +14,7 @@ import styled from 'styled-components'
 const ImMainWrapper = styled.section`
   height: 100vh;
   display: flex;
-  min-width: 100%;
+  flex: 1;
   flex-direction: column;
   background-color: ${colors.baseBackground};
 `

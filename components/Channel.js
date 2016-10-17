@@ -2,7 +2,10 @@
 
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
+import _ from 'underscore-plus'
 import { setActiveChannel } from '../lib/actions'
+
+import { OfflineIcon, OnlineIcon } from './Icons'
 
 // Style Section
 import colors from './colors'
@@ -16,6 +19,7 @@ const ChannelElement = styled.div`
     background-color: ${colors.background};
   }
 `
+
 
 class Channel extends Component {
   static
@@ -35,8 +39,30 @@ class Channel extends Component {
     dispatch(setActiveChannel(channel))
   }
 
+  channelName() {
+    const { channel, users } = this.props
+
+    if (channel.type === 'group') {
+      return `# ${channel.name}`
+    } else {
+
+      const isOnline = _.every(
+        channel.memberIds.map(id => users[id]),
+        (u) => { return !!u && u.status === 'online' }
+      )
+
+      return (
+        <div>
+          {isOnline ? <OnlineIcon /> : <OfflineIcon />}
+          {' '}
+          {channel.name}
+        </div>
+      )
+    }
+  }
+
   render() {
-    const { name, id, channel, selectedChannel  } = this.props
+    const { id, channel, selectedChannel  } = this.props
     return (
       <ChannelElement
         key={ id }
@@ -46,7 +72,7 @@ class Channel extends Component {
           unread: channel.unreadCount > 0
         }) }
       >
-        # { name }
+        { this.channelName() }
       </ChannelElement>
     )
   }
@@ -55,6 +81,7 @@ class Channel extends Component {
 function mapStateToProps(state) {
   return {
     teamId: state.currentTeam.id,
+    users: state.users[state.currentTeam.id],
     selectedChannel: state.activeChannels[state.currentTeam.id] || {},
   }
 }
