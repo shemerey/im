@@ -2,7 +2,8 @@
 
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { SearchIcon } from './Icons'
+import ChannelControll from './ChannelControll'
+import ChannelObject from '../lib/ChannelObject'
 
 // Style
 import colors from './colors'
@@ -35,7 +36,7 @@ const TopBarElement = styled.div`
     }
   }
 
-  .search {
+  .controls {
     flex: 1;
     display: flex;
     align-items: center;
@@ -45,10 +46,8 @@ const TopBarElement = styled.div`
 
 class TopBar extends Component {
   static
-  get propTypes() {
-    return {
-      currentChannel: PropTypes.object,
-    }
+  propTypes = {
+    currentChannel: PropTypes.instanceOf(ChannelObject),
   }
 
   render() {
@@ -72,8 +71,8 @@ class TopBar extends Component {
             {/* <div className="current-topic">{'topic here '}</div> */}
           </div>
         </div>
-        <div className="search">
-          <SearchIcon />
+        <div className="controls">
+          <ChannelControll channel={this.props.currentChannel} />
         </div>
       </TopBarElement>
     )

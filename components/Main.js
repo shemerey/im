@@ -39,6 +39,16 @@ class Main extends Component {
   render() {
     const { currentChannel, currentTeam } = this.props
 
+    if (currentChannel.id === undefined) {
+      return (
+        <ImMainWrapper>
+          <LoaderWrapper>
+            <h1>There is no active channel</h1>
+          </LoaderWrapper>
+        </ImMainWrapper>
+      )
+    }
+
     if (currentChannel.status === 'inProgress') {
       return <LoaderWrapper><Loader /></LoaderWrapper>
     }

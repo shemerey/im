@@ -74,7 +74,6 @@ class App extends Component {
       )
     }
 
-    // status === 'ready' &&
     if (teams.length > 0 && currentTeam) {
       return (
         <AppWrapper>

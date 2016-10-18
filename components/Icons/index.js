@@ -10,6 +10,8 @@ import SmileIcon from './SmileIcon'
 import MessageSentIcon from './MessageSentIcon'
 import MessageRecivedIcon from './MessageRecivedIcon'
 import DotsIcon from './DotsIcon'
+import SignIn from './SignIn'
+import SignOut from './SignOut'
 
 export {
   DoNotDisturbIcon,
@@ -22,4 +24,6 @@ export {
   MessageSentIcon,
   MessageRecivedIcon,
   DotsIcon,
+  SignIn,
+  SignOut,
 }
