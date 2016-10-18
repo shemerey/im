@@ -3,8 +3,10 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { SignIn, SignOut } from './Icons'
+import Loader from './Loader'
 import ChannelObject from '../lib/ChannelObject'
 import TeamObject from '../lib/TeamObject'
+import { updateChannel } from '../lib/actions'
 
 // Style
 import colors from './colors'
@@ -29,19 +31,26 @@ class ChannelControll extends Component {
   propTypes = {
     channel: PropTypes.instanceOf(ChannelObject),
     currentTeam: PropTypes.instanceOf(TeamObject),
+    dispatch: PropTypes.func,
   }
 
   joinOrLeaveTheChannel() {
-    const { currentTeam, channel, channel: { isMember } } = this.props
-
+    const { currentTeam, channel, channel: { isMember }, dispatch } = this.props
     if (isMember) {
       currentTeam.leave(channel)
     } else {
       currentTeam.join(channel)
     }
+    dispatch(updateChannel({ ...channel, status: 'leaving' }))
   }
 
-  render() {
+  inProgress() {
+    return (
+      <Loader size={15} />
+    )
+  }
+
+  controls() {
     return (
       <ChannelControllElement onClick={() => ::this.joinOrLeaveTheChannel()}>
         <span>{this.props.channel.isMember ? 'Leave' : 'Join' }</span>
@@ -49,6 +58,11 @@ class ChannelControll extends Component {
         {this.props.channel.isMember ? <SignIn /> : <SignOut />}
       </ChannelControllElement>
     )
+  }
+
+  render() {
+    const { channel: { status } } = this.props
+    return (status === 'online') ? this.controls() : this.inProgress()
   }
 }
 
