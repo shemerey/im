@@ -5,6 +5,8 @@ import { FormattedTime } from 'react-intl'
 import classNames from 'classnames'
 import { messageTs } from '../lib/utils'
 import ParsedMessage from './ParsedMessage'
+import MessageObject from '../lib/MessageObject'
+import UserObject from '../lib/UserObject'
 
 // Style
 import styled from 'styled-components'
@@ -94,13 +96,16 @@ const SlackMessageElement = styled.div`
 
 export default class SlackMessage extends Component {
   static
-  get propTypes() {
-    return {
-      first: PropTypes.boolean,
-      odd: PropTypes.boolean,
-      user: PropTypes.object,
-      message: PropTypes.object,
-    }
+  defaultProps = {
+    user: {},
+  }
+
+  static
+  propTypes = {
+    first: PropTypes.boolean,
+    odd: PropTypes.boolean,
+    user: React.PropTypes.instanceOf(UserObject),
+    message: React.PropTypes.instanceOf(MessageObject),
   }
 
   render() {

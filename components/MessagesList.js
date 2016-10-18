@@ -65,7 +65,10 @@ class MessagesList extends Component {
   componentDidUpdate() {
     const { currentTeam, messages } = this.props
     // When we send the message
-    if (messages[messages.length - 1].senderId === currentTeam.userId) {
+    if (
+        messages.length > 0 &&
+        messages[messages.length - 1].senderId === currentTeam.userId
+      ) {
       this.scrollToBottom()
     }
 
