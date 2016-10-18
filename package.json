@@ -30,6 +30,7 @@
     "irc": "git://github.com/shemerey/node-irc",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-emoji": "^0.4.4",
     "react-hotkeys": "^0.9.0",
     "react-intl": "^2.1.4",
     "react-redux": "^4.4.5",

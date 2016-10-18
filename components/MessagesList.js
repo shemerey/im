@@ -16,6 +16,16 @@ padding-bottom: 10px;
 overflow-y: scroll;
 background-color: ${colors.appBackground};
 
+.mention {
+  background-color: rgb(87, 81, 68);
+  border-radius: 3px;
+  padding: 0 3px;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .empty {
   display: flex;
   align-items: center;
@@ -52,7 +62,7 @@ class MessagesList extends Component {
     let odd = true
     return messages.map((msg, index) => {
       if (first.senderId !== msg.senderId) { first = msg; odd = !odd }
-      return <SlackMessage key={index} {...msg} first={msg === first} odd={odd} user={users[msg.senderId]} />
+      return <SlackMessage key={index} first={msg === first} odd={odd} user={users[msg.senderId]} message={msg} />
     })
   }
 
