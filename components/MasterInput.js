@@ -78,7 +78,7 @@ export default class MasterInput extends Component {
     this.editor.setGrammar(atom.grammars.selectGrammar("file.md"))
     this.editor.setPlaceholderText('Hi there ...')
     this.editor.getElement().classList.add('im-editor')
-    this.refs.editor.appendChild(this.editor.getElement())
+    this.editorContainer.appendChild(this.editor.getElement())
   }
 
   currentTeamProvider() {
@@ -125,7 +125,11 @@ export default class MasterInput extends Component {
             <button className='inline-block btn file-icon'>
               <FileIcon />
             </button>
-            <div className="input-container" ref="editor" onKeyPress={this.handleKeyPress}>
+            <div
+              className="input-container"
+              ref={(node) => { this.editorContainer = node }}
+              onKeyPress={this.handleKeyPress}
+            >
               {/* EditorElement here it has 'im-editor' class */}
             </div>
             <div className="smile-icon">

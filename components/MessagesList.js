@@ -1,10 +1,9 @@
 'use babel'
 
+import { findDOMNode } from 'react-dom'
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
-import Message from './Message'
-import Loader from './Loader'
 import SlackMessage from './SlackMessage'
 import colors from './colors'
 
@@ -46,9 +45,39 @@ class MessagesList extends Component {
   static
   get propTypes() {
     return {
+      currentTeam: PropTypes.object,
       messages: PropTypes.array,
       users: PropTypes.array,
     }
+  }
+
+  componentDidMount() {
+    this.scrollToBottom()
+  }
+
+  componentWillUpdate() {
+    const node = findDOMNode(this.msgListRef)
+    const { scrollHeight, clientHeight, scrollTop } = node
+    const buffer = 120
+    this.pinToBottom = clientHeight + scrollTop + buffer >= scrollHeight
+  }
+
+  componentDidUpdate() {
+    const { currentTeam, messages } = this.props
+    // When we send the message
+    if (messages[messages.length - 1].senderId === currentTeam.userId) {
+      this.scrollToBottom()
+    }
+
+    // Scroll if we at the end of the list
+    if (this.pinToBottom) {
+      this.scrollToBottom()
+    }
+  }
+
+  scrollToBottom() {
+    const node = findDOMNode(this.msgListRef)
+    node.scrollTop = node.scrollHeight
   }
 
   list() {
@@ -76,7 +105,7 @@ class MessagesList extends Component {
 
   render() {
     return (
-      <MessagesListElement>
+      <MessagesListElement ref={(ref) => { this.msgListRef = ref }}>
         {this.list()}
       </MessagesListElement>
     )
