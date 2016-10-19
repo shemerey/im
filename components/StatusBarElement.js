@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 
 // Loader with animations
 const Wrap = styled.span`
-  color: #61AFEF;
+  color: ${ (props) => props.counter === 0 ? '' : '#61AFEF' };
   margin-left: 10px;
   cursor: pointer;
 `
