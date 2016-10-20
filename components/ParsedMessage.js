@@ -3,6 +3,8 @@
 import React, { Component, PropTypes } from 'react'
 import ReactEmoji from 'react-emoji'
 
+import SlackUserTag from './SlackUserTag'
+
 const SlackChannelTag = (props) => {
   const id = props.id.replace(/^#/, '')
   const name = props.name || id
@@ -31,22 +33,6 @@ const SlackAlertTag = (props) => {
 }
 
 SlackAlertTag.propTypes = {
-  id: PropTypes.number,
-  name: PropTypes.string,
-}
-
-const SlackUserTag = (props) => {
-  const id = props.id.replace(/^@/, '')
-  const name = props.name || id
-  const options = {
-    href: props.id,
-    className: 'mention',
-  }
-
-  return React.createElement('a', options, `@${name}`)
-}
-
-SlackUserTag.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,
 }

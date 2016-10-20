@@ -7,6 +7,7 @@ import Loader from './Loader'
 import TopBar from './TopBar'
 import MessagesList from './MessagesList'
 import MasterInput from './MasterInput'
+import ChannelControll from './ChannelControll'
 
 // Style
 import colors from './colors'
@@ -36,6 +37,12 @@ class Main extends Component {
     }
   }
 
+  renderMasterInput() {
+    if (this.props.currentChannel.isMember) {
+      return <MasterInput />
+    }
+  }
+
   render() {
     const { currentChannel, currentTeam } = this.props
 
@@ -57,11 +64,12 @@ class Main extends Component {
       return <LoaderWrapper><Loader /></LoaderWrapper>
     }
 
+
     return (
       <ImMainWrapper>
         <TopBar />
         <MessagesList />
-        <MasterInput />
+        {::this.renderMasterInput()}
       </ImMainWrapper>
     )
   }
