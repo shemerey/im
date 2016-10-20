@@ -67,14 +67,37 @@ atom-text-editor {
 class MasterInput extends Component {
   constructor(props) {
     super(props)
-    this.editor = atom.workspace.buildTextEditor()
+    // this.editor = atom.workspace.buildTextEditor({})
     this.teamFactory = new TeamLoader()
+
+    // const disposable = atom.textEditors.add(this.editor)
+    // this.editor.onDidDestroy(() => {
+    //   disposable.dispose()
+    // })
+
+    // atom.workspace.addTopPanel({
+    //   item: this.editor.getElement(),
+    //   className: 'im-master-input',
+    //   visible: false,
+    // })
+
+    const options = {}
+
+    atom.project.bufferForPath('xxxxrrf.md', options).then((buffer) => {
+      this.editor =  atom.workspace.textEditorRegistry.build(Object.assign({
+        buffer: buffer,
+        largeFileMode: false,
+        autoHeight: false
+      }, options))
+
+      // this.editor.setGrammar(atom.grammars.selectGrammar('file.md'))
+      this.editor.setPlaceholderText('Hi there ...')
+      this.editor.getElement().classList.add('im-editor')
+      window.editor = this.editor
+    })
   }
 
   componentDidMount() {
-    this.editor.setGrammar(atom.grammars.selectGrammar('file.md'))
-    this.editor.setPlaceholderText('Hi there ...')
-    this.editor.getElement().classList.add('im-editor')
     this.editorContainer.appendChild(this.editor.getElement())
   }
 

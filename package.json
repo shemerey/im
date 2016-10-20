@@ -11,6 +11,13 @@
       }
     }
   },
+  "providedServices": {
+    "autocomplete.provider": {
+      "versions": {
+        "2.0.0": "getProviders"
+      }
+    }
+  },
   "repository": "https://github.com/atom/im",
   "license": "MIT",
   "engines": {
