@@ -23,6 +23,17 @@ const TeamElement = styled.div`
     float: left;
   }
 
+  &.unread:not(.active)::before {
+    content: '';
+    width: 10px;
+    background-color: ${colors.textHighlight};
+    margin-left: -17px;
+    margin-top: 12px;
+    height: 10px;
+    border-radius: 10px;
+    float: left;
+  }
+
   img {
     display: block;
     border-radius: 3px;
@@ -52,14 +63,12 @@ class TeamLogo extends Component {
 }
 
 class SwitchTeam extends Component {
-  static
-  get propTypes() {
-    return {
-      team: PropTypes.object,
-      order: PropTypes.number,
-      dispatch: PropTypes.function,
-      currentTeam: PropTypes.object,
-    }
+  static propTypes = {
+    channels: PropTypes.array,
+    team: PropTypes.object,
+    order: PropTypes.number,
+    dispatch: PropTypes.function,
+    currentTeam: PropTypes.object,
   }
 
   selectThisTeam() {
@@ -75,13 +84,26 @@ class SwitchTeam extends Component {
     }, 0)
   }
 
+  unreadCounter() {
+    const { channels, team } = this.props
+
+    return (Object.keys(channels[team.id] || {})).reduce((memo, key) => {
+      return memo + channels[team.id][key].unreadCount
+    }, 0)
+  }
+
   render() {
-    const { team, dispatch, currentTeam, order } = this.props
-    const active = (team.id == currentTeam.id)
+    const { team, currentTeam, order } = this.props
+    const active = (team.id === currentTeam.id)
+    const unread = this.unreadCounter() > 0
 
     return (
-      <TeamElement key={team.id} onClick={ (e) => ::this.selectThisTeam() } className={classNames({ active })}>
-        <TeamLogo team={team}/>
+      <TeamElement
+        key={team.id}
+        onClick={() => ::this.selectThisTeam()}
+        className={classNames({ unread, active })}
+      >
+        <TeamLogo team={team} />
         ⌘{order + 1}
       </TeamElement>
     )
@@ -90,7 +112,8 @@ class SwitchTeam extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentTeam: state.currentTeam
+    channels: state.channels,
+    currentTeam: state.currentTeam,
   }
 }
 
