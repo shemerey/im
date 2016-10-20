@@ -8,7 +8,6 @@ import TeamLoader from '../lib/TeamLoader'
 import Sounds from '../lib/Sounds'
 import MessageObject from '../lib/MessageObject'
 import colors from './colors'
-import path from 'path'
 
 // Style
 import styled from 'styled-components'
@@ -65,26 +64,26 @@ atom-text-editor {
 }
 `
 
-export default class MasterInput extends Component {
+class MasterInput extends Component {
   constructor(props) {
     super(props)
     this.editor = atom.workspace.buildTextEditor()
     this.teamFactory = new TeamLoader()
   }
 
-  shouldComponentUpdate(nextProps) {
-    return false;
-  }
-
   componentDidMount() {
-    this.editor.setGrammar(atom.grammars.selectGrammar("file.md"))
+    this.editor.setGrammar(atom.grammars.selectGrammar('file.md'))
     this.editor.setPlaceholderText('Hi there ...')
     this.editor.getElement().classList.add('im-editor')
     this.editorContainer.appendChild(this.editor.getElement())
   }
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   currentTeamProvider() {
-    return this.teamFactory.getAllTeams().find((client) => client.getId() === this.props.currentTeam)
+    return this.teamFactory.getAllTeams().find(client => client.getId() === this.props.currentTeam)
   }
 
   sendMessage(event) {
@@ -150,7 +149,7 @@ function mapStateToProps(state) {
   return {
     currentTeam: state.currentTeam,
     currentChannel: state.activeChannels[state.currentTeam.id],
-    currentUser: state.users[state.currentTeam.id][state.currentTeam.userId]
+    currentUser: state.users[state.currentTeam.id][state.currentTeam.userId],
   }
 }
 
