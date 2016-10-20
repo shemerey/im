@@ -25,6 +25,7 @@
     "react/prefer-stateless-function": 0,
   },
   "globals": {
+    "Audio": true,
     "atom": true,
     "window": true,
     "describe": true,

@@ -5,8 +5,10 @@ import { FileIcon, SmileIcon } from './Icons'
 import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
+import Sounds from '../lib/Sounds'
 import MessageObject from '../lib/MessageObject'
 import colors from './colors'
+import path from 'path'
 
 // Style
 import styled from 'styled-components'
@@ -101,11 +103,13 @@ export default class MasterInput extends Component {
       state: 'new',
     })
 
+
     setTimeout(() => {
       this.editor.setText('')
     }, 0)
 
     currentTeam.send(message)
+    Sounds.beep()
   }
 
   render() {
