@@ -1,8 +1,8 @@
 'use babel'
 
 import React, { Component } from 'react'
-import { HotKeys } from 'react-hotkeys'
 import { connect } from 'react-redux'
+import { CompositeDisposable } from 'atom'
 
 import { registerTheTeam, setStatus } from '../lib/actions'
 import TeamLoader from '../lib/TeamLoader'
@@ -17,7 +17,7 @@ margin-top: -70px;
   h1 {
     text-align: center;
     font-weight: 300;
-    color: rgba(157, 165, 180, 0.2);
+    color: rgb(63, 68, 77);
     font-size: 36px;
     margin-bottom: 50px;
   }
@@ -26,7 +26,7 @@ margin-top: -70px;
     display: flex;
   }
 
-  .token-input {
+  .im-token-input {
     width: 640px;
     font-size: 18px;
     font-weight: lighter;
@@ -34,11 +34,13 @@ margin-top: -70px;
     background-color: ${colors.appBackground};
     border: 1px solid ${colors.baseBorder};
     border-radius: 3px;
-  }
 
-  ::-webkit-input-placeholder {
-    opacity: 0.7;
-    color: ${colors.buttonBgHover};
+    &::shadow {
+      .placeholder-text {
+        opacity: 0.65;
+        color: ${colors.buttonBgHover};
+      }
+    }
   }
 
   button {
@@ -59,7 +61,7 @@ margin-top: -70px;
   p {
     margin: 5px 10px;
     font-size: 16px;
-    color: rgba(157, 165, 180, 0.2);
+    color: rgb(63, 68, 77);
   }
 
   a {
@@ -75,60 +77,78 @@ margin-top: -70px;
 class AddNewTeamScreen extends Component {
   constructor(props) {
     super(props)
-    this.editor = atom.workspace.buildTextEditor({
-      mini: true,
+    this.subscriptions = new CompositeDisposable()
+    this.editor = atom.workspace.buildTextEditor({ mini: true })
+    const disposable = atom.textEditors.add(this.editor)
+    this.editor.onDidDestroy(() => {
+      disposable.dispose()
     })
+
+    this.editor.setPlaceholderText('xoxp-1287937492-0435475301-10453406710-3904834523')
+    this.editor.getElement().classList.add('im-token-input')
   }
 
   componentDidMount() {
-    this.editor.setPlaceholderText('xoxp-1287937492-0435475301-10453406710-3904834523')
-    this.editor.getElement().classList.add('token-input')
-    this.refs.editor.appendChild(this.editor.getElement())
+    this.editorContainer.appendChild(this.editor.getElement())
+    this.subscriptions.add(
+      atom.commands.add('atom-workspace', {
+        'im:close-token-window': () => this.close(),
+        'im:enter-token': () => this.saveTeam(),
+      })
+    )
   }
 
-  saveTeam(event) {
-    event.preventDefault()
+  saveTeam() {
+    const { dispatch } = this.props
     const accessToken = this.editor.getText().trim()
 
     if (accessToken.length > 0) {
-      this.props.dispatch(setStatus('inProgress'))
+      dispatch(setStatus('inProgress'))
       const teamLoader = new TeamLoader()
       teamLoader.connect({ teamType: 'Slack', accessToken })
     }
 
     setTimeout(() => {
       this.editor.setText('')
-      this.props.dispatch(setStatus('ready'))
+      dispatch(setStatus('ready'))
     }, 300)
   }
 
+  close() {
+    const { teams, dispatch } = this.props
+
+    if (teams.length > 0) {
+      dispatch(setStatus('ready'))
+    }
+  }
+
   render() {
-    const map = {
-      'sendMessage': 'enter',
-    }
-
-    const handlers = {
-      'sendMessage': ::this.saveTeam,
-    }
-
     return (
-      <HotKeys keyMap={map} handlers={handlers}>
-        <Wrapper>
-            <h1>Enter your team Access-Token</h1>
-            <form onSubmit={::this.saveTeam}>
-              <div className="ac-editor" ref="editor" onKeyPress={this.handleKeyPress}>
-              {/* mini editor here */}
-              </div>
-              <button type="submit">Connect</button>
-            </form>
-            <p>
-              If you have no access token,
-              you can read more about it <a href="https://github.com/shemerey/im/wiki/Access-Token">here</a>.
-            </p>
-        </Wrapper>
-      </HotKeys>
+      <Wrapper>
+        <h1>Enter your team Access-Token</h1>
+        <form onSubmit={() => ::this.saveTeam()}>
+          <div
+            className="ac-editor"
+            ref={(node) => { this.editorContainer = node }}
+          >
+            {/* mini editor here */}
+          </div>
+          <button type="submit">Connect</button>
+        </form>
+        <p>
+        If you have no access token,
+        you can read more about it <a href="https://github.com/shemerey/im/wiki/Access-Token">here </a>.
+        or you can <a onClick={() => ::this.close()}> close this window</a>
+        </p>
+      </Wrapper>
     )
   }
 }
 
-export default connect()(AddNewTeamScreen)
+function mapStateToProps(state) {
+  return {
+    teams: state.teams,
+  }
+}
+
+export default connect(mapStateToProps)(AddNewTeamScreen)
