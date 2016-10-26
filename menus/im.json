@@ -1,12 +1,4 @@
 {
-  "context-menu": {
-    "atom-text-editor": [
-      {
-        "label": "Toggle im",
-        "command": "im:toggle"
-      }
-    ]
-  },
   "menu": [
     {
       "label": "Packages",

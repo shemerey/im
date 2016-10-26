@@ -1,4 +1,8 @@
 {
+  "atom-text-editor.im-token-input": {
+    "enter": "im:enter-token",
+    "escape": "im:close-token-window"
+  },
   "atom-text-editor.im-editor": {
     "enter": "im:send"
   },

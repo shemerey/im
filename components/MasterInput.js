@@ -90,12 +90,12 @@ class MasterInput extends Component {
     )
   }
 
-  componentwillunmount() {
-    this.subscriptions.dispose()
+  shouldComponentUpdate() {
+    return false;
   }
 
-  shouldComponentUpdate(nextProps) {
-    return false;
+  componentwillunmount() {
+    this.subscriptions.dispose()
   }
 
   currentTeamProvider() {
@@ -136,7 +136,6 @@ class MasterInput extends Component {
           <div
             className="input-container"
             ref={(node) => { this.editorContainer = node }}
-            onKeyPress={this.handleKeyPress}
           >
             {/* EditorElement here it has 'im-editor' class */}
           </div>
