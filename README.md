@@ -27,6 +27,8 @@ Install dependencies
 $ apm i
 ```
 
+
+
 Link package
 
 ```bash
@@ -34,6 +36,8 @@ $ apm link .
 ```
 
 Create file `~/.atom/ims.cson` and configure it
+
+* autocomplete-emojis
 
 ### Config
 

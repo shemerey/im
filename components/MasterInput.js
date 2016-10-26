@@ -2,7 +2,7 @@
 
 import React, { PropTypes, Component } from 'react'
 import { FileIcon, SmileIcon } from './Icons'
-import { HotKeys } from 'react-hotkeys'
+import { CompositeDisposable } from 'atom'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
 import Sounds from '../lib/Sounds'
@@ -67,18 +67,34 @@ atom-text-editor {
 class MasterInput extends Component {
   constructor(props) {
     super(props)
-    this.editor = atom.workspace.buildTextEditor()
     this.teamFactory = new TeamLoader()
+    this.subscriptions = new CompositeDisposable()
+
+    this.editor = atom.workspace.buildTextEditor()
+    const disposable = atom.textEditors.add(this.editor)
+    this.editor.onDidDestroy(() => {
+      disposable.dispose()
+    })
+
+    this.editor.setGrammar(atom.grammars.selectGrammar('text.md'))
+    this.editor.setPlaceholderText('Hi there ...')
+    this.editor.getElement().classList.add('im-editor')
   }
 
   componentDidMount() {
-    this.editor.setGrammar(atom.grammars.selectGrammar('file.md'))
-    this.editor.setPlaceholderText('Hi there ...')
-    this.editor.getElement().classList.add('im-editor')
     this.editorContainer.appendChild(this.editor.getElement())
+    this.subscriptions.add(
+      atom.commands.add('atom-workspace', {
+        'im:send': () => this.sendMessage(),
+      })
+    )
   }
 
-  shouldComponentUpdate() {
+  componentwillunmount() {
+    this.subscriptions.dispose()
+  }
+
+  shouldComponentUpdate(nextProps) {
     return false;
   }
 
@@ -86,8 +102,7 @@ class MasterInput extends Component {
     return this.teamFactory.getAllTeams().find(client => client.getId() === this.props.currentTeam)
   }
 
-  sendMessage(event) {
-    event.preventDefault()
+  sendMessage() {
     if (this.editor.getText().trim().length === 0) {
       return
     }
@@ -112,35 +127,24 @@ class MasterInput extends Component {
   }
 
   render() {
-
-    const map = {
-      'sendMessage': 'enter',
-    }
-
-    const handlers = {
-      'sendMessage': ::this.sendMessage,
-    }
-
     return (
-      <HotKeys keyMap={map} handlers={handlers}>
-        <MasterInputElement>
-          <div className="container">
-            <button className='inline-block btn file-icon'>
-              <FileIcon />
-            </button>
-            <div
-              className="input-container"
-              ref={(node) => { this.editorContainer = node }}
-              onKeyPress={this.handleKeyPress}
-            >
-              {/* EditorElement here it has 'im-editor' class */}
-            </div>
-            <div className="smile-icon">
-              <SmileIcon />
-            </div>
+      <MasterInputElement>
+        <div className="container">
+          <button className='inline-block btn file-icon'>
+            <FileIcon />
+          </button>
+          <div
+            className="input-container"
+            ref={(node) => { this.editorContainer = node }}
+            onKeyPress={this.handleKeyPress}
+          >
+            {/* EditorElement here it has 'im-editor' class */}
           </div>
-        </MasterInputElement>
-      </HotKeys>
+          <div className="smile-icon">
+            <SmileIcon />
+          </div>
+        </div>
+      </MasterInputElement>
     )
   }
 }

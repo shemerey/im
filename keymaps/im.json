@@ -1,9 +1,10 @@
 {
-  "atom-text-editor": {
-    "cmd-l": "im:focus-input"
-  },
   "atom-text-editor.im-editor": {
-    "enter": "unset!"
+    "enter": "im:send"
+  },
+  "atom-text-editor.im-editor.autocomplete-active": {
+    "enter": "autocomplete-plus:confirm",
+    "tab": "autocomplete-plus:confirm"
   },
   ".platform-darwin": {
     "cmd-K": "im:choose-channel"
