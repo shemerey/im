@@ -7,7 +7,7 @@ import {
   MessageObject,
 } from '../../../lib/objects'
 
-import teams, { addNewTeam, updateTeam } from '../../../lib/redux/modules/teams'
+import { addNewTeam, updateTeam } from '../../../lib/redux/modules/teams'
 import currentTeam, { setCurrentTeam } from '../../../lib/redux/modules/currentTeam'
 
 
@@ -27,6 +27,11 @@ describe('status reducer', () => {
   it('adds team to the list', () => {
     expect(currentTeam(undefined, addNewTeam(t1))).toEqual(t1)
     expect(currentTeam(t1, addNewTeam(t2))).toEqual(t1)
+  })
+
+  it('adds team to the list', () => {
+    expect(currentTeam(undefined, updateTeam(t1))).toEqual(null)
+    expect(currentTeam(t1, updateTeam(t2))).toEqual(t1)
   })
 
   it('updates the team with the same id', () => {
