@@ -4,8 +4,7 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { SignIn, SignOut } from './Icons'
 import Loader from './Loader'
-import ChannelObject from '../lib/ChannelObject'
-import TeamObject from '../lib/TeamObject'
+import { ChannelObject, TeamObject } from '../lib/objects'
 import { updateChannel } from '../lib/actions'
 
 // Style

@@ -1,6 +1,6 @@
 'use babel';
 
-import MessageObject from '../lib/MessageObject';
+import { MessageObject } from '../lib/objects';
 
 describe('MessageObject', () => {
   const obj = {

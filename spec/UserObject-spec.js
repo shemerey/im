@@ -1,6 +1,6 @@
 'use babel';
 
-import UserObject from '../lib/UserObject';
+import { UserObject } from '../lib/objects';
 
 describe('UserObject', () => {
   const obj = {

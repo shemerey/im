@@ -6,7 +6,7 @@ import { CompositeDisposable } from 'atom'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
 import Sounds from '../lib/Sounds'
-import MessageObject from '../lib/MessageObject'
+import { MessageObject } from '../lib/objects'
 import colors from './colors'
 
 // Style

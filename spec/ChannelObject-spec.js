@@ -1,6 +1,6 @@
 'use babel';
 
-import ChannelObject from '../lib/ChannelObject';
+import { ChannelObject } from '../lib/objects';
 
 describe('ChannelObject', () => {
   const obj = {
