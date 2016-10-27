@@ -45,7 +45,6 @@ class Channel extends Component {
     if (channel.type === 'group') {
       return `# ${channel.name}`
     } else {
-
       const isOnline = _.every(
         channel.memberIds.map(id => users[id]),
         (u) => { return !!u && u.status === 'online' }
@@ -62,15 +61,15 @@ class Channel extends Component {
   }
 
   render() {
-    const { id, channel, selectedChannel  } = this.props
+    const { id, channel, selectedChannel } = this.props
     return (
       <ChannelElement
-        key={ id }
-        onClick={ (e) => ::this.selectThisChannel() }
-        className={ classNames({
+        key={id}
+        onClick={e => ::this.selectThisChannel()}
+        className={classNames({
           active: id === selectedChannel.id,
-          unread: channel.unreadCount > 0
-        }) }
+          unread: channel.unreadCount > 0,
+        })}
       >
         { this.channelName() }
       </ChannelElement>

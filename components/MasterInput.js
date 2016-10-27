@@ -130,7 +130,7 @@ class MasterInput extends Component {
     return (
       <MasterInputElement>
         <div className="container">
-          <button className='inline-block btn file-icon'>
+          <button className="inline-block btn file-icon">
             <FileIcon />
           </button>
           <div

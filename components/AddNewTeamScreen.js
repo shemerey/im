@@ -137,8 +137,8 @@ class AddNewTeamScreen extends Component {
         </form>
         <p>
         If you have no access token,
-        you can read more about it <a href="https://github.com/shemerey/im/wiki/Access-Token">here </a>.
-        or you can <a onClick={() => ::this.close()}> close this window</a>
+        you can read more about it            <a href="https://github.com/shemerey/im/wiki/Access-Token">here </a>.
+        or you can            <a onClick={() => ::this.close()}> close this window</a>
         </p>
       </Wrapper>
     )

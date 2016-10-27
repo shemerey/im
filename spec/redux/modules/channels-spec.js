@@ -10,7 +10,7 @@ import channels, {
   addNewChannel,
   removeChannel,
   updateChannel,
-  setActiveChannel
+  setActiveChannel,
 } from '../../../lib/redux/modules/channels'
 
 

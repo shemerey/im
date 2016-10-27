@@ -57,7 +57,7 @@ function mapStateToProps(state) {
   const channels = _.values(state.channels[state.currentTeam.id] || {})
   return {
     users: state.users[state.currentTeam.id],
-    channels: channels.filter((ch) => ch.type === 'dm'),
+    channels: channels.filter(ch => ch.type === 'dm'),
   }
 }
 
