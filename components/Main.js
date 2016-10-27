@@ -7,10 +7,9 @@ import Loader from './Loader'
 import TopBar from './TopBar'
 import MessagesList from './MessagesList'
 import MasterInput from './MasterInput'
-import ChannelControll from './ChannelControll'
 
 // Style
-import colors from './colors'
+import * as colors from './colors'
 import styled from 'styled-components'
 const ImMainWrapper = styled.section`
   height: 100vh;

@@ -10,8 +10,8 @@ import AddNewTeamScreen from './AddNewTeamScreen'
 import ErrorScreen from './ErrorScreen'
 
 // Style Section
+import * as colors from './colors'
 import styled, { keyframes } from 'styled-components'
-import colors from './colors'
 const fadein = keyframes`
   from { opacity: 0; }
   to   { opacity: 1; }

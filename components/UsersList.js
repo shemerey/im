@@ -4,8 +4,9 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
 import Channel from './Channel'
+import { UserObject, ChannelObject } from '../lib/objects'
 
-import colors from './colors'
+import * as colors from './colors'
 import styled from 'styled-components'
 const UsersListElement = styled.div`
   .counter {
@@ -35,7 +36,14 @@ const UsersListElement = styled.div`
   }
 `
 
+
 class UsersList extends Component {
+  static
+  propTypes = {
+    channels: PropTypes.arrayOf(ChannelObject),
+    users: PropTypes.arrayOf(UserObject),
+  }
+
   render() {
     const { channels, users } = this.props
 
@@ -57,7 +65,7 @@ function mapStateToProps(state) {
   const channels = _.values(state.channels[state.currentTeam.id] || {})
   return {
     users: state.users[state.currentTeam.id],
-    channels: channels.filter((ch) => ch.type === 'dm'),
+    channels: channels.filter(ch => ch.type === 'dm'),
   }
 }
 

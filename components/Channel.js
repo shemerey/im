@@ -3,12 +3,13 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
-import { setActiveChannel } from '../lib/actions'
+import { setActiveChannel } from '../lib/redux/modules/activeChannels'
 
 import { OfflineIcon, OnlineIcon } from './Icons'
+import { UserObject } from '../lib/objects'
 
 // Style Section
-import colors from './colors'
+import * as colors from './colors'
 import classNames from 'classnames'
 import styled from 'styled-components'
 const ChannelElement = styled.div`
@@ -25,17 +26,16 @@ class Channel extends Component {
   static
   get propTypes() {
     return {
-      teamId: PropTypes.string,
       channel: PropTypes.object,
+      users: PropTypes.arrayOf(UserObject),
       dispatch: PropTypes.function,
-      name: PropTypes.string,
       id: PropTypes.string,
       selectedChannel: PropTypes.object,
     }
   }
 
   selectThisChannel() {
-    const { teamId, channel, dispatch } = this.props
+    const { channel, dispatch } = this.props
     dispatch(setActiveChannel(channel))
   }
 
@@ -44,33 +44,32 @@ class Channel extends Component {
 
     if (channel.type === 'group') {
       return `# ${channel.name}`
-    } else {
-
-      const isOnline = _.every(
-        channel.memberIds.map(id => users[id]),
-        (u) => { return !!u && u.status === 'online' }
-      )
-
-      return (
-        <div>
-          {isOnline ? <OnlineIcon /> : <OfflineIcon />}
-          {' '}
-          {channel.name}
-        </div>
-      )
     }
+
+    const isOnline = _.every(
+      channel.memberIds.map(id => users[id]),
+      (u) => { return !!u && u.status === 'online' }
+    )
+
+    return (
+      <div>
+        {isOnline ? <OnlineIcon /> : <OfflineIcon />}
+        {' '}
+        {channel.name}
+      </div>
+    )
   }
 
   render() {
-    const { id, channel, selectedChannel  } = this.props
+    const { id, channel, selectedChannel } = this.props
     return (
       <ChannelElement
-        key={ id }
-        onClick={ (e) => ::this.selectThisChannel() }
-        className={ classNames({
+        key={id}
+        onClick={() => ::this.selectThisChannel()}
+        className={classNames({
           active: id === selectedChannel.id,
-          unread: channel.unreadCount > 0
-        }) }
+          unread: channel.unreadCount > 0,
+        })}
       >
         { this.channelName() }
       </ChannelElement>

@@ -2,6 +2,7 @@
 
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import { UserObject } from '../lib/objects'
 
 const SlackUserTag = (props) => {
   const id = props.id.replace(/^@/, '')
@@ -16,8 +17,7 @@ const SlackUserTag = (props) => {
 
 SlackUserTag.propTypes = {
   id: PropTypes.number,
-  name: PropTypes.string,
-  users: PropTypes.array,
+  users: PropTypes.arrayOf(UserObject),
 }
 
 function mapStateToProps(state) {

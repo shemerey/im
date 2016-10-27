@@ -5,9 +5,9 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
 import SlackMessage from './SlackMessage'
-import colors from './colors'
 
 // Style
+import * as colors from './colors'
 import styled from 'styled-components'
 const MessagesListElement = styled.div`
 flex: 1;

@@ -1,16 +1,14 @@
 'use babel'
 
 import React, { PropTypes, Component } from 'react'
-import { FormattedTime } from 'react-intl'
 import classNames from 'classnames'
 import { messageTs } from '../lib/utils'
 import ParsedMessage from './ParsedMessage'
-import MessageObject from '../lib/MessageObject'
-import UserObject from '../lib/UserObject'
+import { MessageObject, UserObject } from '../lib/objects'
 
 // Style
+import * as colors from './colors'
 import styled from 'styled-components'
-import colors from './colors'
 const SlackMessageElement = styled.div`
   font-size: 14px;
   display: flex;

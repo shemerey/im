@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "description": "Integrated chat system",
   "keywords": ["chat", "slack", "im", "messanger"],
+  "scripts": {
+    "lint": "./node_modules/eslint/bin/eslint.js lib components"
+  },
   "consumedServices": {
     "status-bar": {
       "versions": {

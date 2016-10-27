@@ -3,10 +3,10 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import ChannelControll from './ChannelControll'
-import ChannelObject from '../lib/ChannelObject'
+import { ChannelObject } from '../lib/objects'
 
 // Style
-import colors from './colors'
+import * as colors from './colors'
 import styled from 'styled-components'
 const TopBarElement = styled.div`
   display: flex;

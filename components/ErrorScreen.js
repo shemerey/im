@@ -4,7 +4,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 // Style Section
-import colors from './colors'
+import * as colors from './colors'
 import styled from 'styled-components'
 const Wrapper = styled.div`
 font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
