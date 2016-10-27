@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { SignIn, SignOut } from './Icons'
 import Loader from './Loader'
 import { ChannelObject, TeamObject } from '../lib/objects'
-import { updateChannel } from '../lib/actions'
+import { updateChannel } from '../lib/redux/modules/channels'
 
 // Style
 import colors from './colors'

@@ -2,7 +2,7 @@
 
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { setCurrentTeam } from '../lib/actions'
+import { setCurrentTeam } from '../lib/redux/modules/currentTeam'
 import classNames from 'classnames'
 import Loader from './Loader'
 

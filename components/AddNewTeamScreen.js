@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { CompositeDisposable } from 'atom'
 
-import { registerTheTeam, setStatus } from '../lib/actions'
+import { setStatus } from '../lib/redux/modules/status'
 import TeamLoader from '../lib/TeamLoader'
 
 // Style Section

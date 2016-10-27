@@ -3,7 +3,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import _ from 'underscore-plus'
-import { setActiveChannel } from '../lib/actions'
+import { setActiveChannel } from '../lib/redux/modules/activeChannels'
 
 import { OfflineIcon, OnlineIcon } from './Icons'
 

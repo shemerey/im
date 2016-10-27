@@ -2,7 +2,7 @@
 
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
-import { setStatus } from '../lib/actions'
+import { setStatus } from '../lib/redux/modules/status'
 import { PlusIcon } from './Icons'
 
 // Style
