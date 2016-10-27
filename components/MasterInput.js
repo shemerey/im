@@ -6,10 +6,10 @@ import { CompositeDisposable } from 'atom'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
 import Sounds from '../lib/Sounds'
-import { MessageObject } from '../lib/objects'
-import colors from './colors'
+import { MessageObject, TeamObject, ChannelObject, UserObject } from '../lib/objects'
 
 // Style
+import * as colors from './colors'
 import styled from 'styled-components'
 const MasterInputElement = styled.div`
 border-top: 1px solid ${colors.baseBorder};
@@ -65,6 +65,13 @@ atom-text-editor {
 `
 
 class MasterInput extends Component {
+  static
+  propTypes = {
+    currentTeam: PropTypes.instanceOf(TeamObject),
+    currentChannel: PropTypes.instanceOf(ChannelObject),
+    currentUser: PropTypes.instanceOf(UserObject),
+  }
+
   constructor(props) {
     super(props)
     this.teamFactory = new TeamLoader()
@@ -107,7 +114,7 @@ class MasterInput extends Component {
       return
     }
 
-    const { dispatch, currentTeam, currentChannel, currentUser } = this.props
+    const { currentTeam, currentChannel, currentUser } = this.props
     const message = new MessageObject({
       senderId: currentUser.id,
       teamId: currentTeam.id,

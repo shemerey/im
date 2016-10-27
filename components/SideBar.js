@@ -1,6 +1,6 @@
 'use babel'
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 // Components
@@ -8,11 +8,12 @@ import SwitchTeam from './SwitchTeam'
 import CurrentUserInfo from './CurrentUserInfo'
 import ChannelsList from './ChannelsList'
 import UsersList from './UsersList'
-import Loader from './Loader'
 import AddNewTeamButton from './AddNewTeamButton'
-import colors from './colors'
+
+import { TeamObject } from '../lib/objects'
 
 // Style
+import * as colors from './colors'
 import styled from 'styled-components'
 const TeamsWrapepr = styled.div`
   min-height: 100vh;
@@ -67,15 +68,13 @@ const SideBarElement = styled.div`
   justify-content: flex-start;
 `
 
-const LoaderWrapper = styled.section`
-  height: 100vh;
-  display: flex;
-  min-width: 100%;
-  align-items: center;
-  justify-content: center;
-`
-
 class SideBar extends Component {
+  static
+  propTypes = {
+    teams: PropTypes.arrayOf(TeamObject),
+    currentTeam: PropTypes.instanceOf(TeamObject),
+  }
+
   teamsBar() {
     const { teams } = this.props
 

@@ -1,14 +1,15 @@
 'use babel'
 
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { CompositeDisposable } from 'atom'
 
 import { setStatus } from '../lib/redux/modules/status'
 import TeamLoader from '../lib/TeamLoader'
+import { TeamObject } from '../lib/objects'
 
 // Style Section
-import colors from './colors'
+import * as colors from './colors'
 import styled from 'styled-components'
 const Wrapper = styled.div`
 font-family: 'BlinkMacSystemFont', 'Lucida Grande', 'Segoe UI', Ubuntu, Cantarell, sans-serif;
@@ -75,6 +76,12 @@ margin-top: -70px;
 `
 
 class AddNewTeamScreen extends Component {
+  static
+  propTypes = {
+    dispatch: PropTypes.function,
+    teams: PropTypes.arrayOf(TeamObject),
+  }
+
   constructor(props) {
     super(props)
     this.subscriptions = new CompositeDisposable()
@@ -136,9 +143,9 @@ class AddNewTeamScreen extends Component {
           <button type="submit">Connect</button>
         </form>
         <p>
-        If you have no access token,
-        you can read more about it            <a href="https://github.com/shemerey/im/wiki/Access-Token">here </a>.
-        or you can            <a onClick={() => ::this.close()}> close this window</a>
+          If you have no access token,
+          you can read more about it <a tabIndex="-1" href="https://github.com/shemerey/im/wiki/Access-Token">here </a>.
+          or you can <a tabIndex="-2" onClick={() => ::this.close()}> close this window</a>
         </p>
       </Wrapper>
     )

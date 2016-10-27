@@ -6,8 +6,8 @@ import { setStatus } from '../lib/redux/modules/status'
 import { PlusIcon } from './Icons'
 
 // Style
+import * as colors from './colors'
 import styled from 'styled-components'
-import colors from './colors'
 const AddNewTeamElement = styled.div`
   margin: 8px 5px;
   width: 32px;

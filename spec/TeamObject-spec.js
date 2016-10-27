@@ -1,6 +1,6 @@
 'use babel';
 
-import TeamObject from '../lib/TeamObject';
+import { TeamObject } from '../lib/objects';
 
 describe('TeamObject', () => {
   const obj = {
@@ -15,7 +15,7 @@ describe('TeamObject', () => {
   })
 
   it('has to have icon by default', () => {
-    teamObj = new TeamObject({ ...obj, icon: 'xxx' })
+    const teamObj = new TeamObject({ ...obj, icon: 'xxx' })
     expect(teamObj.icon).toBe('xxx')
   })
 })

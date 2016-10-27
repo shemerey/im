@@ -4,11 +4,13 @@ import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { setCurrentTeam } from '../lib/redux/modules/currentTeam'
 import classNames from 'classnames'
-import Loader from './Loader'
+import TeamLogo from './TeamLogo'
+
+import { TeamObject, ChannelObject } from '../lib/objects'
 
 // Style
+import * as colors from './colors'
 import styled from 'styled-components'
-import colors from './colors'
 const TeamElement = styled.div`
   margin: 8px 5px;
 
@@ -47,28 +49,13 @@ const TeamElement = styled.div`
   }
 `
 
-const TeamLogoElement = styled.div`
-`
-
-class TeamLogo extends Component {
-  render() {
-    const { team } = this.props
-
-    if (team.icon) {
-      return <img src={team.icon} alt={team.name} />
-    }
-
-    return <Loader size={32} />
-  }
-}
-
 class SwitchTeam extends Component {
   static propTypes = {
-    channels: PropTypes.array,
-    team: PropTypes.object,
+    channels: PropTypes.arrayOf(ChannelObject),
+    team: PropTypes.instanceOf(TeamObject),
     order: PropTypes.number,
     dispatch: PropTypes.function,
-    currentTeam: PropTypes.object,
+    currentTeam: PropTypes.instanceOf(TeamObject),
   }
 
   selectThisTeam() {

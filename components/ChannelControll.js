@@ -8,7 +8,7 @@ import { ChannelObject, TeamObject } from '../lib/objects'
 import { updateChannel } from '../lib/redux/modules/channels'
 
 // Style
-import colors from './colors'
+import * as colors from './colors'
 import styled from 'styled-components'
 
 const ChannelControllElement = styled.span`
@@ -64,7 +64,6 @@ class ChannelControll extends Component {
     return (status === 'online') ? this.controls() : this.inProgress()
   }
 }
-
 
 function mapStateToProps(state) {
   return {

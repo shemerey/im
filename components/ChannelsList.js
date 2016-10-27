@@ -5,7 +5,7 @@ import _ from 'underscore-plus'
 import { connect } from 'react-redux'
 import Channel from './Channel'
 
-import colors from './colors'
+import * as colors from './colors'
 import styled from 'styled-components'
 const ChannelsListElement = styled.div`
   .counter {

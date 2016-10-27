@@ -2,9 +2,6 @@
 
 import {
   UserObject,
-  TeamObject,
-  ChannelObject,
-  MessageObject,
 } from '../../../lib/objects'
 
 import users, { setAllUsers, addNewUser, updateUser } from '../../../lib/redux/modules/users'
