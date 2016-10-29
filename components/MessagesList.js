@@ -24,7 +24,12 @@ background-color: ${colors.appBackground};
   background-color: ${colors.bgHighlight};
 }
 
-.before, .after {
+.before {
+  height: 4px;
+  content: ' ';
+}
+
+.after {
   height: 6px;
   content: ' ';
 }

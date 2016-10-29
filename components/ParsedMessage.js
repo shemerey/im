@@ -61,42 +61,47 @@ export default class ParsedMessage extends Component {
     }
   }
 
+  parseLiline(text) {
+    return text.split(/(<.*?>)/g).map((word) => {
+      // Replce with channel tag
+      if (word.indexOf('<!') === 0) {
+        const [id, name] = word.split(/<(.*)>/)[1].split('|')
+        return <SlackAlertTag id={id} name={name} />
+      }
+
+      // Replce with channel tag
+      if (word.indexOf('<#') === 0) {
+        const [id, name] = word.split(/<(.*)>/)[1].split('|')
+        return <SlackChannelTag id={id} name={name} />
+      }
+
+      // Replce with user tag
+      if (word.indexOf('<@') === 0) {
+        const [id, name] = word.split(/<(.*)>/)[1].split('|')
+        return <SlackUserTag id={id} name={name} />
+      }
+
+      // Replce with link tag
+      if (word.indexOf('<http') === 0) {
+        const [id, name] = word.split(/<(.*)>/)[1].split('|')
+        return <SlackLinkTag id={id} name={name} />
+      }
+
+      // return by default
+      return ReactEmoji.emojify(word)
+    })
+  }
+
   render() {
     const { text } = this.props
+    const lines = text.split('\n').map((line, index) => {
+      return (
+        <span key={index}>
+          {::this.parseLiline(line)}<br />
+        </span>
+      )
+    })
 
-    return (
-      <span>
-        {
-          text.split(/(<.*?>)/g).map((word) => {
-            // Replce with channel tag
-            if (word.indexOf('<!') === 0) {
-              const [id, name] = word.split(/<(.*)>/)[1].split('|')
-              return <SlackAlertTag id={id} name={name} />
-            }
-
-            // Replce with channel tag
-            if (word.indexOf('<#') === 0) {
-              const [id, name] = word.split(/<(.*)>/)[1].split('|')
-              return <SlackChannelTag id={id} name={name} />
-            }
-
-            // Replce with user tag
-            if (word.indexOf('<@') === 0) {
-              const [id, name] = word.split(/<(.*)>/)[1].split('|')
-              return <SlackUserTag id={id} name={name} />
-            }
-
-            // Replce with link tag
-            if (word.indexOf('<http') === 0) {
-              const [id, name] = word.split(/<(.*)>/)[1].split('|')
-              return <SlackLinkTag id={id} name={name} />
-            }
-
-            // return by default
-            return ReactEmoji.emojify(word)
-          })
-        }
-      </span>
-    )
+    return <span>{lines}</span>
   }
 }
