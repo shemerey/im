@@ -3,6 +3,7 @@
 import { findDOMNode } from 'react-dom'
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
+import classNames from 'classnames'
 import _ from 'underscore-plus'
 import SlackMessage from './SlackMessage'
 
@@ -15,11 +16,25 @@ padding-bottom: 10px;
 overflow-y: scroll;
 background-color: ${colors.appBackground};
 
+.odd {
+  background-color: ${colors.appBackground};
+}
+
+.even {
+  background-color: ${colors.bgHighlight};
+}
+
+.before, .after {
+  height: 6px;
+  content: ' ';
+}
+
 .mention {
   background-color: rgb(87, 81, 68);
   border-radius: 3px;
   padding: 0 3px;
   text-decoration: none;
+
   &:hover {
     text-decoration: underline;
   }
@@ -92,10 +107,18 @@ class MessagesList extends Component {
 
     let first = {}
     let odd = true
-    return messages.map((msg, index) => {
-      if (first.senderId !== msg.senderId) { first = msg; odd = !odd }
-      return <SlackMessage key={index} first={msg === first} odd={odd} user={users[msg.senderId]} message={msg} />
-    })
+
+    return messages.reduce((acc, msg, index) => {
+      if (first.senderId !== msg.senderId) {
+        first = msg
+        odd = !odd
+        acc.push(<div key={`ka-${index}`} className={classNames('after', { odd: !odd, even: odd })} />)
+        acc.push(<div key={`kb-${index}`} className={classNames('before', { odd, even: !odd })} />)
+      }
+
+      acc.push(<SlackMessage key={index} first={msg === first} odd={odd} user={users[msg.senderId]} message={msg} />)
+      return acc
+    }, [])
   }
 
   emptyList() {

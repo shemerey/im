@@ -13,8 +13,6 @@ const SlackMessageElement = styled.div`
   font-size: 14px;
   display: flex;
   justify-content: flex-start;
-  padding-bottom: 4px;
-  margin-top: -4px;
 
   .gutter {
     min-width: 65px;
@@ -23,7 +21,6 @@ const SlackMessageElement = styled.div`
     justify-content: flex-end;
 
     .avatar {
-      min-height: 45px;
       display: none;
       img {
         width: 36px;
@@ -36,7 +33,7 @@ const SlackMessageElement = styled.div`
 
     .ts {
       display: none;
-      color: rgb(105, 110, 119);
+      color: #696e77;
     }
   }
 
@@ -48,22 +45,11 @@ const SlackMessageElement = styled.div`
     }
   }
 
-  &.odd {
-    background-color: ${colors.appBackground};
-  }
-
-  &.even {
-    background-color: ${colors.bgHighlight};
-  }
-
   &.first {
-    margin-top: 4px;
-    padding-bottom: 0px;
-
     .gutter {
       .avatar {
+        margin-top: 4px;
         display: inline;
-        padding-top: 5px;
       }
     }
 
@@ -78,7 +64,7 @@ const SlackMessageElement = styled.div`
     .username, .ts {
       display: none;
       margin-right: 4px;
-      color: rgb(105, 110, 119);
+      color: #696e77;
     }
 
     .username:hover, .ts:hover {
