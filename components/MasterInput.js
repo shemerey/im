@@ -3,6 +3,7 @@
 import React, { PropTypes, Component } from 'react'
 import { FileIcon, SmileIcon } from './Icons'
 import { CompositeDisposable } from 'atom'
+import { Picker } from 'emoji-mart'
 import { connect } from 'react-redux'
 import TeamLoader from '../lib/TeamLoader'
 import Sounds from '../lib/Sounds'
@@ -74,6 +75,10 @@ class MasterInput extends Component {
 
   constructor(props) {
     super(props)
+    this.state = {
+      showEmojiPicker: false,
+    }
+
     this.teamFactory = new TeamLoader()
     this.subscriptions = new CompositeDisposable()
 
@@ -97,9 +102,9 @@ class MasterInput extends Component {
     )
   }
 
-  shouldComponentUpdate() {
-    return false;
-  }
+  // shouldComponentUpdate() {
+  //   return false;
+  // }
 
   componentwillunmount() {
     this.subscriptions.dispose()
@@ -133,9 +138,24 @@ class MasterInput extends Component {
     Sounds.beep()
   }
 
+  emojiPicker() {
+    return(
+      <Picker
+        onClick={::this.addEmoji}
+        style={{ position: 'absolute', bottom: '47px', right: '20px' }}
+      />
+    )
+  }
+
+  addEmoji(emojiObject) {
+    console.log('xxx', emojiObject)
+    this.setState({ showEmojiPicker: false })
+  }
+
   render() {
     return (
       <MasterInputElement>
+        {this.state.showEmojiPicker ? this.emojiPicker() : '' }
         <div className="container">
           <button className="inline-block btn file-icon">
             <FileIcon />
@@ -146,7 +166,7 @@ class MasterInput extends Component {
           >
             {/* EditorElement here it has 'im-editor' class */}
           </div>
-          <div className="smile-icon">
+          <div className="smile-icon" onClick={() => ::this.setState({ showEmojiPicker: !this.state.showEmojiPicker })}>
             <SmileIcon />
           </div>
         </div>
